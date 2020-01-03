@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/chartiles.png-84d662af2b24d381567008572474727a.stex"
+path="res://.import/fighter.png-5fb0a64784c7c888fcfc94bb77a804b5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://chartiles.png"
-dest_files=[ "res://.import/chartiles.png-84d662af2b24d381567008572474727a.stex" ]
+source_file="res://assets/fighter.png"
+dest_files=[ "res://.import/fighter.png-5fb0a64784c7c888fcfc94bb77a804b5.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

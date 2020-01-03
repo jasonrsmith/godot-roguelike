@@ -31,5 +31,4 @@ func get_key_input_direction(event: InputEventKey) -> Vector2:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
-	print_debug("input", event)
 	_direction = get_key_input_direction(event)

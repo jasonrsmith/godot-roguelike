@@ -46,11 +46,15 @@ _global_script_class_icons={
 
 config/name="crawl"
 run/main_scene="res://Scene.tscn"
-config/icon="res://icon.png"
+config/icon="res://junk/icon.png"
 
 [autoload]
 
 globals="res://globals.gd"
+
+[display]
+
+window/stretch/aspect="keep"
 
 [importer_defaults]
 
@@ -77,4 +81,5 @@ texture={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

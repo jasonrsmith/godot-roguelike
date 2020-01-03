@@ -1,8 +1,6 @@
 extends TileMap
 class_name Board
 
-#onready var entities : YSort = $Entities
-
 
 func _ready() -> void:
 	pass
