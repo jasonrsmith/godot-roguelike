@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scene.gd" type="Script" id=1]
+[ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://junk/Sprite-0001.png" type="Texture" id=2]
 [ext_resource path="res://junk/obstacle.png" type="Texture" id=3]
-[ext_resource path="res://Board.gd" type="Script" id=4]
-[ext_resource path="res://Entity.tscn" type="PackedScene" id=5]
-[ext_resource path="res://PlayerInput.gd" type="Script" id=6]
+[ext_resource path="res://src/Board.gd" type="Script" id=4]
+[ext_resource path="res://src/PlayerInput.gd" type="Script" id=5]
+[ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sprite-0001.png 0"
@@ -53,20 +53,9 @@ cell_size = Vector2( 16, 16 )
 format = 1
 script = ExtResource( 4 )
 
-[node name="PlayerEntity" parent="." instance=ExtResource( 5 )]
-
-[node name="Camera2D" type="Camera2D" parent="PlayerEntity/Pivot/Sprite" index="0"]
-rotating = true
-current = true
-zoom = Vector2( 0.25, 0.25 )
-smoothing_enabled = true
-smoothing_speed = 15.0
-drag_margin_left = 0.5
-drag_margin_top = 0.5
-drag_margin_right = 0.5
-drag_margin_bottom = 0.5
-
 [node name="PlayerInput" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
+
+[node name="PlayerEntity" parent="." instance=ExtResource( 6 )]
 
 [editable path="PlayerEntity"]

@@ -37,3 +37,5 @@ func bump() -> void:
 	set_process(false)
 	# TODO: tween / anim
 	set_process(true)
+
+

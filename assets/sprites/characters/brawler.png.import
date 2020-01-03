@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fighter.png-5fb0a64784c7c888fcfc94bb77a804b5.stex"
+path="res://.import/brawler.png-99ba602b43bc3df29ceb035958145633.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fighter.png"
-dest_files=[ "res://.import/fighter.png-5fb0a64784c7c888fcfc94bb77a804b5.stex" ]
+source_file="res://assets/sprites/characters/brawler.png"
+dest_files=[ "res://.import/brawler.png-99ba602b43bc3df29ceb035958145633.stex" ]
 
 [params]
 

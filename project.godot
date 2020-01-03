@@ -12,27 +12,27 @@ _global_script_classes=[ {
 "base": "TileMap",
 "class": "Board",
 "language": "GDScript",
-"path": "res://Board.gd"
+"path": "res://src/Board.gd"
 }, {
 "base": "Node2D",
 "class": "Entity",
 "language": "GDScript",
-"path": "res://Entity.gd"
+"path": "res://src/entities/Entity.gd"
 }, {
 "base": "Node",
 "class": "PlayerInput",
 "language": "GDScript",
-"path": "res://PlayerInput.gd"
+"path": "res://src/PlayerInput.gd"
 }, {
 "base": "Node2D",
 "class": "Scene",
 "language": "GDScript",
-"path": "res://Scene.gd"
+"path": "res://src/Scene.gd"
 }, {
 "base": "Node",
 "class": "globals",
 "language": "GDScript",
-"path": "res://globals.gd"
+"path": "res://src/globals.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
@@ -45,12 +45,12 @@ _global_script_class_icons={
 [application]
 
 config/name="crawl"
-run/main_scene="res://Scene.tscn"
-config/icon="res://junk/icon.png"
+run/main_scene="res://src/Scene.tscn"
+config/icon="res://icon.png"
 
 [autoload]
 
-globals="res://globals.gd"
+globals="res://src/globals.gd"
 
 [display]
 
