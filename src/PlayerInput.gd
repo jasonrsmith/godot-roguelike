@@ -18,6 +18,7 @@ func _process(delta: float) -> void:
 	print_debug(_direction)
 	var target_pos : Vector2 = _board.request_move(_entity, _direction)
 	if target_pos:
+		#_entity.move_in_direction(_direction)
 		_entity.move_to(target_pos)
 		events.emit_signal("player_moved", target_pos)
 	else:
