@@ -15,7 +15,6 @@ func initialize(entity : Entity, board : Board) -> void:
 func _process(delta: float) -> void:
 	if _direction == Vector2():
 		return
-	print_debug(_direction)
 	var target_pos : Vector2 = _board.request_move(_entity, _direction)
 	if target_pos:
 		#_entity.move_in_direction(_direction)
@@ -36,7 +35,7 @@ func get_key_input_direction(event: InputEventKey) -> Vector2:
 		return dir
 	if !_timer.is_stopped():
 		return Vector2()
-	_timer.start(0.1)
+	_timer.start(0.03)
 	return Vector2(
 		int(event.is_action("ui_right")) - int(event.is_action("ui_left")),
 		int(event.is_action("ui_down")) - int(event.is_action("ui_up"))

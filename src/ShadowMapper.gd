@@ -28,19 +28,18 @@ func _draw():
 		draw_polygon(PoolVector2Array(poly), PoolColorArray([Color(1.0, 0.0, 0.0, 0.5)]))
 
 func get_occlusion_polygons_for_world() -> Array:
-	if (true or !shadows_enabled):
+	if (!shadows_enabled):
 		return []
 		
 	var map_polygons : Array = get_polygons_to_occlude_for_map()
 	var occ_polygons : Array = []
 	for map_poly in map_polygons:
 		var world_poly_vertices = find_vertices_for_polygon(map_poly)
-		draw_polygons.append(world_poly_vertices)
+		#draw_polygons.append(world_poly_vertices)
 		var occ_poly = OccluderPolygon2D.new()
 		occ_poly.set_polygon(PoolVector2Array(world_poly_vertices))
 		occ_poly.set_cull_mode(OccluderPolygon2D.CULL_CLOCKWISE)
 		occ_polygons.append(occ_poly)
-	update()
 	return occ_polygons
 
 

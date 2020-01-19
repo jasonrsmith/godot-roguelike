@@ -59,6 +59,7 @@ tile_size = 16
 
 [node name="ShadowMapper" type="Node2D" parent="Board"]
 script = ExtResource( 5 )
+shadows_enabled = false
 
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
 tile_set = ExtResource( 6 )
@@ -74,11 +75,13 @@ one_shot = true
 
 [node name="PlayerEntity" parent="." instance=ExtResource( 9 )]
 
+[node name="Camera2D" parent="PlayerEntity/Pivot/Sprite" index="0"]
+zoom = Vector2( 0.5, 0.5 )
+
 [node name="Light2D" type="Light2D" parent="PlayerEntity/Pivot/Sprite/Camera2D" index="0"]
 position = Vector2( -0.130783, 0.0198517 )
 texture = ExtResource( 10 )
 texture_scale = 50.0
-mode = 3
 shadow_color = Color( 0, 0, 0, 1 )
 shadow_buffer_size = 1024
 
