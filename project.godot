@@ -14,10 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Board.gd"
 }, {
-"base": "Node2D",
+"base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
 "path": "res://src/entities/Entity.gd"
+}, {
+"base": "Node2D",
+"class": "FOV",
+"language": "GDScript",
+"path": "res://src/FOV.gd"
 }, {
 "base": "Node",
 "class": "PlayerInput",
@@ -29,7 +34,22 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Scene.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
+"class": "ShadowMapper",
+"language": "GDScript",
+"path": "res://src/ShadowMapper.gd"
+}, {
+"base": "Node2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://src/Tile.gd"
+}, {
+"base": "TileMap",
+"class": "TileVisibilityPainter",
+"language": "GDScript",
+"path": "res://src/TileVisibilityPainter.gd"
+}, {
+"base": "Node2D",
 "class": "globals",
 "language": "GDScript",
 "path": "res://src/globals.gd"
@@ -37,8 +57,12 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Board": "",
 "Entity": "",
+"FOV": "",
 "PlayerInput": "",
 "Scene": "",
+"ShadowMapper": "",
+"Tile": "",
+"TileVisibilityPainter": "",
 "globals": ""
 }
 
@@ -50,11 +74,18 @@ config/icon="res://icon.png"
 
 [autoload]
 
-globals="res://src/globals.gd"
+globals="*res://src/globals.gd"
+events="*res://src/events.gd"
 
 [display]
 
+window/size/width=1
+window/size/height=1
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gut" )
 
 [importer_defaults]
 

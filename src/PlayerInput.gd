@@ -16,6 +16,7 @@ func _process(delta: float) -> void:
 	var target_pos : Vector2 = _board.request_move(_entity, _direction)
 	if target_pos:
 		_entity.move_to(target_pos)
+		events.emit_signal("player_moved", target_pos)
 	else:
 		_entity.bump()
 	_direction = Vector2()

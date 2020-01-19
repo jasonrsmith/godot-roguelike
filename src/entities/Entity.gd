@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 class_name Entity
 
 
@@ -26,7 +26,7 @@ func move_to(target_pos: Vector2) -> void:
 	var move_direction : Vector2 = (target_pos - position).normalized()
 	position = target_pos
 	pivot.position = -1 * move_direction * 8.0
-	tween.interpolate_property(pivot, "position", pivot.position, Vector2(), 0.08, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.interpolate_property(pivot, "position", pivot.position, Vector2(), 0.08, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 	tween.start()
 	set_process(true)
 	#camera.set_enable_follow_smoothing(true)
