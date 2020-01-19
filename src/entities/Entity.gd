@@ -11,7 +11,7 @@ onready var tween : Tween = $Tween
 #onready var camera : Camera2D = $Camera2D
 
 
-export(globals.CELL_TYPES) var type = globals.CELL_TYPES.ACTOR
+#export(globals.CELL_TYPES) var type = globals.CELL_TYPES.ACTOR
 
 
 func _ready() -> void:

@@ -114,17 +114,15 @@ func refresh(map_pos: Vector2) -> void:
 	seen[map_pos] = true
 	_board.mark_tile_visible(map_pos)
 	for octant in range(8):
-	#for octant in range(1):
 		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant)
 		for x in seen_in_octant:
 			seen[x] = true
 	for tile in _board.get_visible_tiles():
 		if not seen.has(tile):
 			_board.mark_tile_invisible(tile)
-			#events.emit_signal("tile_went_out_of_view", tile)
 
 
-func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=9) -> Dictionary:
+func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dictionary:
 	var line = ShadowLine.new()
 	var full_shadow = false
 	var seen = {}
@@ -134,7 +132,7 @@ func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=9) -> Dicti
 			return seen
 		for col in range(0, row + 1):
 			var tile_pos = map_pos + transform_octant(row, col, octant)
-			print_debug(tile_pos)
+
 			if not _board.contains(tile_pos):
 				break
 			if full_shadow:
