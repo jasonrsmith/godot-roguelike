@@ -4,18 +4,17 @@ class_name Board
 onready var _shadow_mapper = $ShadowMapper
 onready var _tile_visibility_painter = $TileVisibilityPainter
 onready var _bsp = $BSP
+onready var _npc_area = $NPCArea
+onready var _player_entity = $PlayerEntity
+
+onready var _monster1_entity = preload("res://src/entities/Monster1Entity.tscn")
 
 export (Vector2) var board_size
 export (int) var tile_size
 export (bool) var collisions_enabled
 
 var _grid := []
-
-func _ready() -> void:
-	_grid = _init_grid(board_size)
-	_init_map()
-	_shadow_mapper.init(self)
-
+var _bsp_map_nodes := []
 
 func _init_grid(size: Vector2) -> Array:
 	var result = []
@@ -30,10 +29,11 @@ func _init_grid(size: Vector2) -> Array:
 			_tile_visibility_painter.mask_full(map_pos)
 	return result
 
-func _init_map():
-	var nodes = _bsp.gen_rooms(Rect2(Vector2(), board_size))
+func init_map():
+	_grid = _init_grid(board_size)
+	_bsp_map_nodes = _bsp.gen_rooms(Rect2(Vector2(), board_size))
 	var room_count: int = 0
-	for node in nodes:
+	for node in _bsp_map_nodes:
 		var room = node.room
 		var halls = node.halls
 		if room:
@@ -44,6 +44,20 @@ func _init_map():
 			for hall in halls:
 				if Rect2(Vector2(), board_size).encloses(hall):
 					fill_rect(hall, globals.CELL_TYPES.FLOOR)
+	_shadow_mapper.init(self)
+
+
+func populate_enemies() -> void:
+	for node in _bsp_map_nodes:
+		var room = node.room
+		if !room:
+			continue
+		if !room.has_point(world_to_map(_player_entity.position)):
+			var monster = _monster1_entity.instance()
+			monster.position = add_entity(monster, (Vector2(
+				room.position.x + room.size.x - 2,
+				room.position.y + 2)))
+			_npc_area.add_child(monster)
 
 
 func add_label_at(map_pos: Vector2, text: String) -> void:
