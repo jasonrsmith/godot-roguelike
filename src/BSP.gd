@@ -14,13 +14,9 @@ class BSPNode:
 	var room: Rect2
 	var halls : Array
 	
-	var rng: RandomNumberGenerator
-
 	func _init(boundary: Rect2) -> void:
 		self.map_pos = boundary.position
 		self.size = boundary.size
-		rng = RandomNumberGenerator.new()
-		rng.randomize()
 	
 	func split() -> bool:
 		if left != null and right != null:
@@ -32,7 +28,7 @@ class BSPNode:
 		elif size.y > size.x and size.y / size.x >= 1.25:
 			split_horiz = true
 		else:
-			split_horiz = rng.randf() > 0.5
+			split_horiz = globals.rng.randf() > 0.5
 		
 		var max_size: float
 		if split_horiz:
@@ -43,7 +39,7 @@ class BSPNode:
 		if max_size <= MIN_SIZE:
 			return false
 		
-		var split_pos = floor(rng.randf_range(MIN_SIZE, max_size))
+		var split_pos = floor(globals.rng.randf_range(MIN_SIZE, max_size))
 		if split_horiz:
 			left = BSPNode.new(Rect2(map_pos, Vector2(size.x, split_pos)))
 			right = BSPNode.new(Rect2(
@@ -66,11 +62,11 @@ class BSPNode:
 				create_hall(left.get_room(), right.get_room())
 		else:
 			var room_size = Vector2(
-				floor(rng.randf_range(4, size.x - 2)),
-				floor(rng.randf_range(4, size.y - 2)))
+				floor(globals.rng.randf_range(4, size.x - 2)),
+				floor(globals.rng.randf_range(4, size.y - 2)))
 			var room_pos = Vector2(
-				floor(rng.randf_range(1, size.x - room_size.x - 1)),
-				floor(rng.randf_range(1, size.y - room_size.y - 1)))
+				floor(globals.rng.randf_range(1, size.x - room_size.x - 1)),
+				floor(globals.rng.randf_range(1, size.y - room_size.y - 1)))
 			room = Rect2(map_pos + room_pos, room_size)
 	
 	func get_room() -> Rect2:
@@ -88,7 +84,7 @@ class BSPNode:
 			return left_room
 		elif left_room == null:
 			return right_room
-		elif rng.randf() > 0.5:
+		elif globals.rng.randf() > 0.5:
 			return left_room
 		else:
 			return right_room
@@ -96,24 +92,24 @@ class BSPNode:
 	func create_hall(room1: Rect2, room2: Rect2) -> void:
 		halls = []
 		var point1 = Vector2(
-			round(rng.randf_range(room1.position.x + 1, room1.position.x + room1.size.x - 2)),
-			round(rng.randf_range(room1.position.y + 1, room1.position.y + room1.size.y - 2)))
+			round(globals.rng.randf_range(room1.position.x + 1, room1.position.x + room1.size.x - 2)),
+			round(globals.rng.randf_range(room1.position.y + 1, room1.position.y + room1.size.y - 2)))
 		var point2 = Vector2(
-			round(rng.randf_range(room2.position.x + 1, room2.position.x + room2.size.x - 2)),
-			round(rng.randf_range(room2.position.y + 1, room2.position.y + room2.size.y - 2)))
+			round(globals.rng.randf_range(room2.position.x + 1, room2.position.x + room2.size.x - 2)),
+			round(globals.rng.randf_range(room2.position.y + 1, room2.position.y + room2.size.y - 2)))
 		var width = point2.x - point1.x
 		var height = point2.y - point1.y
 		
 		if width < 0:
 			if height < 0:
-				if rng.randf() < 0.5:
+				if globals.rng.randf() < 0.5:
 					halls.append(Rect2(point2.x, point1.y, abs(width), 1))
 					halls.append(Rect2(point2.x, point2.y, 1, abs(height) + 1))
 				else:
 					halls.append(Rect2(point2.x, point2.y, abs(width), 1))
 					halls.append(Rect2(point1.x, point2.y, 1, abs(height) + 1))
 			elif height > 0:
-				if rng.randf() < 0.5:
+				if globals.rng.randf() < 0.5:
 					halls.append(Rect2(point2.x, point1.y, abs(width), 1))
 					halls.append(Rect2(point2.x, point1.y, 1, abs(height) + 1))
 				else:
@@ -123,14 +119,14 @@ class BSPNode:
 				halls.append(Rect2(point2.x, point2.y, abs(width), 1))
 		elif width > 0:
 			if height < 0:
-				if rng.randf() < 0.5:
+				if globals.rng.randf() < 0.5:
 					halls.append(Rect2(point1.x, point2.y, abs(width), 1))
 					halls.append(Rect2(point1.x, point2.y, 1, abs(height) + 1))
 				else:
 					halls.append(Rect2(point1.x, point1.y, abs(width), 1))
 					halls.append(Rect2(point2.x, point2.y, 1, abs(height) + 1))
 			elif height > 0:
-				if rng.randf() < 0.5:
+				if globals.rng.randf() < 0.5:
 					halls.append(Rect2(point1.x, point1.y, abs(width), 1))
 					halls.append(Rect2(point2.x, point1.y, 1, abs(height) + 1))
 				else:

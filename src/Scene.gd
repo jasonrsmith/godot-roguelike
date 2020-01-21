@@ -15,9 +15,7 @@ func _ready() -> void:
 	var player_map_pos = _board.find_player_spawn_point()
 	place_in_scene(_player_entity, player_map_pos)
 	_board.add_entity(_player_entity, player_map_pos)
-	print_debug(player_map_pos)
 	_fov.refresh(player_map_pos)
-	#events.emit_signal("tile_was_seen", player_map_pos)
 	_board.populate_enemies()
 
 

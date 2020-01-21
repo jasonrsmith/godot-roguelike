@@ -152,8 +152,7 @@ func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dict
 	update()
 	return seen
 
-func _on_player_moved(world_pos: Vector2) -> void:
-	var map_pos = _board.world_to_map(world_pos)
+func _on_player_moved(map_pos: Vector2) -> void:
 	refresh(map_pos)
 
 

@@ -8,6 +8,7 @@ onready var _npc_area = $NPCArea
 onready var _player_entity = $PlayerEntity
 
 onready var _monster1_entity = preload("res://src/entities/Monster1Entity.tscn")
+onready var _monster2_entity = preload("res://src/entities/Monster2Entity.tscn")
 
 export (Vector2) var board_size
 export (int) var tile_size
@@ -53,7 +54,11 @@ func populate_enemies() -> void:
 		if !room:
 			continue
 		if !room.has_point(world_to_map(_player_entity.position)):
-			var monster = _monster1_entity.instance()
+			var monster : Entity
+			if globals.rng.randf() > 0.5:
+				monster = _monster1_entity.instance()
+			else:
+				monster = _monster2_entity.instance()
 			monster.position = add_entity(monster, (Vector2(
 				room.position.x + room.size.x - 2,
 				room.position.y + 2)))

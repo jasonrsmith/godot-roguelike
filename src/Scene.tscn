@@ -1,18 +1,15 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://board.tres" type="TileSet" id=2]
 [ext_resource path="res://src/Board.gd" type="Script" id=3]
-[ext_resource path="res://src/entities/BrawlerPlayerEntity.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/entities/Entity.gd" type="Script" id=5]
-[ext_resource path="res://src/Camera2D.gd" type="Script" id=6]
-[ext_resource path="res://assets/sprites/light.png" type="Texture" id=7]
-[ext_resource path="res://src/PlayerInput.gd" type="Script" id=8]
-[ext_resource path="res://src/ShadowMapper.gd" type="Script" id=9]
-[ext_resource path="res://tile_mask.tres" type="TileSet" id=10]
-[ext_resource path="res://src/TileVisibilityPainter.gd" type="Script" id=11]
-[ext_resource path="res://src/BSP.gd" type="Script" id=12]
-[ext_resource path="res://src/FOV.gd" type="Script" id=13]
+[ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ShadowMapper.gd" type="Script" id=5]
+[ext_resource path="res://tile_mask.tres" type="TileSet" id=6]
+[ext_resource path="res://src/TileVisibilityPainter.gd" type="Script" id=7]
+[ext_resource path="res://src/BSP.gd" type="Script" id=8]
+[ext_resource path="res://src/FOV.gd" type="Script" id=9]
+[ext_resource path="res://src/State.gd" type="Script" id=10]
 
 [node name="Scene" type="Node2D"]
 script = ExtResource( 1 )
@@ -31,44 +28,26 @@ tile_size = 16
 collisions_enabled = true
 
 [node name="PlayerEntity" parent="Board" instance=ExtResource( 4 )]
-script = ExtResource( 5 )
-
-[node name="Camera2D" parent="Board/PlayerEntity/Pivot/Sprite" index="0"]
-zoom = Vector2( 0.5, 0.5 )
-script = ExtResource( 6 )
-move_camera_enabled = true
-
-[node name="Light2D" type="Light2D" parent="Board/PlayerEntity/Pivot/Sprite/Camera2D" index="0"]
-position = Vector2( -0.130783, 0.0198517 )
-texture = ExtResource( 7 )
-texture_scale = 50.0
-mode = 2
-shadow_color = Color( 0, 0, 0, 1 )
-shadow_buffer_size = 1024
-
-[node name="PlayerInput" type="Node" parent="Board/PlayerEntity"]
-editor/display_folded = true
-script = ExtResource( 8 )
-
-[node name="Timer" type="Timer" parent="Board/PlayerEntity/PlayerInput"]
-one_shot = true
 
 [node name="ShadowMapper" type="Node2D" parent="Board"]
-script = ExtResource( 9 )
+script = ExtResource( 5 )
 shadows_enabled = false
 
 [node name="NPCArea" type="Position2D" parent="Board"]
 
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
-tile_set = ExtResource( 10 )
+tile_set = ExtResource( 6 )
 cell_size = Vector2( 16, 16 )
 format = 1
-script = ExtResource( 11 )
+script = ExtResource( 7 )
 
 [node name="BSP" type="Node2D" parent="Board"]
-script = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="FOV" type="Node2D" parent="."]
-script = ExtResource( 13 )
+script = ExtResource( 9 )
+
+[node name="State" type="Node2D" parent="."]
+script = ExtResource( 10 )
 
 [editable path="Board/PlayerEntity"]

@@ -3,7 +3,7 @@ class_name PlayerInput
 
 var _board : Board
 var _entity : Entity
-var _direction : = Vector2()
+var _direction : Vector2
 
 onready var _timer : Timer = $Timer
 
@@ -12,17 +12,20 @@ func initialize(entity : Entity, board : Board) -> void:
 	_board = board
 
 
-func _process(delta: float) -> void:
-	if _direction == Vector2():
+func run_action(name: String, params: Dictionary):
+	var direction:Vector2 = params.direction
+	if direction == Vector2():
 		return
-	var target_pos : Vector2 = _board.request_move(_entity, _direction)
+	var target_pos : Vector2 = _board.request_move(_entity, direction)
 	if target_pos:
-		#_entity.move_in_direction(_direction)
+		#_entity.move_indirection(direction)
 		_entity.move_to(target_pos)
-		events.emit_signal("player_moved", target_pos)
+		var map_pos = _board.world_to_map(target_pos)
+		events.emit_signal("player_moved", map_pos)
 	else:
 		_entity.bump()
 	_direction = Vector2()
+	State.pause()
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
@@ -46,3 +49,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
 	_direction = get_key_input_direction(event)
+	if _direction != Vector2():
+		State.queue_action(self, 100, "move", {"direction": _direction})
+		State.unpause()
