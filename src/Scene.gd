@@ -9,6 +9,7 @@ onready var _fov: FOV = $FOV
 
 func _ready() -> void:
 	OS.set_window_size(Vector2(1024, 768))
+	globals.player_entity = _player_entity
 	_player_input.initialize(_player_entity, _board)
 	_fov.initialize(_player_entity, _board)
 	_board.init_map()

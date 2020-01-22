@@ -13,6 +13,7 @@ func initialize(entity : Entity, board : Board) -> void:
 
 
 func run_action(name: String, params: Dictionary):
+	State.pause()
 	var direction:Vector2 = params.direction
 	if direction == Vector2():
 		return
@@ -25,7 +26,7 @@ func run_action(name: String, params: Dictionary):
 	else:
 		_entity.bump()
 	_direction = Vector2()
-	State.pause()
+
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
@@ -52,3 +53,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _direction != Vector2():
 		State.queue_action(self, 100, "move", {"direction": _direction})
 		State.unpause()
+
