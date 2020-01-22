@@ -25,7 +25,7 @@ func move_to(target_pos: Vector2) -> void:
 
 
 func bump() -> void:
-	print_debug("bump")
+	#print_debug("bump")
 	set_process(false)
 	# TODO: tween / anim
 	set_process(true)
