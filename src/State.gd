@@ -6,6 +6,8 @@ var _run_state = RUN_STATE.PAUSED
 var _tick = 0
 var _queue = []
 
+export(bool) var debug_actions = false
+
 class Action:
 	var obj: Object
 	var cost: int
@@ -28,6 +30,8 @@ func run_actions() -> void:
 	while _run_state == RUN_STATE.RUNNING and _queue.size() > 0:
 		var next_action = _queue.pop_front()
 		_tick = next_action.completion_time
+		if debug_actions:
+			print_debug(next_action.action_name, " ", next_action.obj.name, " ", _tick)
 		next_action.obj.run_action(next_action.action_name, next_action.params)
 
 func queue_action(obj, cost, action_name, params) -> void:
