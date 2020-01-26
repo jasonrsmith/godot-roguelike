@@ -150,11 +150,8 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	if !Rect2(Vector2(), board_size).has_point(cell_target):
 		return Vector2()
 	if !collisions_enabled or !get_tile_at_map_pos(cell_target).is_wall:
-		return update_entity_position(entity, cell_start, cell_target)
+		return cell_target
 	return Vector2()
-
-func update_entity_position(entity: Entity, cell_start : Vector2, cell_target : Vector2) -> Vector2:
-	return map_to_world(cell_target) + (cell_size / 2)
 
 func add_entity(entity: Entity, pos: Vector2) -> Vector2:
 	return map_to_world(pos) + cell_size / 2

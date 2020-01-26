@@ -17,16 +17,13 @@ func run_action(name: String, params: Dictionary):
 	var direction:Vector2 = params.direction
 	if direction == Vector2():
 		return
-	var target_pos : Vector2 = _board.request_move(_entity, direction)
-	if target_pos:
-		#_entity.move_indirection(direction)
-		_entity.move_to(target_pos)
-		var map_pos = _board.world_to_map(target_pos)
-		events.emit_signal("player_moved", map_pos)
+	var target_map_pos : Vector2 = _board.request_move(_entity, direction)
+	if target_map_pos:
+		_entity.move_to_map_pos(target_map_pos)
+		events.emit_signal("player_moved", target_map_pos)
 	else:
 		_entity.bump()
 	_direction = Vector2()
-
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
@@ -53,4 +50,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _direction != Vector2():
 		State.queue_action(self, 100, "move", {"direction": _direction})
 		State.unpause()
-
