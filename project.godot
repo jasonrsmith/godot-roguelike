@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/Chad.gd"
 }, {
+"base": "CanvasLayer",
+"class": "DebugCanvas",
+"language": "GDScript",
+"path": "res://src/DebugCanvas.gd"
+}, {
+"base": "DebugCanvas",
+"class": "DebugMouseGrid",
+"language": "GDScript",
+"path": "res://src/DebugMouseGrid.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
@@ -43,6 +53,11 @@ _global_script_classes=[ {
 "class": "NPCEntity",
 "language": "GDScript",
 "path": "res://src/entities/NPCEntity.gd"
+}, {
+"base": "Node2D",
+"class": "PathFinder",
+"language": "GDScript",
+"path": "res://src/PathFinder.gd"
 }, {
 "base": "Entity",
 "class": "PlayerEntity",
@@ -89,9 +104,12 @@ _global_script_class_icons={
 "Board": "",
 "BrawlerPlayerEntity": "",
 "Chad": "",
+"DebugCanvas": "",
+"DebugMouseGrid": "",
 "Entity": "",
 "FOV": "",
 "NPCEntity": "",
+"PathFinder": "",
 "PlayerEntity": "",
 "PlayerInput": "",
 "Scene": "",
@@ -116,8 +134,8 @@ State="*res://src/State.gd"
 
 [display]
 
-window/size/width=1
-window/size/height=1
+window/size/width=1980
+window/size/height=1024
 window/stretch/aspect="keep"
 
 [editor_plugins]
@@ -174,4 +192,5 @@ ui_zoom_reset={
 
 quality/2d/use_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

@@ -155,8 +155,6 @@ func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dict
 func _on_player_moved(map_pos: Vector2) -> void:
 	refresh(map_pos)
 
-
-
 func _draw():
 	var line_width = 9
 	if !_shadows:

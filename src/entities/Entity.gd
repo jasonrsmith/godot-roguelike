@@ -6,13 +6,14 @@ onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
 
 func _ready() -> void:
+	set_process(false)
 	pass
 
-func move_to(target_pos: Vector2) -> void:
+func move_to(world_pos: Vector2) -> void:
 	set_process(false)
 	#camera.set_process(false)
-	var move_direction : Vector2 = (target_pos - position).normalized()
-	position = target_pos
+	var move_direction : Vector2 = (world_pos - position).normalized()
+	position = world_pos
 	pivot.position = -1 * move_direction * 8.0
 	tween.interpolate_property(pivot, "position", pivot.position, Vector2(), 0.08, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 	tween.start()
@@ -29,5 +30,3 @@ func bump() -> void:
 	set_process(false)
 	# TODO: tween / anim
 	set_process(true)
-
-

@@ -6,16 +6,21 @@ onready var _tile_visibility_painter = $TileVisibilityPainter
 onready var _bsp = $BSP
 onready var _npc_area = $NPCArea
 onready var _player_entity = $PlayerEntity
+onready var _debug_grid = $DebugGrid
 
 onready var _chad_entity = preload("res://src/entities/Chad.tscn")
 onready var _snake_entity = preload("res://src/entities/Snake.tscn")
 
+onready var _astar = AStar.new()
+
 export (Vector2) var board_size
 export (int) var tile_size
 export (bool) var collisions_enabled
+export (bool) var debug_grid
 
 var _grid := []
 var _bsp_map_nodes := []
+var _walkable_cells := []
 
 func _init_grid(size: Vector2) -> Array:
 	var result = []
@@ -28,6 +33,8 @@ func _init_grid(size: Vector2) -> Array:
 			set_cellv(map_pos, globals.CELL_TYPES.WALL)
 			result[x].append(tile)
 			_tile_visibility_painter.mask_full(map_pos)
+	if debug_grid:
+		_debug_grid.draw_grid()
 	return result
 
 func init_map():
@@ -39,14 +46,42 @@ func init_map():
 		var halls = node.halls
 		if room:
 			fill_rect(room, globals.CELL_TYPES.FLOOR)
-			add_label_at(room.position, "Room" + String(room_count))
+			#add_label_at(room.position, "Room" + String(room_count))
 			room_count += 1
 		if halls:
 			for hall in halls:
 				if Rect2(Vector2(), board_size).encloses(hall):
 					fill_rect(hall, globals.CELL_TYPES.FLOOR)
+	for cell in get_used_cells_by_id(globals.CELL_TYPES.FLOOR):
+		var idx = get_map_pos_index(cell)
+		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
 	_shadow_mapper.init(self)
+	_astar_connect_walkable_cells(_astar)
 
+func _astar_connect_walkable_cells(astar: AStar):
+	var points : Array = astar.get_points()
+	for point in points:
+		var map_pos = get_index_map_pos(point)
+		var map_pos_relative = PoolVector2Array([
+			Vector2(map_pos.x + 1, map_pos.y),
+			Vector2(map_pos.x - 1, map_pos.y),
+			Vector2(map_pos.x, map_pos.y + 1),
+			Vector2(map_pos.x, map_pos.y - 1),
+			Vector2(map_pos.x - 1, map_pos.y - 1),
+			Vector2(map_pos.x + 1, map_pos.y - 1),
+			Vector2(map_pos.x - 1, map_pos.y + 1),
+			Vector2(map_pos.x + 1, map_pos.y + 1),
+		])
+		for map_pos in map_pos_relative:
+			var relative_index = get_map_pos_index(map_pos)
+			if not astar.has_point(relative_index):
+				continue
+			astar.connect_points(point, relative_index, false)
+
+func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
+	return _astar.get_point_path(
+		get_map_pos_index(map_pos_start),
+		get_map_pos_index(map_pos_end))
 
 func populate_enemies() -> void:
 	for node in _bsp_map_nodes:
@@ -97,6 +132,12 @@ func fill_rect(region: Rect2, cell_type: int) -> void:
 func get_tile_at_map_pos(map_pos: Vector2) -> Tile:
 	return _grid[map_pos.x][map_pos.y]
 
+func get_map_pos_index(map_pos: Vector2) -> int:
+	return map_pos.x + board_size.x * map_pos.y
+
+func get_index_map_pos(idx: int) -> Vector2:
+	return Vector2(idx % int(board_size.x), floor(idx / board_size.x))
+
 func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	"""
 	see if entity can move in given direction
@@ -135,3 +176,4 @@ func mark_tile_visible(tile_map_pos: Vector2) -> void:
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(false)
+

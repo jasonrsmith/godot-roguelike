@@ -7,6 +7,7 @@ onready var _visibility_shape = $Visibility/CollisionShape2D
 var _player_in_area = false
 var _player_seen = false
 var _target_pos : Vector2 = Vector2()
+var _path_to_player : Array = []
 
 export(int) var visibility_radius = 10
 export(bool) var debug_sight = true
@@ -30,7 +31,8 @@ func _physics_process(delta):
 	if !_player_in_area:
 		if _player_seen:
 			_player_seen = false
-			_on_player_lost(globals.player_entity)
+			_on_player_lost(
+				globals.board.world_to_map(globals.player_entity.position))
 		return
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(self.position, globals.player_entity.position, [self], collision_mask)
@@ -39,21 +41,30 @@ func _physics_process(delta):
 	_target_pos = result.position
 	if result.collider == globals.player_entity and !_player_seen:
 		_player_seen = true
-		_on_player_seen(globals.player_entity)
+		_on_player_seen(
+			globals.board.world_to_map(globals.player_entity.position))
 	elif result.collider != globals.player_entity && _player_seen:
 		_player_seen = false
-		_on_player_lost(globals.player_entity)
+		_path_to_player = []
+		_on_player_lost(
+			globals.board.world_to_map(globals.player_entity.position))
 	update()
 
-func _on_player_seen(player_entity: PlayerEntity):
+func _on_player_seen(map_pos: Vector2) -> void:
+	_path_to_player = globals.board.find_path(
+		globals.board.world_to_map(position), map_pos)
+	update()
+
+func _on_player_lost(map_pos: Vector2) -> void:
 	pass
 
-func _on_player_lost(player_entity: PlayerEntity):
-	pass
-
-func _on_player_moved(world_pos: Vector2) -> void:
+func _on_player_moved(map_pos: Vector2) -> void:
 	if !_player_in_area:
+		set_physics_process(false)
 		return
+	set_physics_process(true)
+	if _player_seen:
+		_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
 
 func _on_Visibility_body_entered(body):
 	if body == globals.player_entity:
@@ -65,7 +76,14 @@ func _on_Visibility_body_exited(body):
 		_player_in_area = false
 
 func _draw():
-	if _player_in_area and debug_sight:
+	if !debug_sight:
+		return
+	if _player_in_area:
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)
 		draw_circle((_target_pos - position).rotated(-rotation), 3, globals.LASER_COLOR)
 		draw_circle(Vector2(), _visibility_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))
+	if _player_seen and _path_to_player.size() > 1:
+		for p in _path_to_player:
+			var world_pos = globals.board.map_to_world(Vector2(p.x, p.y))
+			var rect = Rect2(world_pos - position, globals.map_cell_size * Vector2.ONE)
+			draw_rect(rect, Color(0.5, 1, 0.83, 0.5))
