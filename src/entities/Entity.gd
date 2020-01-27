@@ -10,6 +10,7 @@ func _ready() -> void:
 	pass
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
+	print_debug("entity: ", self.name, " moves to: ", target_map_pos)
 	set_process(false)
 	#camera.set_process(false)
 	var world_pos : Vector2 = globals.board.map_to_world(target_map_pos) \
@@ -32,3 +33,6 @@ func bump() -> void:
 	set_process(false)
 	# TODO: tween / anim
 	set_process(true)
+
+func _on_collide_with_entity(entity: Entity):
+	print_debug(str(self) + " collides with " + str(entity))

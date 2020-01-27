@@ -18,7 +18,6 @@ func _ready() -> void:
 	_fov.initialize(_player_entity, _board)
 	_board.init_map()
 	var player_map_pos = _board.find_player_spawn_point()
-	place_in_scene(_player_entity, player_map_pos)
 	_board.add_entity(_player_entity, player_map_pos)
 	_fov.refresh(player_map_pos)
 	_board.populate_enemies()
@@ -30,6 +29,3 @@ func set_globals():
 	globals.board = _board
 	globals.debug_canvas = _debug_canvas
 	globals.camera = _camera
-
-func place_in_scene(entity : Entity, pos : Vector2):
-	entity.position = _board.add_entity(entity, pos)

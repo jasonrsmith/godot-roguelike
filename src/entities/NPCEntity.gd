@@ -25,7 +25,12 @@ func _ready():
 	add_child(_player_detector_ray)
 
 func run_action(name: String, params: Dictionary):
-	pass
+	if name == "move_in_direction":
+		var direction = params.direction
+		print_debug("want to move: ", direction)
+		var target_map_pos = globals.board.request_move(self, direction)
+		if target_map_pos != Vector2():
+			move_to_map_pos(target_map_pos)
 
 func _physics_process(delta):
 	if !_player_in_area:
@@ -51,9 +56,7 @@ func _physics_process(delta):
 	update()
 
 func _on_player_seen(map_pos: Vector2) -> void:
-	_path_to_player = globals.board.find_path(
-		globals.board.world_to_map(position), map_pos)
-	update()
+	_on_player_moved(map_pos)
 
 func _on_player_lost(map_pos: Vector2) -> void:
 	pass
@@ -65,6 +68,17 @@ func _on_player_moved(map_pos: Vector2) -> void:
 	set_physics_process(true)
 	if _player_seen:
 		_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
+		if _path_to_player.size() <= 1:
+			return
+		var current_map_pos_v3 : Vector2 = _path_to_player.pop_front()
+		var current_map_pos := Vector2(current_map_pos_v3.x, current_map_pos_v3.y)
+		var target_map_pos := Vector2(_path_to_player[0].x, _path_to_player[0].y)
+		var direction = (target_map_pos - current_map_pos)
+		run_action("move_in_direction", 
+			{"direction": direction})
+		#State.queue_action(self, 100, "move_in_direction", 
+		#	{"direction": direction})
+
 
 func _on_Visibility_body_entered(body):
 	if body == globals.player_entity:
@@ -82,7 +96,7 @@ func _draw():
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)
 		draw_circle((_target_pos - position).rotated(-rotation), 3, globals.LASER_COLOR)
 		draw_circle(Vector2(), _visibility_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))
-	if _player_seen and _path_to_player.size() > 1:
+	if _player_seen and _path_to_player.size() > 0:
 		for p in _path_to_player:
 			var world_pos = globals.board.map_to_world(Vector2(p.x, p.y))
 			var rect = Rect2(world_pos - position, globals.map_cell_size * Vector2.ONE)

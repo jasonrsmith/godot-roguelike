@@ -38,7 +38,7 @@ func queue_action(obj, cost, action_name, params) -> void:
 	var action = Action.new(obj, cost, action_name, params, cost + _tick)
 	var insertion_point = _queue.bsearch_custom(action, self, "compare_actions")
 	_queue.insert(insertion_point, action)
-	globals.debug_canvas.print_line(str(cost + _tick) + " " + obj.name + " " + action_name)
+	globals.debug_canvas.print_line(str(cost + _tick) + " " + obj.name + " " + action_name + " " + str(params))
 
 func compare_actions(a: Action, b: Action):
 	return a.completion_time < b.completion_time

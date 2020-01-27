@@ -13,7 +13,6 @@ func initialize(entity : Entity, board : Board) -> void:
 
 
 func run_action(name: String, params: Dictionary):
-	State.pause()
 	var direction:Vector2 = params.direction
 	if direction == Vector2():
 		return
@@ -24,22 +23,32 @@ func run_action(name: String, params: Dictionary):
 	else:
 		_entity.bump()
 	_direction = Vector2()
+	State.pause()
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
 	var dir = Vector2(
-		int(event.is_action_pressed("ui_right")) - int(event.is_action_pressed("ui_left")),
-		int(event.is_action_pressed("ui_down")) - int(event.is_action_pressed("ui_up"))
+		int(event.is_action_pressed("ui_right") or event.is_action_pressed("ui_up_right") or event.is_action_pressed("ui_down_right"))
+			- int(event.is_action_pressed("ui_left") or event.is_action_pressed("ui_up_left") or event.is_action_pressed("ui_down_left")),
+		int(event.is_action_pressed("ui_down") or event.is_action_pressed("ui_down_right") or event.is_action_pressed("ui_down_left"))
+			- int(event.is_action_pressed("ui_up") or event.is_action_pressed("ui_up_right") or event.is_action_pressed("ui_up_left"))
 	)
+
+	print_debug("got intput dir: ", dir)
 	if dir != _direction:
 		_timer.start(0.3)
+		print_debug("start init repeat")
 		return dir
 	if !_timer.is_stopped():
+		print_debug("timer keeps going")
 		return Vector2()
+	print_debug("start small repeat ", dir)
 	_timer.start(0.03)
 	return Vector2(
-		int(event.is_action("ui_right")) - int(event.is_action("ui_left")),
-		int(event.is_action("ui_down")) - int(event.is_action("ui_up"))
+		int(event.is_action("ui_right") or event.is_action("ui_up_right") or event.is_action("ui_down_right"))
+			- int(event.is_action("ui_left") or event.is_action("ui_up_left") or event.is_action("ui_down_left")),
+		int(event.is_action("ui_down") or event.is_action("ui_down_right") or event.is_action("ui_down_left"))
+			- int(event.is_action("ui_up") or event.is_action("ui_up_right") or event.is_action("ui_up_left"))
 	)
 
 
@@ -48,5 +57,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
+		print_debug("move_dir: ", _direction)
 		State.queue_action(self, 100, "move", {"direction": _direction})
 		State.unpause()

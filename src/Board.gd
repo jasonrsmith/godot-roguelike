@@ -19,6 +19,7 @@ export (bool) var collisions_enabled
 export (bool) var debug_grid
 
 var _grid := []
+var _entity_idx := {}
 var _bsp_map_nodes := []
 var _walkable_cells := []
 
@@ -94,7 +95,7 @@ func populate_enemies() -> void:
 				monster = _chad_entity.instance()
 			else:
 				monster = _snake_entity.instance()
-			monster.position = add_entity(monster, (Vector2(
+			add_entity(monster, (Vector2(
 				room.position.x + room.size.x - 2,
 				room.position.y + 2)))
 			_npc_area.add_child(monster)
@@ -147,14 +148,26 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	var cell_start : Vector2 = world_to_map(entity.position)
 	var cell_target : Vector2 = cell_start + direction
 	
+	# out of bounds
 	if !Rect2(Vector2(), board_size).has_point(cell_target):
 		return Vector2()
-	if !collisions_enabled or !get_tile_at_map_pos(cell_target).is_wall:
-		return cell_target
-	return Vector2()
+	# colliding with wall
+	if collisions_enabled and get_tile_at_map_pos(cell_target).is_wall:
+		return Vector2()
+	# colliding with other entity
+	if _entity_idx.has(cell_target):
+		return Vector2()
+	
+	_entity_idx[cell_target] = entity
+	_entity_idx.erase(cell_start)
+	return cell_target
 
-func add_entity(entity: Entity, pos: Vector2) -> Vector2:
-	return map_to_world(pos) + cell_size / 2
+
+func add_entity(entity: Entity, map_pos: Vector2):
+	assert(!_entity_idx.has(map_pos))
+	_entity_idx[map_pos] = entity
+	var world_pos = map_to_world(map_pos) + cell_size / 2
+	entity.position = world_pos
 
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
