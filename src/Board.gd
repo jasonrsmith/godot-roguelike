@@ -80,9 +80,14 @@ func _astar_connect_walkable_cells(astar: AStar):
 			astar.connect_points(point, relative_index, false)
 
 func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
-	return _astar.get_point_path(
-		get_map_pos_index(map_pos_start),
-		get_map_pos_index(map_pos_end))
+	var start := get_map_pos_index(map_pos_start)
+	var end := get_map_pos_index(map_pos_end)
+	_astar.set_point_disabled(start, false)
+	_astar.set_point_disabled(end, false)
+	var path : Array = _astar.get_point_path(start, end)
+	_astar.set_point_disabled(start)
+	_astar.set_point_disabled(end)
+	return path
 
 func populate_enemies() -> void:
 	for node in _bsp_map_nodes:
@@ -160,6 +165,8 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	
 	_entity_idx[cell_target] = entity
 	_entity_idx.erase(cell_start)
+	_astar.set_point_disabled(get_map_pos_index(cell_target))
+	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
 	return cell_target
 
 
@@ -168,6 +175,7 @@ func add_entity(entity: Entity, map_pos: Vector2):
 	_entity_idx[map_pos] = entity
 	var world_pos = map_to_world(map_pos) + cell_size / 2
 	entity.position = world_pos
+	_astar.set_point_disabled(get_map_pos_index(map_pos))
 
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
