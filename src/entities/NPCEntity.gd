@@ -27,7 +27,6 @@ func _ready():
 func run_action(name: String, params: Dictionary):
 	if name == "move_in_direction":
 		var direction = params.direction
-		print_debug("want to move: ", direction)
 		var target_map_pos = globals.board.request_move(self, direction)
 		if target_map_pos != Vector2():
 			move_to_map_pos(target_map_pos)
