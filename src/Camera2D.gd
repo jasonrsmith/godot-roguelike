@@ -7,7 +7,7 @@ const ZOOM_DEFAULT = 0.5
 var _drag = false
 export (bool) var move_camera_enabled
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if !move_camera_enabled:
 		return
 	if event.is_action_pressed("ui_zoom_out"):

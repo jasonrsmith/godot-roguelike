@@ -1,13 +1,18 @@
 extends KinematicBody2D
 class_name Entity
 
+export var stats : Resource
 onready var pivot : Node2D = $Pivot
 onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
 
 func _ready() -> void:
 	set_process(false)
-
+	
+	stats = stats.copy()
+	stats.reset()
+	stats.connect("health_depleted", self, "_on_health_depleted")
+	stats.connect("health_changed", self, "_on_health_changed")
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
 	set_process(false)
@@ -31,5 +36,25 @@ func bump() -> void:
 	# TODO: tween / anim
 	set_process(true)
 
+
+func take_damage(hit: Hit):
+	for i in range(4):
+		self.modulate.a = 0.5
+		self.modulate.r = 2.0
+		self.modulate.g = 0.1
+		self.modulate.b = 0.1
+		yield(get_tree(), "idle_frame")
+		self.modulate.a = 1.0
+		self.modulate.r = 1.0
+		self.modulate.g = 1.0
+		self.modulate.b = 1.0
+		yield(get_tree(), "idle_frame")
+	stats.take_damage(hit)
+
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))
+
+func _on_health_depleted():
+	globals.board.remove_entity(self)
+	hide()
+	queue_free()

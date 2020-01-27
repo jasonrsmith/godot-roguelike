@@ -29,6 +29,8 @@ func _process(delta):
 func run_actions() -> void:
 	while _run_state == RUN_STATE.RUNNING and _queue.size() > 0:
 		var next_action = _queue.pop_front()
+		if !next_action.obj:
+			continue
 		_tick = next_action.completion_time
 		if debug_actions:
 			print_debug(next_action.action_name, " ", next_action.obj.name, " ", _tick)

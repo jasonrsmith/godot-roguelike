@@ -1,7 +1,7 @@
 extends DebugCanvas
 class_name DebugMouseGrid
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventMouseMotion:
 		clear()
 		var world_pos = globals.camera.get_global_mouse_position()

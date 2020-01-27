@@ -1,21 +1,23 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/entities/PlayerEntity.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/characters/brawler.png" type="Texture" id=2]
-[ext_resource path="res://src/Camera2D.gd" type="Script" id=3]
-[ext_resource path="res://src/PlayerInput.gd" type="Script" id=4]
+[ext_resource path="res://src/entities/stats/PlayerStats.tres" type="Resource" id=2]
+[ext_resource path="res://assets/sprites/characters/brawler.png" type="Texture" id=3]
+[ext_resource path="res://src/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://src/PlayerInput.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="PlayerEntity" type="KinematicBody2D"]
 script = ExtResource( 1 )
+stats = ExtResource( 2 )
 
 [node name="Pivot" type="Position2D" parent="."]
 editor/display_folded = true
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
 editor/display_folded = true
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="Pivot/Sprite"]
 current = true
@@ -26,7 +28,7 @@ drag_margin_left = 0.5
 drag_margin_top = 0.5
 drag_margin_right = 0.5
 drag_margin_bottom = 0.5
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 move_camera_enabled = true
 
 [node name="Tween" type="Tween" parent="."]
@@ -35,7 +37,7 @@ move_camera_enabled = true
 shape = SubResource( 1 )
 
 [node name="PlayerInput" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="Timer" type="Timer" parent="PlayerInput"]
 one_shot = true

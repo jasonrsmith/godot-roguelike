@@ -160,7 +160,7 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	if collisions_enabled and get_tile_at_map_pos(cell_target).is_wall:
 		return Vector2()
 	# colliding with other entity
-	if _entity_idx.has(cell_target):
+	if get_entity_at(cell_target):
 		return Vector2()
 	
 	_entity_idx[cell_target] = entity
@@ -176,6 +176,17 @@ func add_entity(entity: Entity, map_pos: Vector2):
 	var world_pos = map_to_world(map_pos) + cell_size / 2
 	entity.position = world_pos
 	_astar.set_point_disabled(get_map_pos_index(map_pos))
+
+func get_entity_at(map_pos: Vector2) -> Entity:
+	if !_entity_idx.has(map_pos):
+		return null
+	return _entity_idx[map_pos]
+
+func remove_entity(entity: Entity):
+	var map_pos = world_to_map(entity.position)
+	assert(_entity_idx.has(map_pos))
+	_entity_idx.erase(map_pos)
+	_astar.set_point_disabled(get_map_pos_index(map_pos), false)
 
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y

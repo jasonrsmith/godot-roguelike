@@ -16,13 +16,18 @@ func run_action(name: String, params: Dictionary):
 	var direction:Vector2 = params.direction
 	if direction == Vector2():
 		return
-	var target_map_pos : Vector2 = _board.request_move(_entity, direction)
-	if target_map_pos:
-		_entity.move_to_map_pos(target_map_pos)
-		events.emit_signal("player_moved", target_map_pos)
-	else:
-		_entity.bump()
-	_direction = Vector2()
+	if name == "move":
+		var target_map_pos : Vector2 = _board.request_move(_entity, direction)
+		if target_map_pos:
+			_entity.move_to_map_pos(target_map_pos)
+			events.emit_signal("player_moved", target_map_pos)
+		else:
+			_entity.bump()
+		_direction = Vector2()
+	elif name == "attack":
+		var target_entity : Entity = params.entity
+		var hit = Hit.new(_entity.stats.strength)
+		target_entity.take_damage(hit)
 	State.pause()
 
 
@@ -52,5 +57,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
-		State.queue_action(self, 100, "move", {"direction": _direction})
+		var entity = _board.get_entity_at(
+			_board.world_to_map(_entity.position) + _direction)
+		if entity:
+			State.queue_action(self, 100, "attack", {"direction": _direction, "entity": entity})
+		else:
+			State.queue_action(self, 100, "move", {"direction": _direction})
 		State.unpause()
