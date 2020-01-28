@@ -8,7 +8,6 @@ onready var tween : Tween = $Tween
 
 func _ready() -> void:
 	set_process(false)
-	
 	stats = stats.copy()
 	stats.reset()
 	stats.connect("health_depleted", self, "_on_health_depleted")
@@ -38,6 +37,7 @@ func bump() -> void:
 
 
 func take_damage(hit: Hit):
+	stats.take_damage(hit)
 	for i in range(4):
 		self.modulate.a = 0.5
 		self.modulate.r = 2.0
@@ -49,12 +49,14 @@ func take_damage(hit: Hit):
 		self.modulate.g = 1.0
 		self.modulate.b = 1.0
 		yield(get_tree(), "idle_frame")
-	stats.take_damage(hit)
+
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))
 
 func _on_health_depleted():
+	State.cancel_actions_for_obj(self)
+	globals.debug_canvas.print_line("removing self: " + str(self))
 	globals.board.remove_entity(self)
 	hide()
 	queue_free()

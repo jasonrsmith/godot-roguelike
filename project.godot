@@ -108,11 +108,6 @@ _global_script_classes=[ {
 "class": "TileVisibilityPainter",
 "language": "GDScript",
 "path": "res://src/TileVisibilityPainter.gd"
-}, {
-"base": "Node2D",
-"class": "globals",
-"language": "GDScript",
-"path": "res://src/globals.gd"
 } ]
 _global_script_class_icons={
 "BSP": "",
@@ -134,8 +129,7 @@ _global_script_class_icons={
 "ShadowMapper": "",
 "Snake": "",
 "Tile": "",
-"TileVisibilityPainter": "",
-"globals": ""
+"TileVisibilityPainter": ""
 }
 
 [application]

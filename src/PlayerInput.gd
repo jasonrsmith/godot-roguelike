@@ -28,7 +28,6 @@ func run_action(name: String, params: Dictionary):
 		var target_entity : Entity = params.entity
 		var hit = Hit.new(_entity.stats.strength)
 		target_entity.take_damage(hit)
-	State.pause()
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:

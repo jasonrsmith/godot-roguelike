@@ -8,6 +8,7 @@ var _player_in_area = false
 var _player_seen = false
 var _target_pos : Vector2 = Vector2()
 var _path_to_player : Array = []
+var _hostile_to_player = true
 
 export(int) var visibility_radius = 10
 export(bool) var debug_sight = true
@@ -15,7 +16,7 @@ export(bool) var debug_sight = true
 var _player_detector_ray: RayCast2D
 
 func _ready():
-	events.connect("player_moved", self, "_on_player_moved")
+	events.connect("player_acted", self, "_on_player_acted")
 	var shape = CircleShape2D.new()
 	shape.radius = globals.map_cell_size * visibility_radius
 	_visibility_shape.set_shape(shape)
@@ -30,6 +31,10 @@ func run_action(name: String, params: Dictionary):
 		var target_map_pos = globals.board.request_move(self, direction)
 		if target_map_pos != Vector2():
 			move_to_map_pos(target_map_pos)
+	elif name == "attack":
+		var entity = params.entity
+		var hit = Hit.new(self.stats.strength)
+		entity.take_damage(hit)
 
 func _physics_process(delta):
 	if !_player_in_area:
@@ -55,29 +60,39 @@ func _physics_process(delta):
 	update()
 
 func _on_player_seen(map_pos: Vector2) -> void:
-	_on_player_moved(map_pos)
+	pass
+	#_on_player_acted(map_pos)
 
 func _on_player_lost(map_pos: Vector2) -> void:
-	pass
+	move_toward_player()
 
-func _on_player_moved(map_pos: Vector2) -> void:
+func _on_player_acted() -> void:
 	if !_player_in_area:
 		set_physics_process(false)
 		return
 	set_physics_process(true)
 	if _player_seen:
-		_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
-		if _path_to_player.size() <= 1:
-			return
-		var current_map_pos_v3 : Vector2 = _path_to_player.pop_front()
-		var current_map_pos := Vector2(current_map_pos_v3.x, current_map_pos_v3.y)
-		var target_map_pos := Vector2(_path_to_player[0].x, _path_to_player[0].y)
-		var direction = (target_map_pos - current_map_pos)
-		run_action("move_in_direction", 
-			{"direction": direction})
-		#State.queue_action(self, 100, "move_in_direction", 
-		#	{"direction": direction})
+		var map_pos = globals.board.world_to_map(globals.player_entity.position)
+		refresh_target_path(map_pos)
+		# todo convert to attack action
+		if globals.board.world_to_map(position).distance_to(map_pos) < 1.5:
+			State.queue_action(self, 100, "attack", {"entity": globals.player_entity})
+		else:
+			move_toward_player()
 
+
+func move_toward_player():
+	if _path_to_player.size() <= 1:
+		return
+	var current_map_pos_v3 : Vector3 = _path_to_player.pop_front()
+	var current_map_pos := Vector2(current_map_pos_v3.x, current_map_pos_v3.y)
+	var target_map_pos := Vector2(_path_to_player[0].x, _path_to_player[0].y)
+	var direction = (target_map_pos - current_map_pos)
+	State.queue_action(self, 100, "move_in_direction", 
+		{"direction": direction})
+
+func refresh_target_path(map_pos):
+	_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
 
 func _on_Visibility_body_entered(body):
 	if body == globals.player_entity:

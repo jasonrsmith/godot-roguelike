@@ -1,6 +1,9 @@
 extends DebugCanvas
 class_name DebugMouseGrid
 
+func _ready():
+	.set_console_print_enabled(false)
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		clear()

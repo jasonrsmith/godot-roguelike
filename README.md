@@ -1,4 +1,5 @@
 # todo
+* enemies should keep trying to find player after losing them
 * hide entities that aren't visible
 * redo state timer
 
