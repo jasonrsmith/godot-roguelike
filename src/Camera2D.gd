@@ -7,6 +7,9 @@ const ZOOM_DEFAULT = 0.5
 var _drag = false
 export (bool) var move_camera_enabled
 
+func _ready() -> void:
+	globals.camera = self
+
 func _input(event: InputEvent) -> void:
 	if !move_camera_enabled:
 		return

@@ -23,6 +23,9 @@ var _entity_idx := {}
 var _bsp_map_nodes := []
 var _walkable_cells := []
 
+func _ready():
+	globals.board = self
+
 func _init_grid(size: Vector2) -> Array:
 	var result = []
 	for x in range(size.x):

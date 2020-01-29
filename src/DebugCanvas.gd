@@ -14,9 +14,10 @@ func _ready():
 	_label.set_text("")
 	_label_container.add_child(_label)
 	add_lines()
+	globals.debug_canvas = self
 
 func add_lines() -> void:
-	for i in range(5):
+	for i in range(6):
 		print_line("")
 
 func print_line(s: String) -> void:

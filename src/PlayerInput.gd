@@ -7,10 +7,12 @@ var _direction : Vector2
 
 onready var _timer : Timer = $Timer
 
+func _ready() -> void:
+	globals.player_input = self
+
 func initialize(entity : Entity, board : Board) -> void:
 	_entity = entity
 	_board = board
-
 
 func run_action(name: String, params: Dictionary):
 	var direction:Vector2 = params.direction

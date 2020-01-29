@@ -9,6 +9,7 @@ onready var _fov: FOV = $FOV
 onready var _debug_canvas = $DebugCanvas
 onready var _camera = $Board/PlayerEntity/Pivot/Sprite/Camera2D
 onready var _dead_panel = $Dead/DeadPanel
+onready var _stats_ui = $StatsUI
 
 func _ready() -> void:
 	OS.set_window_size(Vector2(1024, 768))
@@ -24,10 +25,4 @@ func _ready() -> void:
 
 
 func set_globals():
-	globals.player_entity = _player_entity
-	globals.path_finder = _path_finder
-	globals.board = _board
-	globals.debug_canvas = _debug_canvas
-	globals.camera = _camera
 	globals.dead_panel = _dead_panel
-	globals.player_input = _player_input
