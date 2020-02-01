@@ -20,15 +20,17 @@ func add_lines() -> void:
 func print_line(s: String, cat=globals.LOG_CAT.PLAYER_INFO) -> void:
 	if console_print_enabled:
 		print_debug(s)
+	var color = "gray"
 	match cat:
 		globals.LOG_CAT.DEBUG:
 			if !print_debug_enabled:
 				return
 		globals.LOG_CAT.PLAYER_INFO:
+			color = "white"
 			if !print_player_info_enabled:
 				return
 	_label.add_text("\n")
-	_label.add_text(s)
+	_label.append_bbcode("[color={color}]{string}[/color]".format({ "color": color, "string": s}))
 
 func clear() -> void:
 	_label.clear()

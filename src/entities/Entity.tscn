@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/entities/Entity.gd" type="Script" id=1]
 [ext_resource path="res://src/entities/stats/DefaultStats.tres" type="Resource" id=2]
 [ext_resource path="res://assets/sprites/placeholder.png" type="Texture" id=3]
+[ext_resource path="res://src/TooltipCanvas.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -19,3 +20,17 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="TooltipCanvas" parent="." instance=ExtResource( 4 )]
+
+[node name="Tooltip" parent="TooltipCanvas" index="0"]
+visible = false
+
+[node name="MarginContainer" parent="TooltipCanvas/Tooltip" index="0"]
+margin_right = 31.0
+
+[node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
+margin_right = 25.0
+text = "La"
+
+[editable path="TooltipCanvas"]

@@ -27,8 +27,6 @@ func _process(delta):
 		run_actions()
 
 func cancel_actions_for_obj(obj: Object) -> void:
-	globals.debug_canvas.print_line("cancel_actions: " + str(obj))
-	globals.debug_canvas.print_line("cancel_actions queue: " + str(_queue))
 	var i := 0
 	for action in _queue:
 		if action.obj == obj:

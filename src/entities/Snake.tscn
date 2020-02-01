@@ -7,3 +7,4 @@
 [node name="Snake" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 stats = ExtResource( 3 )
+display_name = "Snake"

@@ -28,8 +28,12 @@ func run_action(name: String, params: Dictionary):
 		_direction = Vector2()
 	elif name == "attack":
 		var target_entity : Entity = params.entity
-		var hit = Hit.new(_entity.stats.strength)
-		target_entity.take_damage(hit)
+		var hit := Hit.new(_entity.stats.strength)
+		target_entity.take_damage(hit, self)
+		globals.debug_canvas.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
+		if !target_entity.stats.is_alive:
+			globals.debug_canvas.print_line("You kill " + target_entity.display_name + ".")
+
 
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:

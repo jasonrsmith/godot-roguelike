@@ -5,13 +5,18 @@ export var stats : Resource
 onready var pivot : Node2D = $Pivot
 onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
+onready var tooltip  = $TooltipCanvas/Tooltip
+
+export (String) var display_name := "thing"
 
 func _ready() -> void:
+	tooltip.set_entity(self)
 	set_process(false)
 	stats = stats.copy()
 	stats.reset()
 	stats.connect("health_depleted", self, "_on_health_depleted")
 	stats.connect("health_changed", self, "_on_health_changed")
+
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
 	set_process(false)
@@ -36,7 +41,8 @@ func bump() -> void:
 	set_process(true)
 
 
-func take_damage(hit: Hit):
+# TODO: yield doesn't work when dead
+func take_damage(hit: Hit, _from: Object) -> void:
 	stats.take_damage(hit)
 	for i in range(4):
 		self.modulate.a = 0.5
@@ -49,14 +55,18 @@ func take_damage(hit: Hit):
 		self.modulate.g = 1.0
 		self.modulate.b = 1.0
 		yield(get_tree(), "idle_frame")
+	if !stats.is_alive:
+		remove()
 
+
+func remove():
+	State.cancel_actions_for_obj(self)
+	globals.board.remove_entity(self)
+	hide()
+	queue_free()
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))
 
 func _on_health_depleted():
-	State.cancel_actions_for_obj(self)
-	globals.debug_canvas.print_line("removing self: " + str(self))
-	globals.board.remove_entity(self)
-	hide()
-	queue_free()
+	pass

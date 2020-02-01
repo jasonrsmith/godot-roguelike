@@ -85,11 +85,11 @@ func _astar_connect_walkable_cells(astar: AStar):
 func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
 	var start := get_map_pos_index(map_pos_start)
 	var end := get_map_pos_index(map_pos_end)
-	_astar.set_point_disabled(start, false)
-	_astar.set_point_disabled(end, false)
+	#_astar.set_point_disabled(start, false)
+	#_astar.set_point_disabled(end, false)
 	var path : Array = _astar.get_point_path(start, end)
-	_astar.set_point_disabled(start)
-	_astar.set_point_disabled(end)
+	#_astar.set_point_disabled(start)
+	#_astar.set_point_disabled(end)
 	return path
 
 func populate_enemies() -> void:
@@ -168,8 +168,8 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	
 	_entity_idx[cell_target] = entity
 	_entity_idx.erase(cell_start)
-	_astar.set_point_disabled(get_map_pos_index(cell_target))
-	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
+#	_astar.set_point_disabled(get_map_pos_index(cell_target))
+#	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
 	return cell_target
 
 
@@ -178,7 +178,7 @@ func add_entity(entity: Entity, map_pos: Vector2):
 	_entity_idx[map_pos] = entity
 	var world_pos = map_to_world(map_pos) + cell_size / 2
 	entity.position = world_pos
-	_astar.set_point_disabled(get_map_pos_index(map_pos))
+	#_astar.set_point_disabled(get_map_pos_index(map_pos))
 
 func get_entity_at(map_pos: Vector2) -> Entity:
 	if !_entity_idx.has(map_pos):
@@ -189,7 +189,7 @@ func remove_entity(entity: Entity):
 	var map_pos = world_to_map(entity.position)
 	assert(_entity_idx.has(map_pos))
 	_entity_idx.erase(map_pos)
-	_astar.set_point_disabled(get_map_pos_index(map_pos), false)
+	#_astar.set_point_disabled(get_map_pos_index(map_pos), false)
 
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
@@ -209,3 +209,16 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(false)
 
+func set_point_disabled_for_path(map_pos: Vector2, disable=true) -> void:
+	_astar.set_point_disabled(get_map_pos_index(map_pos), disable)
+
+func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
+	var surrounding_entities := []
+	for x in range(-1, 2):
+		for y in range(-1, 2):
+			if x == 0 and y == 0:
+				continue
+			var adjacent_pos := map_pos + Vector2(x, y)
+			if get_entity_at(adjacent_pos):
+				surrounding_entities.append(adjacent_pos)
+	return surrounding_entities

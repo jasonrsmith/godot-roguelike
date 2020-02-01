@@ -6,7 +6,6 @@ onready var _player_input : PlayerInput = $Board/PlayerEntity/PlayerInput
 onready var _player_entity : Entity = $Board/PlayerEntity
 onready var _path_finder : PathFinder = $PathFinder
 onready var _fov: FOV = $FOV
-onready var _debug_canvas = $DebugCanvas
 onready var _camera = $Board/PlayerEntity/Pivot/Sprite/Camera2D
 onready var _dead_panel = $Dead/DeadPanel
 onready var _stats_ui = $StatsUI
