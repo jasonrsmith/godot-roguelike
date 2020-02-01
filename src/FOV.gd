@@ -107,6 +107,7 @@ func transform_octant(row: int, col: int, octant: int) -> Vector2:
 		7:
 			return Vector2(-col, -row)
 	assert("unreachble")
+	return Vector2()
 
 
 func refresh(map_pos: Vector2) -> void:

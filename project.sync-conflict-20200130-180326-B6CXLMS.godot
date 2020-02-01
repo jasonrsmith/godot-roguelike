@@ -30,11 +30,6 @@ _global_script_classes=[ {
 "path": "res://src/entities/Chad.gd"
 }, {
 "base": "CanvasLayer",
-"class": "Console",
-"language": "GDScript",
-"path": "res://src/Console.gd"
-}, {
-"base": "CanvasLayer",
 "class": "DebugCanvas",
 "language": "GDScript",
 "path": "res://src/DebugCanvas.gd"
@@ -119,7 +114,6 @@ _global_script_class_icons={
 "Board": "",
 "BrawlerPlayerEntity": "",
 "Chad": "",
-"Console": "",
 "DebugCanvas": "",
 "DebugFPS": "",
 "DebugMouseGrid": "",
@@ -149,6 +143,7 @@ config/icon="res://icon.png"
 globals="*res://src/globals.gd"
 events="*res://src/events.gd"
 State="*res://src/State.gd"
+Console="*res://console/src/Console.tscn"
 
 [display]
 

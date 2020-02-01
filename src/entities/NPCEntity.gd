@@ -48,13 +48,14 @@ func _physics_process(delta):
 	if !result:
 		return
 	_target_pos = result.position
+	if result.collider == globals.player_entity:
+		refresh_target_path(globals.board.world_to_map(globals.player_entity.position))
 	if result.collider == globals.player_entity and !_player_seen:
 		_player_seen = true
 		_on_player_seen(
 			globals.board.world_to_map(globals.player_entity.position))
 	elif result.collider != globals.player_entity && _player_seen:
 		_player_seen = false
-		_path_to_player = []
 		_on_player_lost(
 			globals.board.world_to_map(globals.player_entity.position))
 	update()
@@ -64,22 +65,23 @@ func _on_player_seen(map_pos: Vector2) -> void:
 	#_on_player_acted(map_pos)
 
 func _on_player_lost(map_pos: Vector2) -> void:
-	move_toward_player()
+	globals.debug_canvas.print_line(str(self) + "lost player")
+	#move_toward_player()
+	#_path_to_player = []
 
 func _on_player_acted() -> void:
 	if !_player_in_area:
 		set_physics_process(false)
 		return
 	set_physics_process(true)
-	if _player_seen:
+	#if _player_seen:
+	if _player_seen or _path_to_player.size() > 1:
 		var map_pos = globals.board.world_to_map(globals.player_entity.position)
-		refresh_target_path(map_pos)
-		# todo convert to attack action
+		#refresh_target_path(map_pos)
 		if globals.board.world_to_map(position).distance_to(map_pos) < 1.5:
 			State.queue_action(self, 100, "attack", {"entity": globals.player_entity})
 		else:
 			move_toward_player()
-
 
 func move_toward_player():
 	if _path_to_player.size() <= 1:
@@ -90,6 +92,12 @@ func move_toward_player():
 	var direction = (target_map_pos - current_map_pos)
 	State.queue_action(self, 100, "move_in_direction", 
 		{"direction": direction})
+
+#func get_direction_toward_map_pos(map_pos: Vector2):
+#	var current_map_pos_v3 : Vector3 = _path_to_player.pop_front()
+#	var current_map_pos := Vector2(current_map_pos_v3.x, current_map_pos_v3.y)
+#	var target_map_pos := Vector2(_path_to_player[0].x, _path_to_player[0].y)
+#	var direction = (target_map_pos - current_map_pos)
 
 func refresh_target_path(map_pos):
 	_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
@@ -110,7 +118,7 @@ func _draw():
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)
 		draw_circle((_target_pos - position).rotated(-rotation), 3, globals.LASER_COLOR)
 		draw_circle(Vector2(), _visibility_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))
-	if _player_seen and _path_to_player.size() > 0:
+	if _path_to_player.size() > 0:
 		for p in _path_to_player:
 			var world_pos = globals.board.map_to_world(Vector2(p.x, p.y))
 			var rect = Rect2(world_pos - position, globals.map_cell_size * Vector2.ONE)

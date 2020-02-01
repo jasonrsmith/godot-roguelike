@@ -48,7 +48,7 @@ func run_actions() -> void:
 			continue
 		_tick = next_action.completion_time
 		if debug_actions:
-			globals.debug_canvas.print_line(str(next_action.cost + _tick) + " " + next_action.obj.name + " " + next_action.action_name + " " + str(next_action.params))
+			globals.debug_canvas.print_line(str(next_action.cost + _tick) + " " + next_action.obj.name + " " + next_action.action_name + " " + str(next_action.params), globals.LOG_CAT.DEBUG)
 		next_action.obj.run_action(next_action.action_name, next_action.params)
 		if next_action.obj == globals.player_input:
 			pause_tick = next_action.completion_time

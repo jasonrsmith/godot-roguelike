@@ -1,13 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://src/FOV.gd" type="Script" id=2]
 [ext_resource path="res://src/State.gd" type="Script" id=3]
 [ext_resource path="res://src/PathFinder.gd" type="Script" id=4]
-[ext_resource path="res://src/DebugCanvas.gd" type="Script" id=5]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=6]
-[ext_resource path="res://src/DebugMouseGrid.gd" type="Script" id=7]
-[ext_resource path="res://src/DebugFPS.gd" type="Script" id=8]
+[ext_resource path="res://src/Console.gd" type="Script" id=7]
 [ext_resource path="res://board.tres" type="TileSet" id=9]
 [ext_resource path="res://src/Board.gd" type="Script" id=10]
 [ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=11]
@@ -19,20 +17,14 @@
 [ext_resource path="res://assets/ThaleahFat.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://src/StatsUI.gd" type="Script" id=18]
 
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 size = 96
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 17 )
 
@@ -48,118 +40,7 @@ script = ExtResource( 3 )
 [node name="PathFinder" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="DebugCanvas" type="CanvasLayer" parent="."]
-editor/display_folded = true
-script = ExtResource( 5 )
-
-[node name="Control" type="Control" parent="DebugCanvas"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 314.0
-
-[node name="Panel" type="Panel" parent="DebugCanvas/Control"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -106.0
-margin_right = 200.0
-margin_bottom = -16.0
-custom_styles/panelf = SubResource( 1 )
-custom_styles/panel = SubResource( 2 )
-custom_styles/panelnc = SubResource( 3 )
-
-[node name="MarginContainer" type="MarginContainer" parent="DebugCanvas/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="DebugCanvas/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 6 )
-scroll_horizontal_enabled = false
-scroll_deadzone = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugCanvas/Control/Panel/ScrollContainer"]
-grow_vertical = 0
-rect_clip_content = true
-alignment = 2
-
-[node name="DebugMouseGrid" type="CanvasLayer" parent="."]
-editor/display_folded = true
-script = ExtResource( 7 )
-
-[node name="Control" type="Control" parent="DebugMouseGrid"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Panel" type="Panel" parent="DebugMouseGrid/Control"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -114.0
-margin_bottom = 33.0
-custom_styles/panelf = SubResource( 1 )
-custom_styles/panel = SubResource( 2 )
-custom_styles/panelnc = SubResource( 3 )
-
-[node name="MarginContainer" type="MarginContainer" parent="DebugMouseGrid/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="DebugMouseGrid/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_clip_content = false
-theme = ExtResource( 6 )
-scroll_horizontal_enabled = false
-scroll_deadzone = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugMouseGrid/Control/Panel/ScrollContainer"]
-grow_vertical = 0
-alignment = 2
-
-[node name="DebugFPS" type="CanvasLayer" parent="."]
-editor/display_folded = true
-script = ExtResource( 8 )
-
-[node name="Control" type="Control" parent="DebugFPS"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Panel" type="Panel" parent="DebugFPS/Control"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -114.0
-margin_top = -33.0
-custom_styles/panelf = SubResource( 1 )
-custom_styles/panel = SubResource( 2 )
-custom_styles/panelnc = SubResource( 3 )
-
-[node name="MarginContainer" type="MarginContainer" parent="DebugFPS/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="DebugFPS/Control/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_clip_content = false
-theme = ExtResource( 6 )
-scroll_horizontal_enabled = false
-scroll_deadzone = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugFPS/Control/Panel/ScrollContainer"]
-grow_vertical = 0
-alignment = 2
-
 [node name="Board" type="TileMap" parent="."]
-editor/display_folded = true
 tile_set = ExtResource( 9 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -174,12 +55,6 @@ collisions_enabled = true
 debug_grid = true
 
 [node name="PlayerEntity" parent="Board" instance=ExtResource( 11 )]
-
-[node name="Pivot" parent="Board/PlayerEntity" index="0"]
-editor/display_folded = false
-
-[node name="Sprite" parent="Board/PlayerEntity/Pivot" index="0"]
-editor/display_folded = false
 
 [node name="ShadowMapper" type="Node2D" parent="Board"]
 script = ExtResource( 12 )
@@ -198,48 +73,6 @@ script = ExtResource( 15 )
 
 [node name="DebugGrid" type="Node2D" parent="Board"]
 script = ExtResource( 16 )
-
-[node name="Dead" type="CanvasLayer" parent="."]
-editor/display_folded = true
-
-[node name="DeadPanel" type="Panel" parent="Dead"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 4 )
-
-[node name="MarginContainer" type="MarginContainer" parent="Dead/DeadPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -270.0
-margin_top = -44.0
-margin_right = 270.0
-margin_bottom = 44.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Dead/DeadPanel/MarginContainer"]
-margin_right = 540.0
-margin_bottom = 151.0
-
-[node name="Label" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
-margin_right = 576.0
-margin_bottom = 88.0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "You are dead"
-align = 1
-
-[node name="RestartLabel" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
-margin_top = 92.0
-margin_right = 576.0
-margin_bottom = 151.0
-custom_fonts/font = SubResource( 6 )
-custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "Restart? [Y/n]"
-align = 1
 
 [node name="StatsUI" type="CanvasLayer" parent="."]
 script = ExtResource( 18 )
@@ -261,5 +94,65 @@ margin_right = 1970.0
 margin_bottom = 30.0
 theme = ExtResource( 6 )
 text = "HP: 0 / 0"
+
+[node name="Console" type="CanvasLayer" parent="."]
+script = ExtResource( 7 )
+print_debug_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Console"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -203.0
+margin_bottom = -10.0
+theme = ExtResource( 6 )
+bbcode_text = "asdfzxcvasdf"
+text = "asdfzxcvasdf"
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dead" type="CanvasLayer" parent="."]
+
+[node name="DeadPanel" type="Panel" parent="Dead"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Dead/DeadPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -44.0
+margin_right = 270.0
+margin_bottom = 44.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Dead/DeadPanel/MarginContainer"]
+margin_right = 540.0
+margin_bottom = 151.0
+
+[node name="Label" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
+margin_right = 540.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "You are dead"
+align = 1
+
+[node name="RestartLabel" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 540.0
+margin_bottom = 151.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Restart? [Y/n]"
+align = 1
 
 [editable path="Board/PlayerEntity"]

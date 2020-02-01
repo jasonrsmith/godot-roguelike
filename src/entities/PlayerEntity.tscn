@@ -13,21 +13,17 @@ script = ExtResource( 1 )
 stats = ExtResource( 2 )
 
 [node name="Pivot" type="Position2D" parent="."]
-editor/display_folded = true
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-editor/display_folded = true
 texture = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="Pivot/Sprite"]
 current = true
 zoom = Vector2( 0.5, 0.5 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
 smoothing_enabled = true
 smoothing_speed = 15.0
-drag_margin_left = 0.5
-drag_margin_top = 0.5
-drag_margin_right = 0.5
-drag_margin_bottom = 0.5
 script = ExtResource( 4 )
 move_camera_enabled = true
 

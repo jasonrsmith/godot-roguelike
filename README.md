@@ -6,7 +6,7 @@
       * entire line can be colored, or only certain words for emphasis
   * hp numbers
   * hp bar
-* enemies should keep trying to find player after losing them
+* enemies can't see past each other in narrow spaces
 * hide entities that aren't visible
 * redo state timer
 * restart after death
