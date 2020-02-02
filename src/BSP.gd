@@ -1,9 +1,8 @@
 extends Node2D
 class_name BSP
 
-const MIN_SIZE = 10.0
-const MAX_SIZE = 30.0
-
+export(float) var max_size = 30.0
+export(float) var min_size = 10.0
 
 class BSPNode:
 	var map_pos: Vector2
@@ -14,9 +13,14 @@ class BSPNode:
 	var room: Rect2
 	var halls : Array
 	
-	func _init(boundary: Rect2) -> void:
+	var max_size : float
+	var min_size : float
+	
+	func _init(boundary: Rect2, max_size: float, min_size: float) -> void:
 		self.map_pos = boundary.position
 		self.size = boundary.size
+		self.max_size = max_size
+		self.min_size = min_size
 	
 	func split() -> bool:
 		if left != null and right != null:
@@ -30,26 +34,29 @@ class BSPNode:
 		else:
 			split_horiz = globals.rng.randf() > 0.5
 		
-		var max_size: float
+		var max_size_split: float
 		if split_horiz:
-			max_size = size.y - MIN_SIZE
+			max_size_split = size.y - min_size
 		else:
-			max_size = size.x - MIN_SIZE
+			max_size_split = size.x - min_size
 		
-		if max_size <= MIN_SIZE:
+		if max_size_split <= min_size:
 			return false
 		
-		var split_pos = floor(globals.rng.randf_range(MIN_SIZE, max_size))
+		var split_pos = floor(globals.rng.randf_range(min_size, max_size_split))
 		if split_horiz:
-			left = BSPNode.new(Rect2(map_pos, Vector2(size.x, split_pos)))
+			left = BSPNode.new(Rect2(map_pos, Vector2(size.x, split_pos)), max_size, min_size)
 			right = BSPNode.new(Rect2(
 				Vector2(map_pos.x, map_pos.y + split_pos),
-				Vector2(size.x, size.y - split_pos)))
+				Vector2(size.x, size.y - split_pos)),
+				max_size, min_size)
 		else:
-			left = BSPNode.new(Rect2(map_pos, Vector2(split_pos, size.y)))
+			left = BSPNode.new(Rect2(map_pos, Vector2(split_pos, size.y)),
+				max_size, min_size)
 			right = BSPNode.new(Rect2(
 				Vector2(map_pos.x + split_pos, map_pos.y),
-				Vector2(size.x - split_pos, size.y)))
+				Vector2(size.x - split_pos, size.y)),
+				max_size, min_size)
 		return true
 	
 	func create_rooms():
@@ -143,7 +150,7 @@ class BSPNode:
 func gen_rooms(boundary: Rect2) -> Array:
 
 	var bsp_nodes = []
-	var root = BSPNode.new(boundary)
+	var root = BSPNode.new(boundary, max_size, min_size)
 	bsp_nodes.append(root)
 	var did_split = true
 	while did_split:
@@ -151,7 +158,7 @@ func gen_rooms(boundary: Rect2) -> Array:
 		for node in bsp_nodes:
 			if node.left != null or node.right != null:
 				continue
-			if node.size.x <= MAX_SIZE and node.size.y <= MAX_SIZE:
+			if node.size.x <= max_size and node.size.y <= max_size:
 				continue
 			if node.split():
 				bsp_nodes.append(node.left)
