@@ -63,11 +63,11 @@ func get_merged_polygons(points: Array) -> Array:
 		var point_right = Vector2(point.x + 1, point.y)
 		var point_down = Vector2(point.x, point.y + 1)
 
-		if _board.get_cellv(point_right) == 1:
+		if _board.is_wall(point_right):
 			if not point_right in idx:
 				idx[point_right] = poly_id
 				polygons[poly_id].append(point_right)
-		if _board.get_cellv(point_down) == 1:
+		if _board.is_wall(point_down):
 			if not point_down in idx:
 				idx[point_down] = poly_id
 				polygons[poly_id].append(point_down)

@@ -13,8 +13,11 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		var world_pos = globals.camera.get_global_mouse_position()
 		var parent : CanvasLayer = get_parent()
-		var mouse_entity = (globals.board.get_entity_at(
-			globals.board.world_to_map(world_pos)))
+		var map_pos : Vector2  = globals.board.world_to_map(world_pos)
+		var tile : Tile = globals.board.get_tile_at_map_pos(map_pos)
+		if !tile or !tile.is_visible():
+			return
+		var mouse_entity = globals.board.get_entity_at(map_pos)
 		if !entity or mouse_entity != entity:
 			self.hide()
 			return

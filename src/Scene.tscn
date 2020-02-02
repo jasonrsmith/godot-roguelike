@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://src/FOV.gd" type="Script" id=2]
 [ext_resource path="res://src/State.gd" type="Script" id=3]
 [ext_resource path="res://src/PathFinder.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/light.png" type="Texture" id=5]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://src/Console.gd" type="Script" id=7]
 [ext_resource path="res://board.tres" type="TileSet" id=9]
@@ -57,6 +58,11 @@ collisions_enabled = true
 debug_grid = true
 
 [node name="PlayerEntity" parent="Board" instance=ExtResource( 11 )]
+
+[node name="Light2D" type="Light2D" parent="Board/PlayerEntity/Pivot/Sprite/Camera2D" index="0"]
+texture = ExtResource( 5 )
+mode = 3
+shadow_enabled = true
 
 [node name="ShadowMapper" type="Node2D" parent="Board"]
 script = ExtResource( 12 )
