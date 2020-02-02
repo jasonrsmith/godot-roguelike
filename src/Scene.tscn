@@ -60,7 +60,10 @@ debug_grid = true
 [node name="PlayerEntity" parent="Board" instance=ExtResource( 11 )]
 
 [node name="Light2D" type="Light2D" parent="Board/PlayerEntity/Pivot/Sprite/Camera2D" index="0"]
+visible = false
 texture = ExtResource( 5 )
+texture_scale = 0.99
+energy = 1.47
 mode = 3
 shadow_enabled = true
 

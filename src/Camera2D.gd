@@ -7,8 +7,27 @@ const ZOOM_DEFAULT = 0.5
 var _drag = false
 export (bool) var move_camera_enabled
 
+var _shake_timer = 0
+var _shake_max_mag
+var _shake_mag
+
 func _ready() -> void:
 	globals.camera = self
+
+func _process(delta):
+	if _shake_timer > 0:
+		set_offset(Vector2(
+			rand_range(-1.0, 1.0) * _shake_mag,
+			rand_range(-1.0, 1.0) * _shake_mag))
+		_shake_timer -= delta
+		_shake_mag = _shake_timer * _shake_max_mag
+	else:
+		set_offset(Vector2(0, 0))
+
+func shake(duration, magnitude):
+	_shake_max_mag = magnitude
+	_shake_timer = duration
+	_shake_mag = _shake_timer * magnitude
 
 func _input(event: InputEvent) -> void:
 	if !move_camera_enabled:
