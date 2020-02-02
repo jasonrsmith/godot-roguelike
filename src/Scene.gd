@@ -19,9 +19,8 @@ func _ready() -> void:
 	_board.init_map()
 	var player_map_pos = _board.find_player_spawn_point()
 	_board.add_entity(_player_entity, player_map_pos)
-	_fov.refresh(player_map_pos)
 	_board.populate_enemies()
-
+	_fov.refresh(player_map_pos)
 
 func set_globals():
 	globals.dead_panel = _dead_panel

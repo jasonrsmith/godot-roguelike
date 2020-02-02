@@ -1,7 +1,4 @@
 # todo
-* tooltip popup on map
-* enemies can't see past each other in narrow spaces
-* hide entities that aren't visible
 * redo state timer:
   * test to see if needed
 * restart after death
@@ -9,6 +6,7 @@
 * hp bar ui
 
 # bugs
+* actions run out of order
 * queue order of actions is off under some circumstances
 * enemies still have trouble seeing around each other
 * performance issues when multiple enemies are pathing and attacking player

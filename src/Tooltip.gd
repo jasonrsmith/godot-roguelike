@@ -4,8 +4,6 @@ onready var _label : Label = $MarginContainer/Label
 onready var _min_size : Vector2 = rect_size
 
 var entity
-func _enter_tree():
-	print_debug("tooltip enter tree")
 
 func set_entity(e):
 	entity = e

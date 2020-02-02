@@ -8,3 +8,5 @@
 script = ExtResource( 2 )
 stats = ExtResource( 3 )
 display_name = "Snake"
+
+[editable path="TooltipCanvas"]

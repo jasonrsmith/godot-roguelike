@@ -13,11 +13,17 @@ display_name = "Chad the Destroyer, Bringer of Doom"
 [node name="Sprite" parent="Pivot" index="0"]
 texture = ExtResource( 4 )
 
+[node name="Tooltip" parent="TooltipCanvas" index="0"]
+visible = false
+
 [node name="MarginContainer" parent="TooltipCanvas/Tooltip" index="0"]
+margin_right = 31.0
 custom_constants/margin_bottom = 2
 
 [node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
 margin_top = 2.0
+margin_right = 25.0
 margin_bottom = 17.0
+text = "La"
 
 [editable path="TooltipCanvas"]

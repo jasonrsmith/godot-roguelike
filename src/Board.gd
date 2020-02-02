@@ -203,10 +203,18 @@ func is_wall(map_pos: Vector2) -> bool:
 
 func mark_tile_visible(tile_map_pos: Vector2) -> void:
 	var tile = get_tile_at_map_pos(tile_map_pos)
+	var entity := get_entity_at(tile_map_pos)
+	if entity:
+		entity.show()
 	tile.set_is_visible(true)
 
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
+
 	var tile = get_tile_at_map_pos(tile_map_pos)
+	var entity := get_entity_at(tile_map_pos)
+	if entity:
+		print_debug("** hiding ent" + str(entity))
+		entity.hide()
 	tile.set_is_visible(false)
 
 func set_point_disabled_for_path(map_pos: Vector2, disable=true) -> void:

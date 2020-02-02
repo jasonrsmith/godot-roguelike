@@ -77,7 +77,7 @@ func _on_player_acted() -> void:
 	if _player_seen or _path_to_player.size() > 1:
 		var map_pos = globals.board.world_to_map(globals.player_entity.position)
 		if globals.board.world_to_map(position).distance_to(map_pos) < 1.5:
-			State.queue_action(self, 100, "attack", {"entity": globals.player_entity})
+			State.queue_action(self, 100 / stats.speed, "attack", {"entity": globals.player_entity})
 		else:
 			move_toward_player()
 

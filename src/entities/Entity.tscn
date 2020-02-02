@@ -23,14 +23,11 @@ shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 4 )]
 
-[node name="Tooltip" parent="TooltipCanvas" index="0"]
-visible = false
-
 [node name="MarginContainer" parent="TooltipCanvas/Tooltip" index="0"]
-margin_right = 31.0
+margin_right = 35.0
 
 [node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
-margin_right = 25.0
-text = "La"
+margin_right = 29.0
+text = "You"
 
 [editable path="TooltipCanvas"]
