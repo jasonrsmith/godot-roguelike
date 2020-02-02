@@ -4,7 +4,7 @@
 [ext_resource path="res://src/FOV.gd" type="Script" id=2]
 [ext_resource path="res://src/State.gd" type="Script" id=3]
 [ext_resource path="res://src/PathFinder.gd" type="Script" id=4]
-[ext_resource path="res://assets/sprites/light.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/torch.png" type="Texture" id=5]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://src/Console.gd" type="Script" id=7]
 [ext_resource path="res://board.tres" type="TileSet" id=9]
@@ -44,6 +44,7 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="Board" type="TileMap" parent="."]
+light_mask = 3
 tile_set = ExtResource( 9 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -59,13 +60,14 @@ debug_grid = true
 
 [node name="PlayerEntity" parent="Board" instance=ExtResource( 11 )]
 
-[node name="Light2D" type="Light2D" parent="Board/PlayerEntity/Pivot/Sprite/Camera2D" index="0"]
-visible = false
+[node name="Light2D" type="Light2D" parent="Board/PlayerEntity/Pivot/Sprite" index="1"]
 texture = ExtResource( 5 )
-texture_scale = 0.99
-energy = 1.47
-mode = 3
+texture_scale = 4.62
+energy = 1.01
+range_height = 77.0
+range_item_cull_mask = 2
 shadow_enabled = true
+shadow_filter = 1
 
 [node name="ShadowMapper" type="Node2D" parent="Board"]
 script = ExtResource( 12 )

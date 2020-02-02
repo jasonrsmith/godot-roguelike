@@ -10,6 +10,7 @@ var draw_polygons = []
 
 var _board
 
+# XXX is ShadowMapper not needed anymore?
 func init(board: TileMap) -> void:
 	add_occluders_from_board(board)
 

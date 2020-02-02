@@ -19,7 +19,8 @@ func mask_off(map_pos: Vector2):
 	set_cellv(map_pos, globals.MASK_CELL_TYPES.EMPTY)
 
 func _on_tile_was_seen(tile_map_pos: Vector2) -> void:
-	mask_off(tile_map_pos)
+	#mask_off(tile_map_pos)
+	mask_dark(tile_map_pos)
 
 func _on_tile_went_out_of_view(tile_map_pos: Vector2) -> void:
 	mask_dark(tile_map_pos)
