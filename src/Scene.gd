@@ -2,11 +2,11 @@ extends Node2D
 class_name Scene
 
 onready var _board : Board = $Board
-onready var _player_input : PlayerInput = $Board/PlayerEntity/PlayerInput
-onready var _player_entity : Entity = $Board/PlayerEntity
+onready var _player_input : PlayerInput = $PlayerEntity/PlayerInput
+onready var _player_entity : Entity = $PlayerEntity
 onready var _path_finder : PathFinder = $PathFinder
 onready var _fov: FOV = $FOV
-onready var _camera = $Board/PlayerEntity/Pivot/Sprite/Camera2D
+onready var _camera = $PlayerEntity/Pivot/Sprite/Camera2D
 onready var _dead_panel = $Dead/DeadPanel
 onready var _stats_ui = $StatsUI
 

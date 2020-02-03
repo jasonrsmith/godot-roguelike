@@ -22,6 +22,7 @@ font_data = ExtResource( 1 )
 follow_viewport_enable = true
 
 [node name="Tooltip" type="PanelContainer" parent="."]
+visible = false
 margin_right = 32.0
 margin_bottom = 22.0
 grow_horizontal = 0

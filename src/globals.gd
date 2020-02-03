@@ -1,7 +1,7 @@
 extends Node2D
 
 enum CELL_TYPES { EMPTY = -1, FLOOR, WALL }
-enum MASK_CELL_TYPES { INVISIBLE, DARK, EMPTY }
+enum MASK_CELL_TYPES { EMPTY = -1, DARK, BLACK }
 enum LOG_CAT {DEBUG, PLAYER_INFO}
 
 var map_cell_size : int = 16
@@ -12,6 +12,7 @@ var debug_canvas
 var board
 var camera
 var dead_panel
+var npc_area
 
 var max_int = 9223372036854775807
 

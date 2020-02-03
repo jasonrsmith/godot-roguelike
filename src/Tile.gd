@@ -24,3 +24,6 @@ func set_is_visible(is_visible: bool) -> void:
 			events.emit_signal("tile_was_seen", pos)
 		else:
 			events.emit_signal("tile_went_out_of_view", pos)
+
+func get_is_visible() -> bool:
+	return _is_visible

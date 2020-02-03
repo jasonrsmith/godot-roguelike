@@ -36,9 +36,6 @@ shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]
 
-[node name="Tooltip" parent="TooltipCanvas" index="0"]
-visible = false
-
 [node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
 text = "You"
 

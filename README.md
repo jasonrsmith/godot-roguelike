@@ -16,3 +16,5 @@
 * skills
 * sqlite db:
   * https://github.com/khairul169/gdsqlite-native
+* game ai pro:
+  * http://www.gameaipro.com/

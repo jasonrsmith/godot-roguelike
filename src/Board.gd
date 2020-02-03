@@ -5,7 +5,6 @@ onready var _shadow_mapper = $ShadowMapper
 onready var _tile_visibility_painter = $TileVisibilityPainter
 onready var _bsp = $BSP
 onready var _npc_area = $NPCArea
-onready var _player_entity = $PlayerEntity
 onready var _debug_grid = $DebugGrid
 
 onready var _chad_entity = preload("res://src/entities/Chad.tscn")
@@ -25,6 +24,8 @@ var _walkable_cells := []
 
 func _ready():
 	globals.board = self
+	events.connect("tile_was_seen", self, "_on_tile_was_seen")
+	events.connect("tile_went_out_of_view", self, "_on_tile_went_out_of_view")
 
 func _init_grid(size: Vector2) -> Array:
 	var result = []
@@ -33,9 +34,9 @@ func _init_grid(size: Vector2) -> Array:
 		for y in range(size.y):
 			var map_pos = Vector2(x, y)
 			var tile = Tile.new(map_pos)
+			result[x].append(tile)
 			tile.set_is_wall(true)
 			set_cellv(map_pos, globals.CELL_TYPES.WALL)
-			result[x].append(tile)
 			_tile_visibility_painter.mask_full(map_pos)
 	if debug_grid:
 		_debug_grid.draw_grid()
@@ -61,6 +62,7 @@ func init_map():
 		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
 	_shadow_mapper.init(self)
 	_astar_connect_walkable_cells(_astar)
+	_tile_visibility_painter.update_bitmask_region()
 
 func _astar_connect_walkable_cells(astar: AStar):
 	var points : Array = astar.get_points()
@@ -97,7 +99,7 @@ func populate_enemies() -> void:
 		var room = node.room
 		if !room:
 			continue
-		if !room.has_point(world_to_map(_player_entity.position)):
+		if !room.has_point(world_to_map(globals.player_entity.position)):
 			var monster : Entity
 			if globals.rng.randf() > 0.5:
 				monster = _chad_entity.instance()
@@ -106,7 +108,7 @@ func populate_enemies() -> void:
 			add_entity(monster, (Vector2(
 				room.position.x + room.size.x - 2,
 				room.position.y + 2)))
-			_npc_area.add_child(monster)
+			globals.npc_area.add_child(monster)
 
 
 func add_label_at(map_pos: Vector2, text: String) -> void:
@@ -199,6 +201,8 @@ func get_visible_tiles() -> Array:
 
 func is_wall(map_pos: Vector2) -> bool:
 	var cell_type = get_cellv(map_pos)
+	if cell_type == -1:
+		return false
 	return get_tile_at_map_pos(map_pos).is_wall
 
 func mark_tile_visible(tile_map_pos: Vector2) -> void:
@@ -216,6 +220,10 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 		entity.hide()
 	tile.set_is_visible(false)
 
+func is_tile_visible(tile_map_pos: Vector2) -> bool:
+	var tile : Tile = get_tile_at_map_pos(tile_map_pos)
+	return tile.get_is_visible()
+
 func set_point_disabled_for_path(map_pos: Vector2, disable=true) -> void:
 	_astar.set_point_disabled(get_map_pos_index(map_pos), disable)
 
@@ -229,3 +237,13 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 			if get_entity_at(adjacent_pos):
 				surrounding_entities.append(adjacent_pos)
 	return surrounding_entities
+
+func _on_tile_was_seen(map_pos: Vector2):
+	var entity : Entity = get_entity_at(map_pos)
+	if entity:
+		entity.show()
+
+func _on_tile_went_out_of_view(map_pos: Vector2):
+	var entity : Entity = get_entity_at(map_pos)
+	if entity:
+		entity.hide()
