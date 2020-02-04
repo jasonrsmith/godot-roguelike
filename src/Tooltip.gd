@@ -21,6 +21,8 @@ func _input(event):
 		if !entity or mouse_entity != entity:
 			self.hide()
 			return
+		if !entity.is_visible_in_tree():
+			return
 		parent.scale = globals.camera.zoom
 		var adjusted_global_pos : Vector2 = entity.global_position / globals.camera.zoom
 		var adjusted_offset_x = globals.map_cell_size / 1.5 / globals.camera.zoom.x

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://src/FOV.gd" type="Script" id=2]
@@ -12,55 +12,14 @@
 [ext_resource path="res://src/Board.gd" type="Script" id=10]
 [ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/ShadowMapper.gd" type="Script" id=12]
-[ext_resource path="res://assets/sprites/fog3.png" type="Texture" id=13]
+[ext_resource path="res://src/fog3.tres" type="TileSet" id=13]
 [ext_resource path="res://src/TileVisibilityPainter.gd" type="Script" id=14]
 [ext_resource path="res://src/BSP.gd" type="Script" id=15]
 [ext_resource path="res://src/DebugGrid.gd" type="Script" id=16]
 [ext_resource path="res://assets/ThaleahFat.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://src/StatsUI.gd" type="Script" id=18]
 [ext_resource path="res://src/DebugMouseGrid.gd" type="Script" id=19]
-[ext_resource path="res://assets/sprites/fog3-dark.png" type="Texture" id=20]
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=21]
-
-[sub_resource type="TileSet" id=5]
-0/name = "fog3.png 0"
-0/texture = ExtResource( 13 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 192, 64 )
-0/tile_mode = 1
-0/autotile/bitmask_mode = 1
-0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 144, Vector2( 0, 1 ), 146, Vector2( 0, 2 ), 18, Vector2( 0, 3 ), 16, Vector2( 1, 0 ), 176, Vector2( 1, 1 ), 178, Vector2( 1, 2 ), 50, Vector2( 1, 3 ), 48, Vector2( 2, 0 ), 184, Vector2( 2, 1 ), 186, Vector2( 2, 2 ), 58, Vector2( 2, 3 ), 56, Vector2( 3, 0 ), 152, Vector2( 3, 1 ), 154, Vector2( 3, 2 ), 26, Vector2( 3, 3 ), 24, Vector2( 4, 0 ), 187, Vector2( 4, 1 ), 434, Vector2( 4, 2 ), 182, Vector2( 4, 3 ), 250, Vector2( 5, 0 ), 440, Vector2( 5, 1 ), 510, Vector2( 5, 2 ), 447, Vector2( 5, 3 ), 62, Vector2( 6, 0 ), 248, Vector2( 6, 1 ), 507, Vector2( 6, 2 ), 255, Vector2( 6, 3 ), 59, Vector2( 7, 0 ), 190, Vector2( 7, 1 ), 218, Vector2( 7, 2 ), 155, Vector2( 7, 3 ), 442, Vector2( 8, 0 ), 432, Vector2( 8, 1 ), 438, Vector2( 8, 2 ), 446, Vector2( 8, 3 ), 54, Vector2( 9, 0 ), 506, Vector2( 9, 1 ), 254, Vector2( 9, 2 ), 511, Vector2( 9, 3 ), 63, Vector2( 10, 0 ), 504, Vector2( 10, 2 ), 443, Vector2( 10, 3 ), 63, Vector2( 11, 0 ), 216, Vector2( 11, 1 ), 251, Vector2( 11, 2 ), 219, Vector2( 11, 3 ), 27 ]
-0/autotile/icon_coordinate = Vector2( 9, 2 )
-0/autotile/tile_size = Vector2( 16, 16 )
-0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shapes = [  ]
-0/z_index = 0
-1/name = "fog3-dark.png 1"
-1/texture = ExtResource( 20 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 0, 0, 192, 64 )
-1/tile_mode = 1
-1/autotile/bitmask_mode = 1
-1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 144, Vector2( 0, 1 ), 146, Vector2( 0, 2 ), 18, Vector2( 0, 3 ), 16, Vector2( 1, 0 ), 176, Vector2( 1, 1 ), 178, Vector2( 1, 2 ), 50, Vector2( 1, 3 ), 48, Vector2( 2, 0 ), 184, Vector2( 2, 1 ), 186, Vector2( 2, 2 ), 58, Vector2( 2, 3 ), 56, Vector2( 3, 0 ), 152, Vector2( 3, 1 ), 154, Vector2( 3, 2 ), 26, Vector2( 3, 3 ), 24, Vector2( 4, 0 ), 187, Vector2( 4, 1 ), 434, Vector2( 4, 2 ), 182, Vector2( 4, 3 ), 250, Vector2( 5, 0 ), 440, Vector2( 5, 1 ), 510, Vector2( 5, 2 ), 447, Vector2( 5, 3 ), 62, Vector2( 6, 0 ), 248, Vector2( 6, 1 ), 507, Vector2( 6, 2 ), 255, Vector2( 6, 3 ), 59, Vector2( 7, 0 ), 190, Vector2( 7, 1 ), 218, Vector2( 7, 2 ), 155, Vector2( 7, 3 ), 442, Vector2( 8, 0 ), 432, Vector2( 8, 1 ), 438, Vector2( 8, 2 ), 446, Vector2( 8, 3 ), 54, Vector2( 9, 0 ), 506, Vector2( 9, 1 ), 254, Vector2( 9, 2 ), 511, Vector2( 9, 3 ), 63, Vector2( 10, 0 ), 504, Vector2( 10, 2 ), 443, Vector2( 10, 3 ), 63, Vector2( 11, 0 ), 72, Vector2( 11, 1 ), 89, Vector2( 11, 2 ), 73, Vector2( 11, 3 ), 9 ]
-1/autotile/icon_coordinate = Vector2( 9, 2 )
-1/autotile/tile_size = Vector2( 16, 16 )
-1/autotile/spacing = 0
-1/autotile/occluder_map = [  ]
-1/autotile/navpoly_map = [  ]
-1/autotile/priority_map = [  ]
-1/autotile/z_index_map = [  ]
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shapes = [  ]
-1/z_index = 0
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 1 )
@@ -107,8 +66,8 @@ script = ExtResource( 12 )
 shadows_enabled = false
 
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
-position = Vector2( -8, -8 )
-tile_set = SubResource( 5 )
+position = Vector2( -4, -4 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
 cell_tile_origin = 1
@@ -118,8 +77,8 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter2" type="TileMap" parent="Board"]
-position = Vector2( 8, -8 )
-tile_set = SubResource( 5 )
+position = Vector2( 4, -4 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
 cell_tile_origin = 1
@@ -129,8 +88,8 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter3" type="TileMap" parent="Board"]
-position = Vector2( -8, 8 )
-tile_set = SubResource( 5 )
+position = Vector2( -4, 4 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
 cell_tile_origin = 1
@@ -141,7 +100,7 @@ script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter4" type="TileMap" parent="Board"]
 position = Vector2( 4, 4 )
-tile_set = SubResource( 5 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
 cell_tile_origin = 1
@@ -151,7 +110,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisitedPainter" type="TileMap" parent="Board"]
-tile_set = SubResource( 5 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
 cell_tile_origin = 1
@@ -177,7 +136,8 @@ texture_scale = 3.35
 energy = 1.3
 range_item_cull_mask = 2
 shadow_enabled = true
-shadow_buffer_size = 128
+shadow_buffer_size = 1024
+shadow_gradient_length = 1.0
 
 [node name="NPCArea" type="Position2D" parent="."]
 script = ExtResource( 8 )
