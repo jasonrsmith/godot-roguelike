@@ -34,10 +34,6 @@ func run_action(name: String, params: Dictionary):
 		var target_map_pos = globals.board.request_move(self, direction)
 		if target_map_pos != Vector2():
 			move_to_map_pos(target_map_pos)
-		if !globals.board.is_tile_visible(target_map_pos):
-			hide()
-		else:
-			show()
 	elif name == "attack":
 		var entity = params.entity
 		var hit = Hit.new(self.stats.strength)

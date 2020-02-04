@@ -2,6 +2,7 @@ extends Node2D
 class_name Tile
 
 var pos: Vector2
+var cell_type: int
 var is_wall = false
 var _is_visible = false
 var _was_seen = false
@@ -23,6 +24,7 @@ func set_is_visible(is_visible: bool) -> void:
 			_was_seen = true
 			events.emit_signal("tile_was_seen", pos)
 		else:
+			print_debug("tile out of view:", pos)
 			events.emit_signal("tile_went_out_of_view", pos)
 
 func get_is_visible() -> bool:

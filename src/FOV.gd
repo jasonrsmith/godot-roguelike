@@ -120,6 +120,7 @@ func refresh(map_pos: Vector2) -> void:
 			seen[x] = true
 	for tile in _board.get_visible_tiles():
 		if not seen.has(tile):
+			globals.debug_canvas.print_line(str(tile) + " is now invisible")
 			_board.mark_tile_invisible(tile)
 
 

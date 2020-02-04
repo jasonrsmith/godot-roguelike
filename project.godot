@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/DebugFPS.gd"
 }, {
-"base": "DebugCanvas",
+"base": "CanvasLayer",
 "class": "DebugMouseGrid",
 "language": "GDScript",
 "path": "res://src/DebugMouseGrid.gd"
@@ -113,6 +113,11 @@ _global_script_classes=[ {
 "class": "TileVisibilityPainter",
 "language": "GDScript",
 "path": "res://src/TileVisibilityPainter.gd"
+}, {
+"base": "TileMap",
+"class": "TileVisitedPainter",
+"language": "GDScript",
+"path": "res://src/TileVisitedPainter.gd"
 } ]
 _global_script_class_icons={
 "BSP": "",
@@ -135,7 +140,8 @@ _global_script_class_icons={
 "ShadowMapper": "",
 "Snake": "",
 "Tile": "",
-"TileVisibilityPainter": ""
+"TileVisibilityPainter": "",
+"TileVisitedPainter": ""
 }
 
 [application]

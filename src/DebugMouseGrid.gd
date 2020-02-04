@@ -1,12 +1,10 @@
-extends DebugCanvas
+extends CanvasLayer
 class_name DebugMouseGrid
 
-func _ready():
-	.set_console_print_enabled(false)
+onready var _label = $Label
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		clear()
 		var world_pos = globals.camera.get_global_mouse_position()
-		print_line(str(world_pos.round()))
-		print_line(str(globals.board.world_to_map(world_pos)))
+		var text = str(world_pos.round()) + "\n" + str(globals.board.world_to_map(world_pos))
+		_label.set_text(text)

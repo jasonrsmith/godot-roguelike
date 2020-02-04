@@ -21,6 +21,7 @@ var _grid := []
 var _entity_idx := {}
 var _bsp_map_nodes := []
 var _walkable_cells := []
+var _visible_tiles := {}
 
 func _ready():
 	globals.board = self
@@ -36,8 +37,9 @@ func _init_grid(size: Vector2) -> Array:
 			var tile = Tile.new(map_pos)
 			result[x].append(tile)
 			tile.set_is_wall(true)
+			#tile.cell_type = globals.CELL_TYPES.WALL
 			set_cellv(map_pos, globals.CELL_TYPES.WALL)
-			_tile_visibility_painter.mask_full(map_pos)
+			events.emit_signal("tile_was_obscured", map_pos)
 	if debug_grid:
 		_debug_grid.draw_grid()
 	return result
@@ -137,8 +139,10 @@ func fill_rect(region: Rect2, cell_type: int) -> void:
 	for x in range(region.position.x, region.position.x + region.size.x):
 		for y in range(region.position.y, region.position.y + region.size.y):
 			var region_pos = Vector2(x, y)
-			get_tile_at_map_pos(region_pos).set_is_wall(false)
+			var tile := get_tile_at_map_pos(region_pos)
+			tile.set_is_wall(false)
 			set_cellv(region_pos, cell_type)
+			#tile.cell_type = cell_type
 
 func get_tile_at_map_pos(map_pos: Vector2) -> Tile:
 	return _grid[map_pos.x][map_pos.y]
@@ -197,7 +201,8 @@ func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
 
 func get_visible_tiles() -> Array:
-	return _tile_visibility_painter.get_used_cells_by_id(globals.MASK_CELL_TYPES.EMPTY)
+	return _visible_tiles.keys()
+	#return _tile_visibility_painter.get_used_cells_by_id(globals.MASK_CELL_TYPES.EMPTY)
 
 func is_wall(map_pos: Vector2) -> bool:
 	var cell_type = get_cellv(map_pos)
@@ -206,19 +211,24 @@ func is_wall(map_pos: Vector2) -> bool:
 	return get_tile_at_map_pos(map_pos).is_wall
 
 func mark_tile_visible(tile_map_pos: Vector2) -> void:
+	_visible_tiles[tile_map_pos]= true
 	var tile = get_tile_at_map_pos(tile_map_pos)
-	var entity := get_entity_at(tile_map_pos)
-	if entity:
-		entity.show()
 	tile.set_is_visible(true)
+	var entity := get_entity_at(tile_map_pos)
+	if entity and !entity.is_visible_in_tree():
+		globals.debug_canvas.print_line(entity.display_name + " is IN fov and is now visible", globals.LOG_CAT.ERROR)
+		entity.show()
 
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
+	_visible_tiles.erase(tile_map_pos)
 	var tile = get_tile_at_map_pos(tile_map_pos)
-	var entity := get_entity_at(tile_map_pos)
-	if entity:
-		print_debug("** hiding ent" + str(entity))
-		entity.hide()
 	tile.set_is_visible(false)
+	var entity := get_entity_at(tile_map_pos)
+	if entity and entity.is_visible_in_tree():
+		print_debug("** hiding ent" + str(entity))
+		globals.debug_canvas.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
+		entity.hide()
+
 
 func is_tile_visible(tile_map_pos: Vector2) -> bool:
 	var tile : Tile = get_tile_at_map_pos(tile_map_pos)
@@ -239,6 +249,8 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 	return surrounding_entities
 
 func _on_tile_was_seen(map_pos: Vector2):
+	var tile := get_tile_at_map_pos(map_pos)
+	#set_cellv(map_pos, tile.cell_type)
 	var entity : Entity = get_entity_at(map_pos)
 	if entity:
 		entity.show()
