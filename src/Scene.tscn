@@ -21,14 +21,14 @@
 [ext_resource path="res://src/DebugMouseGrid.gd" type="Script" id=19]
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=21]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 96
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 64
 font_data = ExtResource( 17 )
 
@@ -66,7 +66,7 @@ script = ExtResource( 12 )
 shadows_enabled = false
 
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
-position = Vector2( -4, -4 )
+position = Vector2( -5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -77,7 +77,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter2" type="TileMap" parent="Board"]
-position = Vector2( 4, -4 )
+position = Vector2( 5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -88,7 +88,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter3" type="TileMap" parent="Board"]
-position = Vector2( -4, 4 )
+position = Vector2( -5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -99,7 +99,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter4" type="TileMap" parent="Board"]
-position = Vector2( 4, 4 )
+position = Vector2( 5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -196,7 +196,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Dead/DeadPanel"]
 anchor_left = 0.5
@@ -215,7 +215,7 @@ margin_bottom = 151.0
 [node name="Label" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
 margin_right = 540.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "You are dead"
@@ -225,7 +225,7 @@ align = 1
 margin_top = 92.0
 margin_right = 540.0
 margin_bottom = 151.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Restart? [Y/n]"
