@@ -1,7 +1,6 @@
 extends Node
 class_name PlayerInput
 
-var _board : Board
 var _entity : Entity
 var _direction : Vector2
 
@@ -10,31 +9,8 @@ onready var _timer : Timer = $Timer
 func _ready() -> void:
 	globals.player_input = self
 
-func initialize(entity : Entity, board : Board) -> void:
+func initialize(entity : Entity) -> void:
 	_entity = entity
-	_board = board
-
-func run_action(name: String, params: Dictionary):
-	var direction:Vector2 = params.direction
-	if direction == Vector2():
-		return
-	if name == "move":
-		var target_map_pos : Vector2 = _board.request_move(_entity, direction)
-		if target_map_pos:
-			_entity.move_to_map_pos(target_map_pos)
-			events.emit_signal("player_moved", target_map_pos)
-		else:
-			_entity.bump()
-		_direction = Vector2()
-	elif name == "attack":
-		var target_entity : Entity = params.entity
-		var hit := Hit.new(_entity.stats.strength)
-		target_entity.take_damage(hit, self)
-		globals.debug_canvas.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
-		if !target_entity.stats.is_alive:
-			globals.debug_canvas.print_line("You kill " + target_entity.display_name + ".")
-
-
 
 func get_key_input_direction(event: InputEventKey) -> Vector2:
 	var dir = Vector2(
@@ -56,16 +32,13 @@ func get_key_input_direction(event: InputEventKey) -> Vector2:
 			- int(event.is_action("ui_up") or event.is_action("ui_up_right") or event.is_action("ui_up_left"))
 	)
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
-		var entity = _board.get_entity_at(
-			_board.world_to_map(_entity.position) + _direction)
-		if entity:
-			State.queue_action(self, 100, "attack", {"direction": _direction, "entity": entity})
-		else:
-			State.queue_action(self, 100, "move", {"direction": _direction})
-		State.unpause()
+		globals.player_entity.set_action(
+			globals.player_entity.ACTION.MOVE_OR_ATTACK,
+			{"direction": _direction})
+		events.emit_signal("player_acted")
+		_direction = Vector2()

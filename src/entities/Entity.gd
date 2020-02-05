@@ -15,7 +15,7 @@ func _ready() -> void:
 	stats = stats.copy()
 	stats.reset()
 	stats.connect("health_depleted", self, "_on_health_depleted")
-	stats.connect("health_changed", self, "_on_health_changed")
+	#stats.connect("health_changed", self, "_on_health_changed")
 
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
@@ -60,7 +60,7 @@ func take_damage(hit: Hit, _from: Object) -> void:
 
 
 func remove():
-	State.cancel_actions_for_obj(self)
+	State.release(self)
 	globals.board.remove_entity(self)
 	hide()
 	queue_free()

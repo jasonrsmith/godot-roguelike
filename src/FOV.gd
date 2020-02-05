@@ -11,7 +11,6 @@ func initialize(player_entity, board):
 	_player_entity = player_entity
 	_board = board
 
-
 class ShadowLine:
 	var _shadows : Array = []
 	
@@ -85,8 +84,8 @@ class Shadow:
 
 
 func _ready() -> void:
-	events.connect("player_moved", self, "_on_player_moved")
-
+	#events.connect("player_moved", self, "_on_player_moved")
+	globals.fov = self
 
 func transform_octant(row: int, col: int, octant: int) -> Vector2:
 	match octant:
@@ -120,7 +119,6 @@ func refresh(map_pos: Vector2) -> void:
 			seen[x] = true
 	for tile in _board.get_visible_tiles():
 		if not seen.has(tile):
-			globals.debug_canvas.print_line(str(tile) + " is now invisible")
 			_board.mark_tile_invisible(tile)
 
 

@@ -56,7 +56,7 @@ script = ExtResource( 10 )
 __meta__ = {
 "_edit_group_": true
 }
-board_size = Vector2( 256, 256 )
+board_size = Vector2( 64, 64 )
 tile_size = 16
 collisions_enabled = true
 debug_grid = true

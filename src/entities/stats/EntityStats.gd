@@ -17,6 +17,8 @@ export var strength : int = 1 setget ,_get_strength
 export var defense : int = 1 setget ,_get_defense
 export var speed : int = 1 setget ,_get_speed
 export var sight : int = 1 setget ,_get_sight
+
+var action_points : int
 var is_alive : bool setget ,_is_alive
 var level : int
 	

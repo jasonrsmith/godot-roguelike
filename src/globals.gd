@@ -13,6 +13,7 @@ var board
 var camera
 var dead_panel
 var npc_area
+var fov
 
 var max_int = 9223372036854775807
 

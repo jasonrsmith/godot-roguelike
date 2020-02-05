@@ -145,6 +145,8 @@ func fill_rect(region: Rect2, cell_type: int) -> void:
 			#tile.cell_type = cell_type
 
 func get_tile_at_map_pos(map_pos: Vector2) -> Tile:
+	if map_pos.x >= board_size.x or map_pos.y >= board_size.y:
+		return null
 	return _grid[map_pos.x][map_pos.y]
 
 func get_map_pos_index(map_pos: Vector2) -> int:
