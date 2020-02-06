@@ -19,8 +19,10 @@ func run_actions():
 		assert("nothing to run!")
 		return
 	while true:
+		if _next_entity_idx == _entities.size():
+			_next_entity_idx = 0
 		var entity = _entities[_next_entity_idx]
-		if !entity.stats.is_alive:
+		if entity.is_queued_for_deletion() or !entity.stats.is_alive:
 			release(entity)
 			continue
 		_next_entity_idx = (

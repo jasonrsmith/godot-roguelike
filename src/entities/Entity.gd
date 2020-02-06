@@ -44,6 +44,8 @@ func bump() -> void:
 # TODO: yield doesn't work when dead
 func take_damage(hit: Hit, _from: Object) -> void:
 	stats.take_damage(hit)
+	if !stats.is_alive:
+		globals.board.remove_entity(self)
 	for i in range(4):
 		self.modulate.a = 0.5
 		self.modulate.r = 2.0
@@ -58,10 +60,7 @@ func take_damage(hit: Hit, _from: Object) -> void:
 	if !stats.is_alive:
 		remove()
 
-
 func remove():
-	State.release(self)
-	globals.board.remove_entity(self)
 	hide()
 	queue_free()
 

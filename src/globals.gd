@@ -2,7 +2,7 @@ extends Node2D
 
 enum CELL_TYPES { EMPTY = -1, FLOOR, WALL, BLACK }
 enum MASK_CELL_TYPES { EMPTY = -1, FULL, DARK }
-enum LOG_CAT {DEBUG, PLAYER_INFO, ERROR}
+enum LOG_CAT {DEBUG, PLAYER_INFO, ERROR, CRITICAL}
 
 var map_cell_size : int = 16
 var player_entity

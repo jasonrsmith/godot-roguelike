@@ -1,6 +1,5 @@
 # todo
-* redo state timer:
-  * test to see if needed
+* items
 * restart after death
 * refactor out globals, like open rpg
 * hp bar ui
@@ -18,3 +17,6 @@
   * https://github.com/khairul169/gdsqlite-native
 * game ai pro:
   * http://www.gameaipro.com/
+
+
+

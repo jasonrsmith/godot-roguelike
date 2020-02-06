@@ -70,7 +70,7 @@ func _on_player_seen(map_pos: Vector2) -> void:
 	pass
 
 func _on_player_lost(map_pos: Vector2) -> void:
-	globals.debug_canvas.print_line(self.display_name + " lost player.")
+	pass
 
 func execute_move_toward_player():
 	if _path_to_player.size() <= 1:

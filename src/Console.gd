@@ -27,6 +27,8 @@ func print_line(s: String, cat=globals.LOG_CAT.PLAYER_INFO) -> void:
 				return
 		globals.LOG_CAT.ERROR:
 			color = "red"
+		globals.LOG_CAT.CRITICAL:
+			color = "red"
 		globals.LOG_CAT.PLAYER_INFO:
 			color = "white"
 			if !print_player_info_enabled:

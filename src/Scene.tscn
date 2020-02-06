@@ -121,8 +121,8 @@ script = ExtResource( 21 )
 
 [node name="BSP" type="Node2D" parent="Board"]
 script = ExtResource( 15 )
-max_size = 10.0
-min_size = 5.0
+max_size = 12.0
+min_size = 8.0
 
 [node name="DebugGrid" type="Node2D" parent="Board"]
 visible = false

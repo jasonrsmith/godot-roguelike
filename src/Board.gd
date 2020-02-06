@@ -218,7 +218,6 @@ func mark_tile_visible(tile_map_pos: Vector2) -> void:
 	tile.set_is_visible(true)
 	var entity := get_entity_at(tile_map_pos)
 	if entity and !entity.is_visible_in_tree():
-		globals.debug_canvas.print_line(entity.display_name + " is IN fov and is now visible", globals.LOG_CAT.ERROR)
 		entity.show()
 
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
