@@ -38,10 +38,11 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 	tween.interpolate_property(pivot, "position", pivot.position, Vector2(), 0.08, Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
 	tween.start()
 	set_process(true)
-	if move_direction == Vector2.LEFT:
+	if move_direction.x < 0:
 		sprite.set_flip_h(true)
-	elif move_direction == Vector2.RIGHT:
+	elif move_direction.x > 0:
 		sprite.set_flip_h(false)
+	print_debug(move_direction.x)
 
 
 func bump() -> void:
