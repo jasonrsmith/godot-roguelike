@@ -9,6 +9,15 @@ onready var tooltip  = $TooltipCanvas/Tooltip
 
 export (String) var display_name := "thing"
 
+enum CLASSIFIERS {
+	ITEM,
+	NPC,
+	PLAYER,
+	CONSUMABLE
+}
+
+var _classifiers = {}
+
 func _ready() -> void:
 	tooltip.set_entity(self)
 	set_process(false)
@@ -16,6 +25,7 @@ func _ready() -> void:
 	stats.reset()
 	stats.connect("health_depleted", self, "_on_health_depleted")
 	#stats.connect("health_changed", self, "_on_health_changed")
+	update_display_from_stats()
 
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
@@ -60,9 +70,34 @@ func take_damage(hit: Hit, _from: Object) -> void:
 	if !stats.is_alive:
 		remove()
 
+func add_classifier(classifier: String) -> void:
+	_classifiers[classifier] = true
+
+func has_classifier(classifier: String) -> bool:
+	return _classifiers.has(classifier)
+
+func remove_classifier(classifier: String) -> void:
+	_classifiers.erase(classifier)
+
 func remove():
 	hide()
 	queue_free()
+
+func set_map_pos(map_pos: Vector2):
+	position = (globals.board.map_to_world(map_pos) +
+		globals.board.cell_size / 2)
+
+func get_map_pos():
+	return globals.board.world_to_map(position)
+
+func load_stats(resource_path: String) -> void:
+	stats = load(resource_path)
+
+func update_display_from_stats() -> void:
+	if "image" in stats:
+		sprite.set_texture(stats.image)
+	if "display_name" in stats:
+		display_name = stats.display_name
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))

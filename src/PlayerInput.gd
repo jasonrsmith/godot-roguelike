@@ -35,6 +35,11 @@ func get_key_input_direction(event: InputEventKey) -> Vector2:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
+	if event.is_action_pressed("ui_wait"):
+		globals.player_entity.set_action(
+			globals.player_entity.ACTION.WAIT)
+		events.emit_signal("player_acted")
+		return
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
 		globals.player_entity.set_action(

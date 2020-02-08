@@ -14,6 +14,8 @@ var camera
 var dead_panel
 var npc_area
 var fov
+var spawner
+var item_area
 
 var max_int = 9223372036854775807
 
@@ -22,6 +24,9 @@ var rng = RandomNumberGenerator.new()
 onready var system_label = preload("res://src/SystemLabel.tscn")
 
 const LASER_COLOR = Color(0.9, 0.2, 0.1)
+
+const SPAWN_TYPE_RANDOM_MONSTER = "random_monster"
+const SPAWN_TYPE_RANDOM_ITEM = "random_item"
 
 func _init():
 	rng.randomize()

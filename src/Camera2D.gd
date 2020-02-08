@@ -10,21 +10,29 @@ export (bool) var move_camera_enabled
 var _shake_timer = 0
 var _shake_max_mag
 var _shake_mag
+var _is_shaking : bool = false
 
 func _ready() -> void:
 	globals.camera = self
 
 func _process(delta):
-	if _shake_timer > 0:
-		set_offset(Vector2(
-			rand_range(-1.0, 1.0) * _shake_mag,
-			rand_range(-1.0, 1.0) * _shake_mag))
-		_shake_timer -= delta
-		_shake_mag = _shake_timer * _shake_max_mag
-	else:
-		set_offset(Vector2(0, 0))
+	if _is_shaking:
+		if _shake_timer > 0:
+			set_offset(Vector2(
+				rand_range(-1.0, 1.0) * _shake_mag,
+				rand_range(-1.0, 1.0) * _shake_mag))
+			_shake_timer -= delta
+			_shake_mag = _shake_timer * _shake_max_mag
+		else:
+			set_offset(Vector2(0, 0))
+			_is_shaking = false
 
 func shake(duration, magnitude):
+	# don't shake if already offset
+	if get_offset() != Vector2():
+		return
+	
+	_is_shaking = true
 	_shake_max_mag = magnitude
 	_shake_timer = duration
 	_shake_mag = _shake_timer * magnitude

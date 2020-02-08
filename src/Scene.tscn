@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/Scene.gd" type="Script" id=1]
 [ext_resource path="res://src/FOV.gd" type="Script" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://board.tres" type="TileSet" id=9]
 [ext_resource path="res://src/Board.gd" type="Script" id=10]
 [ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/ShadowMapper.gd" type="Script" id=12]
+[ext_resource path="res://src/Spawner.gd" type="Script" id=12]
 [ext_resource path="res://src/fog3.tres" type="TileSet" id=13]
 [ext_resource path="res://src/TileVisibilityPainter.gd" type="Script" id=14]
 [ext_resource path="res://src/BSP.gd" type="Script" id=15]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/ThaleahFat.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://src/StatsUI.gd" type="Script" id=18]
 [ext_resource path="res://src/DebugMouseGrid.gd" type="Script" id=19]
+[ext_resource path="res://src/ItemArea.gd" type="Script" id=20]
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=21]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -44,6 +45,9 @@ script = ExtResource( 3 )
 [node name="PathFinder" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource( 12 )
+
 [node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
 light_mask = 3
@@ -61,11 +65,8 @@ tile_size = 16
 collisions_enabled = true
 debug_grid = true
 
-[node name="ShadowMapper" type="Node2D" parent="Board"]
-script = ExtResource( 12 )
-shadows_enabled = false
-
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
+visible = false
 position = Vector2( -5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -77,6 +78,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter2" type="TileMap" parent="Board"]
+visible = false
 position = Vector2( 5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -88,6 +90,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter3" type="TileMap" parent="Board"]
+visible = false
 position = Vector2( -5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -99,6 +102,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter4" type="TileMap" parent="Board"]
+visible = false
 position = Vector2( 5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -110,6 +114,7 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisitedPainter" type="TileMap" parent="Board"]
+visible = false
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -127,6 +132,9 @@ min_size = 8.0
 [node name="DebugGrid" type="Node2D" parent="Board"]
 visible = false
 script = ExtResource( 16 )
+
+[node name="ItemArea" type="Position2D" parent="."]
+script = ExtResource( 20 )
 
 [node name="PlayerEntity" parent="." instance=ExtResource( 11 )]
 
@@ -190,15 +198,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Dead" type="CanvasLayer" parent="."]
+[node name="DeadScreen" type="CanvasLayer" parent="."]
 
-[node name="DeadPanel" type="Panel" parent="Dead"]
+[node name="DeadPanel" type="Panel" parent="DeadScreen"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="Dead/DeadPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="DeadScreen/DeadPanel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -208,11 +216,11 @@ margin_top = -44.0
 margin_right = 270.0
 margin_bottom = 44.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Dead/DeadPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DeadScreen/DeadPanel/MarginContainer"]
 margin_right = 540.0
 margin_bottom = 151.0
 
-[node name="Label" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="DeadScreen/DeadPanel/MarginContainer/VBoxContainer"]
 margin_right = 540.0
 margin_bottom = 88.0
 custom_fonts/font = SubResource( 2 )
@@ -221,7 +229,7 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "You are dead"
 align = 1
 
-[node name="RestartLabel" type="Label" parent="Dead/DeadPanel/MarginContainer/VBoxContainer"]
+[node name="RestartLabel" type="Label" parent="DeadScreen/DeadPanel/MarginContainer/VBoxContainer"]
 margin_top = 92.0
 margin_right = 540.0
 margin_bottom = 151.0

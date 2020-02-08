@@ -1,7 +1,7 @@
 extends Entity
 class_name PlayerEntity
 
-enum ACTION { MOVE_OR_ATTACK }
+enum ACTION { MOVE_OR_ATTACK, WAIT }
 
 var _action
 
@@ -16,7 +16,7 @@ class Action:
 func _ready():
 	globals.player_entity = self
 	State.register(self)
-	print_debug("player ready")
+
 
 func take_damage(hit: Hit, _from: Object) -> void:
 	globals.camera.shake(0.25, 3)
@@ -27,7 +27,7 @@ func take_damage(hit: Hit, _from: Object) -> void:
 func _on_health_depleted():
 	globals.game_over()
 
-func set_action(type: int, params: Dictionary) -> void:
+func set_action(type: int, params = {}) -> void:
 	self._action = Action.new(type, params)
 
 func get_action() -> Action:
@@ -36,18 +36,21 @@ func get_action() -> Action:
 func take_turn() -> int:
 	var action = get_action()
 	if action:
-		if action.type == ACTION.MOVE_OR_ATTACK:
-			assert(action.params.has('direction'))
-			var direction = action.params.direction
-			var entity = globals.board.get_entity_at(
-				globals.board.world_to_map(position) + direction)
-			if entity:
-				execute_attack(direction)
-			else:
-				execute_move(direction)
-		# TODO: give actual costs to move
-		return 100
-	return 0
+		match action.type:
+			ACTION.MOVE_OR_ATTACK:
+				assert(action.params.has('direction'))
+				var direction = action.params.direction
+				var entity = globals.board.get_entity_at(
+					globals.board.world_to_map(position) + direction)
+				if entity:
+					execute_attack(direction)
+				else:
+					execute_move(direction)
+				# TODO: give actual costs to move
+				return stats.speed
+			ACTION.WAIT:
+				return stats.speed
+	return stats.speed
 
 func execute_move(direction: Vector2) -> void:
 	var target_map_pos : Vector2 = globals.board.request_move(self, direction)

@@ -1,14 +1,10 @@
 extends TileMap
 class_name Board
 
-onready var _shadow_mapper = $ShadowMapper
+
 onready var _tile_visibility_painter = $TileVisibilityPainter
 onready var _bsp = $BSP
-onready var _npc_area = $NPCArea
 onready var _debug_grid = $DebugGrid
-
-onready var _chad_entity = preload("res://src/entities/Chad.tscn")
-onready var _snake_entity = preload("res://src/entities/Snake.tscn")
 
 onready var _astar = AStar.new()
 
@@ -62,7 +58,6 @@ func init_map():
 	for cell in get_used_cells_by_id(globals.CELL_TYPES.FLOOR):
 		var idx = get_map_pos_index(cell)
 		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
-	_shadow_mapper.init(self)
 	_astar_connect_walkable_cells(_astar)
 	_tile_visibility_painter.update_bitmask_region()
 
@@ -96,22 +91,21 @@ func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
 	#_astar.set_point_disabled(end)
 	return path
 
-func populate_enemies() -> void:
+func populate_rooms() -> void:
 	for node in _bsp_map_nodes:
 		var room = node.room
 		if !room:
 			continue
 		if !room.has_point(world_to_map(globals.player_entity.position)):
-			var monster : Entity
-			if globals.rng.randf() > 0.5:
-				monster = _chad_entity.instance()
-			else:
-				monster = _snake_entity.instance()
-			add_entity(monster, (Vector2(
-				room.position.x + room.size.x - 2,
-				room.position.y + 2)))
-			globals.npc_area.add_child(monster)
-
+			var monsters : Array = globals.spawner.spawn_room(
+				room, globals.SPAWN_TYPE_RANDOM_MONSTER, -2, 5)
+			for monster in monsters:
+				add_entity(monster)
+				globals.npc_area.add_child(monster)
+			var items : Array = globals.spawner.spawn_room(
+				room, globals.SPAWN_TYPE_RANDOM_ITEM, -3, 2)
+			for item in items:
+				globals.item_area.add_item(item)
 
 func add_label_at(map_pos: Vector2, text: String) -> void:
 	var label = Label.new()
@@ -181,12 +175,10 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	return cell_target
 
 
-func add_entity(entity: Entity, map_pos: Vector2):
+func add_entity(entity: Entity):
+	var map_pos: Vector2 = entity.get_map_pos()
 	assert(!_entity_idx.has(map_pos))
 	_entity_idx[map_pos] = entity
-	var world_pos = map_to_world(map_pos) + cell_size / 2
-	entity.position = world_pos
-	#_astar.set_point_disabled(get_map_pos_index(map_pos))
 
 func get_entity_at(map_pos: Vector2) -> Entity:
 	if !_entity_idx.has(map_pos):

@@ -69,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/stats/Hit.gd"
 }, {
-"base": "Resource",
+"base": "EntityStats",
 "class": "Item",
 "language": "GDScript",
 "path": "res://src/items/Item.gd"
@@ -110,6 +110,11 @@ _global_script_classes=[ {
 "path": "res://src/entities/Snake.gd"
 }, {
 "base": "Node2D",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://src/Spawner.gd"
+}, {
+"base": "Node2D",
 "class": "Tile",
 "language": "GDScript",
 "path": "res://src/Tile.gd"
@@ -145,6 +150,7 @@ _global_script_class_icons={
 "Scene": "",
 "ShadowMapper": "",
 "Snake": "",
+"Spawner": "",
 "Tile": "",
 "TileVisibilityPainter": "",
 "TileVisitedPainter": ""
@@ -267,6 +273,11 @@ ui_down_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777353,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":78,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_wait={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777355,"unicode":0,"echo":false,"script":null)
  ]
 }
 
