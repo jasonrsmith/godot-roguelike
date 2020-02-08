@@ -66,7 +66,6 @@ collisions_enabled = true
 debug_grid = true
 
 [node name="TileVisibilityPainter" type="TileMap" parent="Board"]
-visible = false
 position = Vector2( -5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -78,7 +77,6 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter2" type="TileMap" parent="Board"]
-visible = false
 position = Vector2( 5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -90,7 +88,6 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter3" type="TileMap" parent="Board"]
-visible = false
 position = Vector2( -5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -102,7 +99,6 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisibilityPainter4" type="TileMap" parent="Board"]
-visible = false
 position = Vector2( 5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -114,7 +110,6 @@ tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1
 script = ExtResource( 14 )
 
 [node name="TileVisitedPainter" type="TileMap" parent="Board"]
-visible = false
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )

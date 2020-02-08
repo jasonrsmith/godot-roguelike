@@ -23,7 +23,6 @@ func random_item() -> Entity:
 	var item : Entity
 	item = _entity.instance()
 	item.load_stats("res://src/items/health_potion_small_item.tres")
-	item.show()
 	return item
 
 func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:

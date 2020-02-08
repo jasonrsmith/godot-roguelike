@@ -19,13 +19,13 @@ enum CLASSIFIERS {
 var _classifiers = {}
 
 func _ready() -> void:
-	tooltip.set_entity(self)
 	set_process(false)
 	stats = stats.copy()
 	stats.reset()
 	stats.connect("health_depleted", self, "_on_health_depleted")
 	#stats.connect("health_changed", self, "_on_health_changed")
 	update_display_from_stats()
+	tooltip.set_entity(self)
 
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:

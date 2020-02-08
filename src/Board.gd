@@ -211,6 +211,7 @@ func mark_tile_visible(tile_map_pos: Vector2) -> void:
 	var entity := get_entity_at(tile_map_pos)
 	if entity and !entity.is_visible_in_tree():
 		entity.show()
+	events.emit_signal("til")
 
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	_visible_tiles.erase(tile_map_pos)
@@ -221,7 +222,6 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 		print_debug("** hiding ent" + str(entity))
 		globals.debug_canvas.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
 		entity.hide()
-
 
 func is_tile_visible(tile_map_pos: Vector2) -> bool:
 	var tile : Tile = get_tile_at_map_pos(tile_map_pos)
@@ -240,6 +240,10 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 			if get_entity_at(adjacent_pos):
 				surrounding_entities.append(adjacent_pos)
 	return surrounding_entities
+
+func get_mouse_map_pos() -> Vector2:
+	var world_pos = globals.camera.get_global_mouse_position()
+	return globals.board.world_to_map(world_pos)
 
 func _on_tile_was_seen(map_pos: Vector2):
 	var tile := get_tile_at_map_pos(map_pos)

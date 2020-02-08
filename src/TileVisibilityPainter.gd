@@ -6,7 +6,6 @@ var _draw_polygons = []
 
 func _ready() -> void:
 	events.connect("tile_was_seen", self, "_on_tile_was_seen")
-	#events.connect("tile_went_out_of_view", self, "_on_tile_went_out_of_view")
 	events.connect("tile_was_obscured", self, "_on_tile_was_obscured")
 
 func mask_full(map_pos: Vector2):
