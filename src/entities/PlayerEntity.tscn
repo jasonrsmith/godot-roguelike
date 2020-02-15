@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/entities/PlayerEntity.gd" type="Script" id=1]
 [ext_resource path="res://src/entities/stats/PlayerStats.tres" type="Resource" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://src/PlayerInput.gd" type="Script" id=5]
 [ext_resource path="res://src/TooltipCanvas.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/entities/Backpack.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -44,5 +45,9 @@ script = ExtResource( 5 )
 
 [node name="Timer" type="Timer" parent="PlayerInput"]
 one_shot = true
+
+[node name="Backpack" type="Node2D" parent="."]
+position = Vector2( 1, 0 )
+script = ExtResource( 7 )
 
 [editable path="TooltipCanvas"]

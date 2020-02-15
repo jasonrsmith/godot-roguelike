@@ -13,7 +13,6 @@
 [sub_resource type="StyleBoxEmpty" id=5]
 
 [sub_resource type="DynamicFont" id=6]
-use_filter = true
 font_data = ExtResource( 1 )
 
 [resource]

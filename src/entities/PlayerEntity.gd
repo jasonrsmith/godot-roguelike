@@ -1,7 +1,7 @@
 extends Entity
 class_name PlayerEntity
 
-enum ACTION { MOVE_OR_ATTACK, WAIT }
+enum ACTION { MOVE_OR_ATTACK, WAIT, PICKUP }
 
 var _action
 
@@ -16,6 +16,8 @@ class Action:
 func _ready():
 	globals.player_entity = self
 	State.register(self)
+	stats.connect('health_changed', self, '_on_health_changed')
+	_on_health_changed(stats.health, stats.health)
 
 
 func take_damage(hit: Hit, _from: Object) -> void:
@@ -35,21 +37,41 @@ func get_action() -> Action:
 
 func take_turn() -> int:
 	var action = get_action()
-	if action:
-		match action.type:
-			ACTION.MOVE_OR_ATTACK:
-				assert(action.params.has('direction'))
-				var direction = action.params.direction
-				var entity = globals.board.get_entity_at(
-					globals.board.world_to_map(position) + direction)
-				if entity:
-					execute_attack(direction)
-				else:
-					execute_move(direction)
-				# TODO: give actual costs to move
+	if !action:
+		return 0
+	
+	match action.type:
+		
+		ACTION.MOVE_OR_ATTACK:
+			assert(action.params.has('direction'))
+			var direction = action.params.direction
+			var entity = globals.board.get_entity_at(
+				globals.board.world_to_map(position) + direction)
+			if entity:
+				execute_attack(direction)
+			else:
+				execute_move(direction)
+			# TODO: give actual costs to move
+			return stats.speed
+		
+		ACTION.WAIT:
+			return stats.speed
+		
+		ACTION.PICKUP:
+			var items : Array = globals.item_area.get_items_at_map_pos(get_map_pos())
+			if items.size() == 0:
+				globals.debug_canvas.print_line("You don't see anything to pickup!  You feel silly.")
+				return 0
+			elif items.size() == 1:
+				var item : Entity = items[0]
+				add_entity_to_backpack(item)
+				globals.item_area.remove_item(item)
+				globals.debug_canvas.print_line("You pick up the " + item.display_name + ".")
 				return stats.speed
-			ACTION.WAIT:
-				return stats.speed
+			else:
+				globals.ui.show_pickup_screen()
+				return 0
+	
 	return stats.speed
 
 func execute_move(direction: Vector2) -> void:
@@ -68,3 +90,6 @@ func execute_attack(direction: Vector2) -> void:
 	globals.debug_canvas.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
 	if !target_entity.stats.is_alive:
 		globals.debug_canvas.print_line("You kill " + target_entity.display_name + ".")
+
+func _on_health_changed(health: int, old_health: int):
+	events.emit_signal("player_health_changed", health, old_health)

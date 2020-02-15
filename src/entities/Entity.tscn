@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/entities/Entity.gd" type="Script" id=1]
 [ext_resource path="res://src/entities/stats/DefaultStats.tres" type="Resource" id=2]
 [ext_resource path="res://assets/sprites/placeholder.png" type="Texture" id=3]
 [ext_resource path="res://src/TooltipCanvas.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/entities/Backpack.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -24,11 +25,17 @@ shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 4 )]
 
+[node name="Tooltip" parent="TooltipCanvas" index="0"]
+visible = false
+
 [node name="MarginContainer" parent="TooltipCanvas/Tooltip" index="0"]
 margin_right = 35.0
 
 [node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
 margin_right = 29.0
 text = "You"
+
+[node name="Backpack" type="Node2D" parent="."]
+script = ExtResource( 5 )
 
 [editable path="TooltipCanvas"]

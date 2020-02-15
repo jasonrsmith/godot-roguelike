@@ -14,10 +14,15 @@ func add_item(item: Entity):
 	_item_idx[map_pos].append(item)
 	add_child(item)
 
-func get_items_at_map_pos(map_pos: Vector2) -> Entity:
+func get_items_at_map_pos(map_pos: Vector2) -> Array:
 	if _item_idx.has(map_pos):
 		return _item_idx[map_pos]
-	return null
+	return []
+
+func remove_item(item: Entity) -> void:
+	var map_pos = item.get_map_pos()
+	assert(_item_idx.has(map_pos))
+	_item_idx[map_pos].erase(item)
 
 func _on_player_moved(map_pos: Vector2) -> void:
 	var items := get_items_at_map_pos(map_pos)

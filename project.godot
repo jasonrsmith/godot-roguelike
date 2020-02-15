@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/BSP.gd"
 }, {
+"base": "Node2D",
+"class": "Backpack",
+"language": "GDScript",
+"path": "res://src/entities/Backpack.gd"
+}, {
 "base": "TileMap",
 "class": "Board",
 "language": "GDScript",
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "Chad",
 "language": "GDScript",
 "path": "res://src/entities/Chad.gd"
+}, {
+"base": "CanvasLayer",
+"class": "CharacterInfoModal",
+"language": "GDScript",
+"path": "res://src/CharacterInfoModal.gd"
 }, {
 "base": "CanvasLayer",
 "class": "Console",
@@ -54,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/Entity.gd"
 }, {
+"base": "HBoxContainer",
+"class": "EntityListItem",
+"language": "GDScript",
+"path": "res://src/ui/EntityListItem.gd"
+}, {
 "base": "Resource",
 "class": "EntityStats",
 "language": "GDScript",
@@ -63,6 +78,11 @@ _global_script_classes=[ {
 "class": "FOV",
 "language": "GDScript",
 "path": "res://src/FOV.gd"
+}, {
+"base": "Reference",
+"class": "Heal",
+"language": "GDScript",
+"path": "res://src/entities/stats/Heal.gd"
 }, {
 "base": "Reference",
 "class": "Hit",
@@ -131,16 +151,20 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BSP": "",
+"Backpack": "",
 "Board": "",
 "BrawlerPlayerEntity": "",
 "Chad": "",
+"CharacterInfoModal": "",
 "Console": "",
 "DebugCanvas": "",
 "DebugFPS": "",
 "DebugMouseGrid": "",
 "Entity": "",
+"EntityListItem": "",
 "EntityStats": "",
 "FOV": "",
+"Heal": "",
 "Hit": "",
 "Item": "",
 "NPCEntity": "",
@@ -278,6 +302,27 @@ ui_down_right={
 ui_wait={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777355,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":46,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_quaff={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_show_inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_drop={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_pickup={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"unicode":0,"echo":false,"script":null)
  ]
 }
 

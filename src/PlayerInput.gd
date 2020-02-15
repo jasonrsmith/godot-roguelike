@@ -35,11 +35,28 @@ func get_key_input_direction(event: InputEventKey) -> Vector2:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
+	
 	if event.is_action_pressed("ui_wait"):
+		print_debug("player sees wait")
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.WAIT)
 		events.emit_signal("player_acted")
 		return
+	
+	if event.is_action_pressed("ui_pickup"):
+		globals.player_entity.set_action(
+			globals.player_entity.ACTION.PICKUP)
+		events.emit_signal("player_acted")
+		return
+	
+	if event.is_action_pressed("ui_drop"):
+		#globals.ui.show_drop_screen()
+		return
+	
+	if event.is_action_pressed("ui_show_inventory"):
+		globals.character_info_modal.show_inventory()
+		return
+	
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
 		globals.player_entity.set_action(

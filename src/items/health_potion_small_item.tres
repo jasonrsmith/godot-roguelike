@@ -17,3 +17,4 @@ unique = false
 sell_value = 100
 image = ExtResource( 2 )
 heal_amount = 10
+is_pickup = true

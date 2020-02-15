@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sprites/items/Item__00.png" type="Texture" id=1]
+[ext_resource path="res://src/ui/EntityListItem.gd" type="Script" id=2]
+
+[node name="EntityListItem" type="HBoxContainer"]
+margin_right = 1926.0
+margin_bottom = 32.0
+custom_constants/separation = 32
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shortcut" type="Label" parent="."]
+margin_top = 9.0
+margin_right = 15.0
+margin_bottom = 23.0
+text = "(a)"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 47.0
+margin_right = 79.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_stretch_ratio = 10.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="DisplayName" type="Label" parent="."]
+margin_left = 111.0
+margin_top = 9.0
+margin_right = 252.0
+margin_bottom = 23.0
+text = "why why why why why"

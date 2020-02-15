@@ -211,7 +211,6 @@ func mark_tile_visible(tile_map_pos: Vector2) -> void:
 	var entity := get_entity_at(tile_map_pos)
 	if entity and !entity.is_visible_in_tree():
 		entity.show()
-	events.emit_signal("til")
 
 func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	_visible_tiles.erase(tile_map_pos)

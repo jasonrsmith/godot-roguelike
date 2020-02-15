@@ -16,6 +16,7 @@ var npc_area
 var fov
 var spawner
 var item_area
+var character_info_modal
 
 var max_int = 9223372036854775807
 

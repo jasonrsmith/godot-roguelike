@@ -42,3 +42,17 @@
       * rendering, game engine
       * benefits include: no ui locking
       * UI can query into game engine, but very limited
+  * ECS-light: https://www.youtube.com/watch?v=JxI3Eu5DPwE
+* pixelart:
+  * http://lpc.opengameart.org/static/lpc-style-guide/styleguide.html#useful-generalist-resources
+* procedural sound:
+  * https://github.com/kyzfrintin/Godot-Mixing-Desk
+* game ideas:
+  * find items, find gems:
+    * combine items and gems using logic:
+      * player has fun discovering synergies
+  * different biomes:
+    * can combine things between biomes to discover synergies
+    * need to use things in one biome to help with things in another:
+      * e.g. fire to destroy ice
+* player may be able to take on properties of defeated enemies

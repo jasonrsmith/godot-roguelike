@@ -10,3 +10,5 @@ export(int) var sell_value
 export var image : Texture
 
 export var heal_amount : int
+
+export var is_pickup := true

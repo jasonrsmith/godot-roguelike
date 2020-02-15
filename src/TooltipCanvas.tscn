@@ -10,6 +10,9 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0.517647, 0.517647, 0.282353, 1 )
+shadow_size = 1
+shadow_offset = Vector2( 1, 1 )
+anti_aliasing = false
 
 [sub_resource type="DynamicFont" id=2]
 size = 14

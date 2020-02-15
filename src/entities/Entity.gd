@@ -6,8 +6,9 @@ onready var pivot : Node2D = $Pivot
 onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
 onready var tooltip  = $TooltipCanvas/Tooltip
+onready var backpack = $Backpack
 
-export (String) var display_name := "thing"
+export var display_name := "thing"
 
 enum CLASSIFIERS {
 	ITEM,
@@ -17,6 +18,7 @@ enum CLASSIFIERS {
 }
 
 var _classifiers = {}
+var _inside_backpack : Backpack
 
 func _ready() -> void:
 	set_process(false)
@@ -42,15 +44,12 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 		sprite.set_flip_h(true)
 	elif move_direction.x > 0:
 		sprite.set_flip_h(false)
-	print_debug(move_direction.x)
-
 
 func bump() -> void:
 	#print_debug("bump")
 	set_process(false)
 	# TODO: tween / anim
 	set_process(true)
-
 
 # TODO: yield doesn't work when dead
 func take_damage(hit: Hit, _from: Object) -> void:
@@ -99,6 +98,15 @@ func update_display_from_stats() -> void:
 		sprite.set_texture(stats.image)
 	if "display_name" in stats:
 		display_name = stats.display_name
+
+func add_entity_to_backpack(entity: Entity) -> void:
+	backpack.add_entity(entity)
+	entity.hide()
+	entity._inside_backpack = backpack
+
+func remove_entity_from_backpack(entity: Entity) -> void:
+	backpack.remove_entity(entity)
+	entity._inside_backpack = null
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))
