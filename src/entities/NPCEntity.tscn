@@ -7,7 +7,6 @@
 [node name="NPCEntity" instance=ExtResource( 1 )]
 collision_layer = 2
 script = ExtResource( 2 )
-debug_sight = false
 
 [node name="Sprite" parent="Pivot" index="0"]
 texture = ExtResource( 3 )

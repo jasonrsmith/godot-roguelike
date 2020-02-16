@@ -1,4 +1,5 @@
 extends Position2D
+class_name ItemArea
 
 var _item_idx = {}
 
