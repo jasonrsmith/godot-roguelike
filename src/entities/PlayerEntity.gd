@@ -23,7 +23,7 @@ func _ready():
 func take_damage(hit: Hit, _from: Object) -> void:
 	globals.camera.shake(0.25, 3)
 	var from_name : String = _from.display_name if "display_name" in _from else "???"
-	globals.debug_canvas.print_line("You take " + str(hit.damage) + " damage from " + from_name + ".", globals.LOG_CAT.CRITICAL)
+	globals.console.print_line("You take " + str(hit.damage) + " damage from " + from_name + ".", globals.LOG_CAT.CRITICAL)
 	.take_damage(hit, _from)
 
 func _on_health_depleted():
@@ -60,13 +60,13 @@ func take_turn() -> int:
 		ACTION.PICKUP:
 			var items : Array = globals.item_area.get_items_at_map_pos(get_map_pos())
 			if items.size() == 0:
-				globals.debug_canvas.print_line("You don't see anything to pickup!  You feel silly.")
+				globals.console.print_line("You don't see anything to pickup!  You feel silly.")
 				return 0
 			elif items.size() == 1:
 				var item : Entity = items[0]
 				add_entity_to_backpack(item)
 				globals.item_area.remove_item(item)
-				globals.debug_canvas.print_line("You pick up the " + item.display_name + ".")
+				globals.console.print_line("You pick up the " + item.display_name + ".")
 				return stats.speed
 			else:
 				globals.ui.show_pickup_screen()
@@ -87,9 +87,9 @@ func execute_attack(direction: Vector2) -> void:
 		globals.board.world_to_map(position) + direction)
 	var hit := Hit.new(stats.strength)
 	target_entity.take_damage(hit, self)
-	globals.debug_canvas.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
+	globals.console.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
 	if !target_entity.stats.is_alive:
-		globals.debug_canvas.print_line("You kill " + target_entity.display_name + ".")
+		globals.console.print_line("You kill " + target_entity.display_name + ".")
 
 func _on_health_changed(health: int, old_health: int):
 	events.emit_signal("player_health_changed", health, old_health)

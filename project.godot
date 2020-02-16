@@ -44,10 +44,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/Console.gd"
 }, {
-"base": "CanvasLayer",
-"class": "DebugCanvas",
+"base": "Panel",
+"class": "DeadScreen",
 "language": "GDScript",
-"path": "res://src/DebugCanvas.gd"
+"path": "res://src/ui/DeadScreen.gd"
 }, {
 "base": "DebugCanvas",
 "class": "DebugFPS",
@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "DebugMousePos",
 "language": "GDScript",
 "path": "res://src/ui/DebugMouseGrid.gd"
+}, {
+"base": "Node2D",
+"class": "DebugSettings",
+"language": "GDScript",
+"path": "res://src/DebugSettings.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Entity",
@@ -112,17 +117,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Main",
 "language": "GDScript",
-"path": "res://src/Scene.gd"
+"path": "res://src/Main.gd"
 }, {
 "base": "Entity",
 "class": "NPCEntity",
 "language": "GDScript",
 "path": "res://src/entities/NPCEntity.gd"
-}, {
-"base": "Node2D",
-"class": "PathFinder",
-"language": "GDScript",
-"path": "res://src/PathFinder.gd"
 }, {
 "base": "Entity",
 "class": "PlayerEntity",
@@ -182,10 +182,11 @@ _global_script_class_icons={
 "Chad": "",
 "CharacterInfoModal": "",
 "Console": "",
-"DebugCanvas": "",
+"DeadScreen": "",
 "DebugFPS": "",
 "DebugGrid": "",
 "DebugMousePos": "",
+"DebugSettings": "",
 "Entity": "",
 "EntityListItem": "",
 "EntityStats": "",
@@ -197,7 +198,6 @@ _global_script_class_icons={
 "ItemArea": "",
 "Main": "",
 "NPCEntity": "",
-"PathFinder": "",
 "PlayerEntity": "",
 "PlayerInput": "",
 "ShadowMapper": "",
@@ -213,7 +213,7 @@ _global_script_class_icons={
 [application]
 
 config/name="crawl"
-run/main_scene="res://src/Scene.tscn"
+run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]

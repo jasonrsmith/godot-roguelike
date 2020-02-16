@@ -4,15 +4,10 @@ class_name Main
 onready var _board : Board = $Board
 onready var _player_input : PlayerInput = $PlayerEntity/PlayerInput
 onready var _player_entity : Entity = $PlayerEntity
-onready var _path_finder : PathFinder = $PathFinder
 onready var _fov: FOV = $FOV
-onready var _camera : Camera2D = $PlayerEntity/Pivot/Sprite/Camera2D
-onready var _dead_panel : Panel = $DeadScreen/DeadPanel
-onready var _stats_ui = $StatsUI
 
 func _ready() -> void:
 	OS.set_window_size(Vector2(1024, 768))
-	set_globals()
 	
 	_player_input.initialize(_player_entity)
 	_fov.initialize(_player_entity, _board)
@@ -25,9 +20,6 @@ func _ready() -> void:
 	globals.time_manager.run_actions()
 	
 	_debug_give_player_stuff()
-
-func set_globals():
-	globals.dead_panel = _dead_panel
 
 func _debug_give_player_stuff():
 	var item = globals.spawner.random_item()

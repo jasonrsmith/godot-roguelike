@@ -8,7 +8,7 @@ export (bool) var print_player_info_enabled = true
 export (bool) var print_debug_enabled = false
 
 func _ready():
-	globals.debug_canvas = self
+	globals.console = self
 	_label.clear()
 	_label.scroll_following = true
 	add_lines()
