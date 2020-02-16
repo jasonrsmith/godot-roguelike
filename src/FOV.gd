@@ -59,7 +59,6 @@ class ShadowLine:
 	func is_full_shadow() -> bool:
 		return _shadows.size() == 1 and _shadows[0].start == 0 and _shadows[0].end == 1
 
-
 class Shadow:
 	var start : float
 	var end : float
@@ -82,9 +81,7 @@ class Shadow:
 		var bottom_right : float = (colf + 1) / (rowf + 1)
 		return Shadow.new(top_left, bottom_right, Vector2(col, row + 2), Vector2(col + 1, row + 1))
 
-
 func _ready() -> void:
-	#events.connect("player_moved", self, "_on_player_moved")
 	globals.fov = self
 
 func transform_octant(row: int, col: int, octant: int) -> Vector2:

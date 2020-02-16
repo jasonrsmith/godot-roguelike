@@ -1,7 +1,7 @@
-extends CanvasLayer
+extends MarginContainer
+class_name StatsUI
 
-onready var _hp_label: Label = $MarginContainer/VBoxContainer/HP
-#onready var _player_entity = globals.player_entity
+onready var _hp_label: Label = $VBoxContainer/HP
 
 func _ready():
 	events.connect('player_health_changed', self, '_on_PlayerEntity_health_changed')

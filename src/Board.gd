@@ -1,17 +1,11 @@
 extends TileMap
 class_name Board
 
-
-onready var _tile_visibility_painter = $TileVisibilityPainter
-onready var _bsp = $BSP
-onready var _debug_grid = $DebugGrid
-
 onready var _astar = AStar.new()
 
 export (Vector2) var board_size
 export (int) var tile_size
 export (bool) var collisions_enabled
-export (bool) var debug_grid
 
 var _grid := []
 var _entity_idx := {}
@@ -36,13 +30,11 @@ func _init_grid(size: Vector2) -> Array:
 			#tile.cell_type = globals.CELL_TYPES.WALL
 			set_cellv(map_pos, globals.CELL_TYPES.WALL)
 			events.emit_signal("tile_was_obscured", map_pos)
-	if debug_grid:
-		_debug_grid.draw_grid()
 	return result
 
 func init_map():
 	_grid = _init_grid(board_size)
-	_bsp_map_nodes = _bsp.gen_rooms(Rect2(Vector2(), board_size))
+	_bsp_map_nodes = globals.bsp.gen_rooms(Rect2(Vector2(), board_size))
 	var room_count: int = 0
 	for node in _bsp_map_nodes:
 		var room = node.room
@@ -59,7 +51,6 @@ func init_map():
 		var idx = get_map_pos_index(cell)
 		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
 	_astar_connect_walkable_cells(_astar)
-	_tile_visibility_painter.update_bitmask_region()
 
 func _astar_connect_walkable_cells(astar: AStar):
 	var points : Array = astar.get_points()

@@ -1,14 +1,16 @@
 extends Node2D
+class_name DebugGrid
 
 onready var tilemap_rect = Rect2()
-onready var tilemap_cell_size = get_parent().cell_size
+onready var tilemap_cell_size = globals.board.cell_size
 onready var color = Color(0.1, 0.8, 0.1, 0.1)
 
 func _ready():
 	set_process(false)
+	draw_grid()
 
 func draw_grid():
-	tilemap_rect = get_parent().get_used_rect()
+	tilemap_rect = globals.board.get_used_rect()
 	update()
 
 func _draw():

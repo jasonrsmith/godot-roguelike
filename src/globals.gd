@@ -14,9 +14,11 @@ var camera
 var dead_panel
 var npc_area
 var fov
+var bsp
 var spawner
 var item_area
 var character_info_modal
+var time_manager
 
 var max_int = 9223372036854775807
 

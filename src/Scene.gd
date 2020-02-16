@@ -1,5 +1,5 @@
 extends Node2D
-class_name Scene
+class_name Main
 
 onready var _board : Board = $Board
 onready var _player_input : PlayerInput = $PlayerEntity/PlayerInput
@@ -22,7 +22,7 @@ func _ready() -> void:
 	_board.add_entity(_player_entity)
 	_board.populate_rooms()
 	_fov.refresh(player_map_pos)
-	State.run_actions()
+	globals.time_manager.run_actions()
 	
 	_debug_give_player_stuff()
 

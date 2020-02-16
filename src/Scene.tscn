@@ -6,7 +6,7 @@
 [ext_resource path="res://src/PathFinder.gd" type="Script" id=4]
 [ext_resource path="res://assets/sprites/torch.png" type="Texture" id=5]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=6]
-[ext_resource path="res://src/Console.gd" type="Script" id=7]
+[ext_resource path="res://src/ui/Console.gd" type="Script" id=7]
 [ext_resource path="res://src/NPCArea.gd" type="Script" id=8]
 [ext_resource path="res://board.tres" type="TileSet" id=9]
 [ext_resource path="res://src/Board.gd" type="Script" id=10]
@@ -17,12 +17,12 @@
 [ext_resource path="res://src/BSP.gd" type="Script" id=15]
 [ext_resource path="res://src/DebugGrid.gd" type="Script" id=16]
 [ext_resource path="res://assets/ThaleahFat.ttf" type="DynamicFontData" id=17]
-[ext_resource path="res://src/StatsUI.gd" type="Script" id=18]
-[ext_resource path="res://src/DebugMouseGrid.gd" type="Script" id=19]
+[ext_resource path="res://src/ui/StatsUI.gd" type="Script" id=18]
+[ext_resource path="res://src/ui/DebugMouseGrid.gd" type="Script" id=19]
 [ext_resource path="res://src/ItemArea.gd" type="Script" id=20]
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=21]
 [ext_resource path="res://overlay_theme.tres" type="Theme" id=22]
-[ext_resource path="res://src/CharacterInfoModal.gd" type="Script" id=23]
+[ext_resource path="res://src/ui/CharacterInfoModal.gd" type="Script" id=23]
 [ext_resource path="res://src/ui/EntityListItem.tscn" type="PackedScene" id=24]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -36,119 +36,10 @@ font_data = ExtResource( 17 )
 size = 64
 font_data = ExtResource( 17 )
 
-[node name="Scene" type="Node2D"]
+[node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="StatsUI" type="CanvasLayer" parent="."]
-script = ExtResource( 18 )
-
-[node name="MarginContainer" type="MarginContainer" parent="StatsUI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StatsUI/MarginContainer"]
-margin_left = 10.0
-margin_right = 1980.0
-margin_bottom = 1024.0
-custom_constants/separation = 0
-
-[node name="HP" type="Label" parent="StatsUI/MarginContainer/VBoxContainer"]
-margin_right = 1970.0
-margin_bottom = 19.0
-theme = ExtResource( 6 )
-custom_colors/font_outline_modulate = Color( 0.756863, 0.0980392, 0.0980392, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/line_spacing = 0
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 4
-text = "HP: 0 / 0"
-
-[node name="Console" type="CanvasLayer" parent="."]
-script = ExtResource( 7 )
-print_debug_enabled = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Console"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -190.0
-margin_bottom = -10.0
-theme = ExtResource( 6 )
-bbcode_text = "asdfzxcvasdf"
-text = "asdfzxcvasdf"
-scroll_following = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DeadScreen" type="CanvasLayer" parent="."]
-
-[node name="DeadPanel" type="Panel" parent="DeadScreen"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
-
-[node name="MarginContainer" type="MarginContainer" parent="DeadScreen/DeadPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -270.0
-margin_top = -44.0
-margin_right = 270.0
-margin_bottom = 44.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DeadScreen/DeadPanel/MarginContainer"]
-margin_right = 540.0
-margin_bottom = 151.0
-
-[node name="Label" type="Label" parent="DeadScreen/DeadPanel/MarginContainer/VBoxContainer"]
-margin_right = 540.0
-margin_bottom = 88.0
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "You are dead"
-align = 1
-
-[node name="RestartLabel" type="Label" parent="DeadScreen/DeadPanel/MarginContainer/VBoxContainer"]
-margin_top = 92.0
-margin_right = 540.0
-margin_bottom = 151.0
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-text = "Restart? [Y/n]"
-align = 1
-
-[node name="DebugMouseGrid" type="CanvasLayer" parent="."]
-script = ExtResource( 19 )
-
-[node name="Label" type="Label" parent="DebugMouseGrid"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -127.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = 51.0
-theme = ExtResource( 6 )
-text = "(1,2)"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FOV" type="Node2D" parent="."]
-script = ExtResource( 2 )
-
-[node name="State" type="Node2D" parent="."]
+[node name="TimeManager" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
 [node name="PathFinder" type="Node2D" parent="."]
@@ -156,6 +47,11 @@ script = ExtResource( 4 )
 
 [node name="Spawner" type="Node2D" parent="."]
 script = ExtResource( 12 )
+
+[node name="BSP" type="Node2D" parent="."]
+script = ExtResource( 15 )
+max_size = 12.0
+min_size = 8.0
 
 [node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
@@ -172,20 +68,11 @@ __meta__ = {
 board_size = Vector2( 64, 64 )
 tile_size = 16
 collisions_enabled = true
-debug_grid = true
 
-[node name="TileVisibilityPainter" type="TileMap" parent="Board"]
-position = Vector2( -5, -5 )
-tile_set = ExtResource( 13 )
-cell_size = Vector2( 16, 16 )
-cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
-cell_tile_origin = 1
-centered_textures = true
-format = 1
-tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
-script = ExtResource( 14 )
+[node name="FOV" type="Node2D" parent="."]
+script = ExtResource( 2 )
 
-[node name="TileVisibilityPainter2" type="TileMap" parent="Board"]
+[node name="TileVisibilityPainter2" type="TileMap" parent="FOV"]
 position = Vector2( 5, -5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -196,7 +83,7 @@ format = 1
 tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
 script = ExtResource( 14 )
 
-[node name="TileVisibilityPainter3" type="TileMap" parent="Board"]
+[node name="TileVisibilityPainter3" type="TileMap" parent="FOV"]
 position = Vector2( -5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -207,7 +94,7 @@ format = 1
 tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
 script = ExtResource( 14 )
 
-[node name="TileVisibilityPainter4" type="TileMap" parent="Board"]
+[node name="TileVisibilityPainter4" type="TileMap" parent="FOV"]
 position = Vector2( 5, 5 )
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
@@ -218,7 +105,7 @@ format = 1
 tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
 script = ExtResource( 14 )
 
-[node name="TileVisitedPainter" type="TileMap" parent="Board"]
+[node name="TileVisitedPainter" type="TileMap" parent="FOV"]
 tile_set = ExtResource( 13 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
@@ -228,14 +115,16 @@ format = 1
 tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
 script = ExtResource( 21 )
 
-[node name="BSP" type="Node2D" parent="Board"]
-script = ExtResource( 15 )
-max_size = 12.0
-min_size = 8.0
-
-[node name="DebugGrid" type="Node2D" parent="Board"]
-visible = false
-script = ExtResource( 16 )
+[node name="TileVisibilityPainter" type="TileMap" parent="FOV"]
+position = Vector2( -5, -5 )
+tile_set = ExtResource( 13 )
+cell_size = Vector2( 16, 16 )
+cell_custom_transform = Transform2D( 18, 18, 18, 18, 18, 18 )
+cell_tile_origin = 1
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
+script = ExtResource( 14 )
 
 [node name="ItemArea" type="Position2D" parent="."]
 script = ExtResource( 20 )
@@ -254,18 +143,88 @@ shadow_enabled = true
 shadow_buffer_size = 1024
 shadow_gradient_length = 1.0
 
-[node name="CharacterInfoModal" type="CanvasLayer" parent="."]
-script = ExtResource( 23 )
+[node name="DebugGrid" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 16 )
 
-[node name="PanelContainer" type="PanelContainer" parent="CharacterInfoModal"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 22 )
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Debug" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="CharacterInfoModal/PanelContainer"]
+[node name="DebugMousePos" type="Label" parent="UI/Debug"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 1813.0
+margin_top = 5.0
+margin_right = 1935.0
+margin_bottom = 51.0
+theme = ExtResource( 6 )
+text = "(1,2)"
+align = 2
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsUI" type="MarginContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 10
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/StatsUI"]
+margin_left = 10.0
+margin_right = 1980.0
+margin_bottom = 1024.0
+custom_constants/separation = 0
+
+[node name="HP" type="Label" parent="UI/StatsUI/VBoxContainer"]
+margin_right = 1970.0
+margin_bottom = 19.0
+theme = ExtResource( 6 )
+custom_colors/font_outline_modulate = Color( 0.756863, 0.0980392, 0.0980392, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 4
+text = "HP: 0 / 0"
+
+[node name="Console" type="RichTextLabel" parent="UI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -190.0
+margin_bottom = -10.0
+theme = ExtResource( 6 )
+bbcode_text = "asdfzxcvasdf"
+text = "asdfzxcvasdf"
+scroll_following = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CharacterInfoModal" type="PanelContainer" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 22 )
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/CharacterInfoModal"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 1978.0
@@ -275,39 +234,39 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CharacterInfoModal/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CharacterInfoModal/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 1971.0
 margin_bottom = 1015.0
 theme = ExtResource( 22 )
 
-[node name="HeaderMargin" type="MarginContainer" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HeaderMargin" type="MarginContainer" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer"]
 margin_right = 1966.0
 margin_bottom = 69.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer/HeaderMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer/HeaderMargin"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1946.0
 margin_bottom = 49.0
 theme = ExtResource( 22 )
 
-[node name="Title" type="Label" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer"]
+[node name="Title" type="Label" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer"]
 margin_right = 131.0
 margin_bottom = 29.0
 theme = ExtResource( 22 )
 text = "The Title"
 
-[node name="HSeparator" type="HSeparator" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer"]
 margin_top = 73.0
 margin_right = 1966.0
 margin_bottom = 77.0
 
-[node name="ListMargin" type="MarginContainer" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ListMargin" type="MarginContainer" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer"]
 margin_top = 81.0
 margin_right = 1966.0
 margin_bottom = 206.0
@@ -315,7 +274,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ListContainer" type="VBoxContainer" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer/ListMargin"]
+[node name="ListContainer" type="VBoxContainer" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer/ListMargin"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1946.0
@@ -323,12 +282,51 @@ margin_bottom = 105.0
 custom_constants/separation = 5
 alignment = 1
 
-[node name="EntityListItem" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer/ListMargin/ListContainer" instance=ExtResource( 24 )]
+[node name="EntityListItem" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer/ListMargin/ListContainer" instance=ExtResource( 24 )]
 margin_right = 1926.0
 
-[node name="EntityListItem2" parent="CharacterInfoModal/PanelContainer/MarginContainer/VBoxContainer/ListMargin/ListContainer" instance=ExtResource( 24 )]
+[node name="EntityListItem2" parent="UI/CharacterInfoModal/MarginContainer/VBoxContainer/ListMargin/ListContainer" instance=ExtResource( 24 )]
 margin_top = 45.0
 margin_right = 1926.0
 margin_bottom = 85.0
+
+[node name="DeadScreen" type="Panel" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DeadScreen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -44.0
+margin_right = 270.0
+margin_bottom = 44.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DeadScreen/MarginContainer"]
+margin_right = 540.0
+margin_bottom = 151.0
+
+[node name="Label" type="Label" parent="UI/DeadScreen/MarginContainer/VBoxContainer"]
+margin_right = 540.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "You are dead"
+align = 1
+
+[node name="RestartLabel" type="Label" parent="UI/DeadScreen/MarginContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 540.0
+margin_bottom = 151.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Restart? [Y/n]"
+align = 1
 
 [editable path="PlayerEntity"]

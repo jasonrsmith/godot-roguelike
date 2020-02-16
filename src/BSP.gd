@@ -147,8 +147,10 @@ class BSPNode:
 			if height > 0:
 				halls.append(Rect2(point1.x, point1.y, 1, abs(height)))
 
-func gen_rooms(boundary: Rect2) -> Array:
+func _ready() -> void:
+	globals.bsp = self
 
+func gen_rooms(boundary: Rect2) -> Array:
 	var bsp_nodes = []
 	var root = BSPNode.new(boundary, max_size, min_size)
 	bsp_nodes.append(root)

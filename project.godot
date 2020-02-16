@@ -34,15 +34,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/Chad.gd"
 }, {
-"base": "CanvasLayer",
+"base": "PanelContainer",
 "class": "CharacterInfoModal",
 "language": "GDScript",
-"path": "res://src/CharacterInfoModal.gd"
+"path": "res://src/ui/CharacterInfoModal.gd"
 }, {
-"base": "CanvasLayer",
+"base": "RichTextLabel",
 "class": "Console",
 "language": "GDScript",
-"path": "res://src/Console.gd"
+"path": "res://src/ui/Console.gd"
 }, {
 "base": "CanvasLayer",
 "class": "DebugCanvas",
@@ -54,10 +54,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/DebugFPS.gd"
 }, {
-"base": "CanvasLayer",
-"class": "DebugMouseGrid",
+"base": "Node2D",
+"class": "DebugGrid",
 "language": "GDScript",
-"path": "res://src/DebugMouseGrid.gd"
+"path": "res://src/DebugGrid.gd"
+}, {
+"base": "Label",
+"class": "DebugMousePos",
+"language": "GDScript",
+"path": "res://src/ui/DebugMouseGrid.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Entity",
@@ -104,6 +109,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ItemArea.gd"
 }, {
+"base": "Node2D",
+"class": "Main",
+"language": "GDScript",
+"path": "res://src/Scene.gd"
+}, {
 "base": "Entity",
 "class": "NPCEntity",
 "language": "GDScript",
@@ -125,11 +135,6 @@ _global_script_classes=[ {
 "path": "res://src/PlayerInput.gd"
 }, {
 "base": "Node2D",
-"class": "Scene",
-"language": "GDScript",
-"path": "res://src/Scene.gd"
-}, {
-"base": "Node2D",
 "class": "ShadowMapper",
 "language": "GDScript",
 "path": "res://src/ShadowMapper.gd"
@@ -143,6 +148,11 @@ _global_script_classes=[ {
 "class": "Spawner",
 "language": "GDScript",
 "path": "res://src/Spawner.gd"
+}, {
+"base": "MarginContainer",
+"class": "StatsUI",
+"language": "GDScript",
+"path": "res://src/ui/StatsUI.gd"
 }, {
 "base": "Node2D",
 "class": "Tile",
@@ -158,6 +168,11 @@ _global_script_classes=[ {
 "class": "TileVisitedPainter",
 "language": "GDScript",
 "path": "res://src/TileVisitedPainter.gd"
+}, {
+"base": "Node2D",
+"class": "TimeManager",
+"language": "GDScript",
+"path": "res://src/State.gd"
 } ]
 _global_script_class_icons={
 "BSP": "",
@@ -169,7 +184,8 @@ _global_script_class_icons={
 "Console": "",
 "DebugCanvas": "",
 "DebugFPS": "",
-"DebugMouseGrid": "",
+"DebugGrid": "",
+"DebugMousePos": "",
 "Entity": "",
 "EntityListItem": "",
 "EntityStats": "",
@@ -179,17 +195,19 @@ _global_script_class_icons={
 "InventoryActionModal": "",
 "Item": "",
 "ItemArea": "",
+"Main": "",
 "NPCEntity": "",
 "PathFinder": "",
 "PlayerEntity": "",
 "PlayerInput": "",
-"Scene": "",
 "ShadowMapper": "",
 "Snake": "",
 "Spawner": "",
+"StatsUI": "",
 "Tile": "",
 "TileVisibilityPainter": "",
-"TileVisitedPainter": ""
+"TileVisitedPainter": "",
+"TimeManager": ""
 }
 
 [application]
@@ -202,7 +220,6 @@ config/icon="res://icon.png"
 
 globals="*res://src/globals.gd"
 events="*res://src/events.gd"
-State="*res://src/State.gd"
 
 [display]
 

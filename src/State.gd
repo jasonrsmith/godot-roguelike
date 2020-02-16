@@ -1,4 +1,5 @@
 extends Node2D
+class_name TimeManager
 
 var _entities = []
 var _next_entity_idx = 0
@@ -6,6 +7,7 @@ var _next_entity_idx = 0
 export(bool) var debug_actions = true
 
 func _ready() -> void:
+	globals.time_manager = self
 	run_actions()
 
 func register(entity) -> void:

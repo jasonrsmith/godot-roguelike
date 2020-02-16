@@ -17,7 +17,7 @@ var _player_detector_ray: RayCast2D
 var _path_green_color : float
 
 func _ready():
-	State.register(self)
+	globals.time_manager.register(self)
 	visibility_radius = stats.sight
 	var shape = CircleShape2D.new()
 	shape.radius = globals.map_cell_size * visibility_radius

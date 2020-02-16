@@ -1,12 +1,11 @@
-extends CanvasLayer
+extends PanelContainer
 class_name CharacterInfoModal
 
 onready var _list_item = preload("res://src/ui/EntityListItem.tscn")
 onready var _inventory_action_modal = preload("res://src/ui/InventoryActionModal.tscn")
 
-onready var _control : PanelContainer = $PanelContainer
-onready var _title_label : Label = $PanelContainer/MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer/Title
-onready var _list_container : VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ListMargin/ListContainer
+onready var _title_label : Label = $MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer/Title
+onready var _list_container : VBoxContainer = $MarginContainer/VBoxContainer/ListMargin/ListContainer
 
 enum SCREEN_TYPE { INVENTORY, DROP, DRINK }
 
@@ -42,7 +41,7 @@ func show_inventory():
 		)
 		_item_hotkeys[hotkey] = entity
 		idx += 1
-	_control.show()
+	show()
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():
@@ -54,10 +53,10 @@ func _show_inventory_actions(entity: Entity) -> void:
 	modal.init(entity)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if !_control.is_visible_in_tree():
+	if !is_visible_in_tree():
 		return
 	if event.is_action_pressed("ui_cancel"):
-		_control.hide()
+		hide()
 	if event is InputEventKey:
 		var hotkey : String = char(event.scancode+32)
 		if _item_hotkeys.has(hotkey):

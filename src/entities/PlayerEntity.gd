@@ -15,7 +15,7 @@ class Action:
 
 func _ready():
 	globals.player_entity = self
-	State.register(self)
+	globals.time_manager.register(self)
 	stats.connect('health_changed', self, '_on_health_changed')
 	_on_health_changed(stats.health, stats.health)
 
