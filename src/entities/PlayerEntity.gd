@@ -27,7 +27,7 @@ func take_damage(hit: Hit, _from: Object) -> void:
 	.take_damage(hit, _from)
 
 func _on_health_depleted():
-	globals.game_over()
+	globals.main.game_over()
 
 func set_action(type: int, params = {}) -> void:
 	self._action = Action.new(type, params)

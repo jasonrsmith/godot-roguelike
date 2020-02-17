@@ -149,6 +149,7 @@ class BSPNode:
 
 func _ready() -> void:
 	globals.bsp = self
+	set_process(false)
 
 func gen_rooms(boundary: Rect2) -> Array:
 	var bsp_nodes = []

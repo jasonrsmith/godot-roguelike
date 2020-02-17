@@ -42,6 +42,8 @@ script = ExtResource( 22 )
 
 [node name="DebugSettings" type="Node2D" parent="."]
 script = ExtResource( 24 )
+give_player_start_items = true
+show_mouse_pos = true
 
 [node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
@@ -60,7 +62,6 @@ tile_size = 16
 collisions_enabled = true
 
 [node name="DebugGrid" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 2 )
 
 [node name="TimeManager" type="Node2D" parent="."]

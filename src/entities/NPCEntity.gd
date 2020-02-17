@@ -11,7 +11,6 @@ var _path_to_player : Array = []
 var _hostile_to_player = true
 
 var visibility_radius : int
-export(bool) var debug_sight = true
 
 var _player_detector_ray: RayCast2D
 var _path_green_color : float
@@ -114,7 +113,7 @@ func _on_Visibility_body_exited(body):
 		_player_in_area = false
 
 func _draw():
-	if !debug_sight:
+	if !globals.debug_settings.show_enemy_sight:
 		return
 	if _player_in_area:
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)

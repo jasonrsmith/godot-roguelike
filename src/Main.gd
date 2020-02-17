@@ -7,8 +7,8 @@ onready var _player_entity : Entity = $PlayerEntity
 onready var _fov: FOV = $FOV
 
 func _ready() -> void:
+	globals.main = self
 	OS.set_window_size(Vector2(1024, 768))
-	
 	_player_input.initialize(_player_entity)
 	_fov.initialize(_player_entity, _board)
 	_board.init_map()
@@ -19,10 +19,13 @@ func _ready() -> void:
 	_fov.refresh(player_map_pos)
 	globals.time_manager.run_actions()
 	
-	_debug_give_player_stuff()
+	if globals.debug_settings.give_player_start_items:
+		_debug_give_player_stuff()
 
 func _debug_give_player_stuff():
 	var item = globals.spawner.random_item()
 	add_child(item)
 	_player_entity.add_entity_to_backpack(item)
 	
+func game_over():
+	globals.dead_screen.show()

@@ -10,6 +10,7 @@ export var max_items_per_room : int = 2
 
 func _ready():
 	globals.spawner = self
+	set_process(false)
 
 func random_monster() -> NPCEntity:
 	var monster : NPCEntity

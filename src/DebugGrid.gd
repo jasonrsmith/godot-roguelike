@@ -6,7 +6,12 @@ onready var tilemap_cell_size = globals.board.cell_size
 onready var color = Color(0.1, 0.8, 0.1, 0.1)
 
 func _ready():
+	globals.debug_grid = self
 	set_process(false)
+	if globals.debug_settings.show_map_grid:
+		show()
+	else:
+		hide()
 	draw_grid()
 
 func draw_grid():

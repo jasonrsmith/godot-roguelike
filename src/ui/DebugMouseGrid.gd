@@ -1,6 +1,13 @@
 extends Label
 class_name DebugMousePos
 
+func _ready() -> void:
+	globals.debug_mouse_pos = self
+	if globals.debug_settings.show_mouse_pos:
+		show()
+	else:
+		hide()
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		var world_pos = globals.camera.get_global_mouse_position()

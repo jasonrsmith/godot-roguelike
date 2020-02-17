@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Main.gd"
 }, {
+"base": "Position2D",
+"class": "NPCArea",
+"language": "GDScript",
+"path": "res://src/NPCArea.gd"
+}, {
 "base": "Entity",
 "class": "NPCEntity",
 "language": "GDScript",
@@ -197,6 +202,7 @@ _global_script_class_icons={
 "Item": "",
 "ItemArea": "",
 "Main": "",
+"NPCArea": "",
 "NPCEntity": "",
 "PlayerEntity": "",
 "PlayerInput": "",
