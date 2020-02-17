@@ -16,11 +16,8 @@ func _ready() -> void:
 	set_process(false)
 	stats = stats.copy()
 	stats.reset()
-	stats.connect("health_depleted", self, "_on_health_depleted")
-	#stats.connect("health_changed", self, "_on_health_changed")
 	update_display_from_stats()
 	tooltip.set_entity(self)
-
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
 	set_process(false)
@@ -94,6 +91,3 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))
-
-func _on_health_depleted():
-	pass

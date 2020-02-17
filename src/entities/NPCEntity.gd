@@ -1,4 +1,4 @@
-extends Entity
+extends ActorEntity
 class_name NPCEntity
 
 onready var _vision_area: Area2D = $Vision
@@ -41,7 +41,10 @@ func take_turn() -> int:
 		return 100
 	return stats.speed
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
+	_check_for_player()
+
+func _check_for_player():
 	if !_player_in_area:
 		if _player_seen:
 			_player_seen = false

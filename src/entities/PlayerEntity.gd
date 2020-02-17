@@ -1,4 +1,4 @@
-extends Entity
+extends ActorEntity
 class_name PlayerEntity
 
 enum ACTION { MOVE_OR_ATTACK, WAIT, PICKUP }

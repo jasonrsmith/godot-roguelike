@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Entity",
+"class": "ActorEntity",
+"language": "GDScript",
+"path": "res://src/entities/ActorEntity.gd"
+}, {
 "base": "Node2D",
 "class": "BSP",
 "language": "GDScript",
@@ -119,12 +124,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/NPCArea.gd"
 }, {
-"base": "Entity",
+"base": "ActorEntity",
 "class": "NPCEntity",
 "language": "GDScript",
 "path": "res://src/entities/NPCEntity.gd"
 }, {
-"base": "Entity",
+"base": "ActorEntity",
 "class": "PlayerEntity",
 "language": "GDScript",
 "path": "res://src/entities/PlayerEntity.gd"
@@ -175,6 +180,7 @@ _global_script_classes=[ {
 "path": "res://src/TimeManager.gd"
 } ]
 _global_script_class_icons={
+"ActorEntity": "",
 "BSP": "",
 "Backpack": "",
 "Board": "",
