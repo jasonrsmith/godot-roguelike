@@ -91,10 +91,9 @@ func populate_rooms() -> void:
 			var monsters : Array = globals.spawner.spawn_room(
 				room, globals.SPAWN_TYPE_RANDOM_MONSTER, -2, 5)
 			for monster in monsters:
-				add_entity(monster)
-				globals.npc_area.add_child(monster)
+				globals.npc_area.add_npc(monster)
 			var items : Array = globals.spawner.spawn_room(
-				room, globals.SPAWN_TYPE_RANDOM_ITEM, -3, 2)
+				room, globals.SPAWN_TYPE_RANDOM_ITEM, 1, 2)
 			for item in items:
 				globals.item_area.add_item(item)
 
@@ -165,12 +164,6 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 #	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
 	return cell_target
 
-
-func add_entity(entity: Entity):
-	var map_pos: Vector2 = entity.get_map_pos()
-	assert(!_entity_idx.has(map_pos))
-	_entity_idx[map_pos] = entity
-
 func get_entity_at(map_pos: Vector2) -> Entity:
 	if !_entity_idx.has(map_pos):
 		return null
@@ -208,7 +201,7 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(false)
 	var entity := get_entity_at(tile_map_pos)
-	if entity and entity.is_visible_in_tree():
+	if entity and entity.is_visible_in_tree() and !globals.debug_settings.disable_entity_hiding:
 		print_debug("** hiding ent" + str(entity))
 		globals.console.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
 		entity.hide()
@@ -244,5 +237,5 @@ func _on_tile_was_seen(map_pos: Vector2):
 
 func _on_tile_went_out_of_view(map_pos: Vector2):
 	var entity : Entity = get_entity_at(map_pos)
-	if entity:
+	if entity and !globals.debug_settings.disable_entity_hiding:
 		entity.hide()

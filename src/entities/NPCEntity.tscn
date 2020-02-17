@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/sprites/characters/mob2.png" type="Texture" id=3]
 
 [node name="NPCEntity" instance=ExtResource( 1 )]
+visible = true
 collision_layer = 2
 script = ExtResource( 2 )
 

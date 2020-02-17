@@ -14,6 +14,10 @@ func add_item(item: Entity):
 		_item_idx[map_pos] = []
 	_item_idx[map_pos].append(item)
 	add_child(item)
+	if globals.debug_settings.disable_entity_hiding or globals.board.is_tile_visible(item.get_map_pos()):
+		item.show()
+	else:
+		item.hide()
 
 func get_items_at_map_pos(map_pos: Vector2) -> Array:
 	if _item_idx.has(map_pos):

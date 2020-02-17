@@ -83,6 +83,8 @@ class Shadow:
 
 func _ready() -> void:
 	globals.fov = self
+	if globals.debug_settings.hide_fov:
+		hide()
 
 func transform_octant(row: int, col: int, octant: int) -> Vector2:
 	match octant:

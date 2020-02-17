@@ -9,7 +9,6 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Entity" type="KinematicBody2D"]
-visible = false
 script = ExtResource( 1 )
 stats = ExtResource( 2 )
 

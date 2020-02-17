@@ -14,7 +14,6 @@ func _ready() -> void:
 	_board.init_map()
 	var player_map_pos = _board.find_player_spawn_point()
 	_player_entity.set_map_pos(player_map_pos)
-	_board.add_entity(_player_entity)
 	_board.populate_rooms()
 	_fov.refresh(player_map_pos)
 	globals.time_manager.run_actions()
