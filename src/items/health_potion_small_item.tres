@@ -1,10 +1,26 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://src/items/Item.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/items/Item__28.png" type="Texture" id=2]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends EntityStats
+class_name Item
+
+enum Category { CONSUMABLE, MATERIAL, KEY, EQUIPMENT }
+
+export var display_name : String
+export var description : String
+export var unique : bool = false
+export(int) var sell_value
+export var image : Texture
+
+export var heal_amount : int
+
+export var is_pickup := true
+"
+
 [resource]
-script = ExtResource( 1 )
+script = SubResource( 1 )
 max_health = 1
 max_mana = 0
 strength = 1

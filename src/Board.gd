@@ -19,6 +19,7 @@ func _ready():
 
 func _init_grid(size: Vector2) -> Array:
 	var result = []
+	# fill entire rect with walls
 	for x in range(size.x):
 		result.append([])
 		for y in range(size.y):
@@ -26,7 +27,6 @@ func _init_grid(size: Vector2) -> Array:
 			var tile = Tile.new(map_pos)
 			result[x].append(tile)
 			tile.set_is_wall(true)
-			#tile.cell_type = globals.CELL_TYPES.WALL
 			set_cellv(map_pos, globals.CELL_TYPES.WALL)
 			events.emit_signal("tile_was_obscured", map_pos)
 	return result

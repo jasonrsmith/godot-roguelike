@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/InventoryActionModal.gd"
 }, {
-"base": "EntityStats",
-"class": "Item",
-"language": "GDScript",
-"path": "res://src/items/Item.gd"
-}, {
 "base": "Position2D",
 "class": "ItemArea",
 "language": "GDScript",
@@ -205,7 +200,6 @@ _global_script_class_icons={
 "HealthPotionEntity": "",
 "Hit": "",
 "InventoryActionModal": "",
-"Item": "",
 "ItemArea": "",
 "Main": "",
 "NPCArea": "",
