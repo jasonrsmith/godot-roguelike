@@ -1,8 +1,8 @@
 extends Entity
 class_name NPCEntity
 
-onready var _visibility_area: Area2D = $Visibility
-onready var _visibility_shape = $Visibility/CollisionShape2D
+onready var _vision_area: Area2D = $Vision
+onready var _vision_shape = $Vision/CollisionShape2D
 
 var _player_in_area = false
 var _player_seen = false
@@ -10,22 +10,22 @@ var _target_pos : Vector2 = Vector2()
 var _path_to_player : Array = []
 var _hostile_to_player = true
 
-var visibility_radius : int
+var vision_radius : int
 
 var _player_detector_ray: RayCast2D
 var _path_green_color : float
 
 func _ready():
 	globals.time_manager.register(self)
-	visibility_radius = stats.sight
+	vision_radius = stats.sight
 	var shape = CircleShape2D.new()
-	shape.radius = globals.map_cell_size * visibility_radius
-	_visibility_shape.set_shape(shape)
-	_visibility_area.connect("body_entered", self, "_on_Visibility_body_entered")
-	_visibility_area.connect("body_exited", self, "_on_Visibility_body_exited")
+	shape.radius = globals.map_cell_size * vision_radius
+	_vision_shape.set_shape(shape)
+	_vision_area.connect("body_entered", self, "_on_vision_body_entered")
+	_vision_area.connect("body_exited", self, "_on_vision_body_exited")
 	_player_detector_ray = RayCast2D.new()
 	add_child(_player_detector_ray)
-	_path_green_color = rand_range(0.6, 0.99)
+	_path_green_color = globals.rng.randf_range(0.6, 0.99)
 
 func take_turn() -> int:
 	if !_player_in_area:
@@ -103,11 +103,11 @@ func refresh_target_path(map_pos: Vector2):
 			continue
 		globals.board.set_point_disabled_for_path(entity_map_pos, false)
 
-func _on_Visibility_body_entered(body):
+func _on_vision_body_entered(body):
 	if body == globals.player_entity:
 		_player_in_area = true
 
-func _on_Visibility_body_exited(body):
+func _on_vision_body_exited(body):
 	update()
 	if body == globals.player_entity:
 		_player_in_area = false
@@ -118,7 +118,7 @@ func _draw():
 	if _player_in_area:
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)
 		draw_circle((_target_pos - position).rotated(-rotation), 3, globals.LASER_COLOR)
-		draw_circle(Vector2(), _visibility_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))
+		draw_circle(Vector2(), _vision_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))
 	if _path_to_player.size() > 0:
 		for p in _path_to_player:
 			var world_pos = globals.board.map_to_world(Vector2(p.x, p.y))

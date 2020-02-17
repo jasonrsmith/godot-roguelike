@@ -3,10 +3,10 @@ class_name NPCArea
 
 var _entity_idx := {}
 
-func _ready():
+func _ready() -> void:
 	globals.npc_area = self
 
-func add_npc(entity: Entity):
+func add_npc(entity: Entity) -> void:
 	var map_pos: Vector2 = entity.get_map_pos()
 	assert(!_entity_idx.has(map_pos))
 	_entity_idx[map_pos] = entity
@@ -15,3 +15,19 @@ func add_npc(entity: Entity):
 		entity.show()
 	else:
 		entity.hide()
+
+func get_npc_at(map_pos: Vector2) -> Entity:
+	if !_entity_idx.has(map_pos):
+		return null
+	return _entity_idx[map_pos]
+
+func remove_npc(entity: Entity):
+	var map_pos = entity.get_map_pos()
+	assert(_entity_idx.has(map_pos))
+	_entity_idx.erase(map_pos)
+
+func move(from: Vector2, to: Vector2) -> void:
+	assert(_entity_idx.has(from))
+	var entity : Entity = _entity_idx[from]
+	_entity_idx[to] = entity
+	_entity_idx.erase(from)

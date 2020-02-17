@@ -19,8 +19,8 @@ func _process(delta):
 	if _is_shaking:
 		if _shake_timer > 0:
 			set_offset(Vector2(
-				rand_range(-1.0, 1.0) * _shake_mag,
-				rand_range(-1.0, 1.0) * _shake_mag))
+				globals.rng.randf_range(-1.0, 1.0) * _shake_mag,
+				globals.rng.randf_range(-1.0, 1.0) * _shake_mag))
 			_shake_timer -= delta
 			_shake_mag = _shake_timer * _shake_max_mag
 		else:

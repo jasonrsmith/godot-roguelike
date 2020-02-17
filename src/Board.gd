@@ -8,7 +8,6 @@ export (int) var tile_size
 export (bool) var collisions_enabled
 
 var _grid := []
-var _entity_idx := {}
 var _bsp_map_nodes := []
 var _walkable_cells := []
 var _visible_tiles := {}
@@ -155,25 +154,14 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	if collisions_enabled and get_tile_at_map_pos(cell_target).is_wall:
 		return Vector2()
 	# colliding with other entity
-	if get_entity_at(cell_target):
+	if globals.npc_area.get_npc_at(cell_target):
 		return Vector2()
 	
-	_entity_idx[cell_target] = entity
-	_entity_idx.erase(cell_start)
+	if entity is NPCEntity:
+		globals.npc_area.move(cell_start, cell_target)
 #	_astar.set_point_disabled(get_map_pos_index(cell_target))
 #	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
 	return cell_target
-
-func get_entity_at(map_pos: Vector2) -> Entity:
-	if !_entity_idx.has(map_pos):
-		return null
-	return _entity_idx[map_pos]
-
-func remove_entity(entity: Entity):
-	var map_pos = world_to_map(entity.position)
-	assert(_entity_idx.has(map_pos))
-	_entity_idx.erase(map_pos)
-	#_astar.set_point_disabled(get_map_pos_index(map_pos), false)
 
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
@@ -189,10 +177,12 @@ func is_wall(map_pos: Vector2) -> bool:
 	return get_tile_at_map_pos(map_pos).is_wall
 
 func mark_tile_visible(tile_map_pos: Vector2) -> void:
+	if tile_map_pos == Vector2(8, 23):
+		print_debug("visible 8,23")
 	_visible_tiles[tile_map_pos]= true
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(true)
-	var entity := get_entity_at(tile_map_pos)
+	var entity : Entity = globals.npc_area.get_npc_at(tile_map_pos)
 	if entity and !entity.is_visible_in_tree():
 		entity.show()
 
@@ -200,7 +190,7 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	_visible_tiles.erase(tile_map_pos)
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(false)
-	var entity := get_entity_at(tile_map_pos)
+	var entity : Entity = globals.npc_area.get_npc_at(tile_map_pos)
 	if entity and entity.is_visible_in_tree() and !globals.debug_settings.disable_entity_hiding:
 		print_debug("** hiding ent" + str(entity))
 		globals.console.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
@@ -220,7 +210,7 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 			if x == 0 and y == 0:
 				continue
 			var adjacent_pos := map_pos + Vector2(x, y)
-			if get_entity_at(adjacent_pos):
+			if globals.npc_area.get_npc_at(adjacent_pos):
 				surrounding_entities.append(adjacent_pos)
 	return surrounding_entities
 
@@ -231,11 +221,11 @@ func get_mouse_map_pos() -> Vector2:
 func _on_tile_was_seen(map_pos: Vector2):
 	var tile := get_tile_at_map_pos(map_pos)
 	#set_cellv(map_pos, tile.cell_type)
-	var entity : Entity = get_entity_at(map_pos)
+	var entity : Entity = globals.npc_area.get_npc_at(map_pos)
 	if entity:
 		entity.show()
 
 func _on_tile_went_out_of_view(map_pos: Vector2):
-	var entity : Entity = get_entity_at(map_pos)
+	var entity : Entity = globals.npc_area.get_npc_at(map_pos)
 	if entity and !globals.debug_settings.disable_entity_hiding:
 		entity.hide()

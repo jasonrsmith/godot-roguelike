@@ -7,6 +7,7 @@ export var give_player_start_items : bool
 export var show_mouse_pos : bool setget set_show_mouse_pos
 export var hide_fov : bool setget set_hide_fov
 export var disable_entity_hiding : bool
+export var rng_seed : String
 
 func _ready() -> void:
 	globals.debug_settings = self

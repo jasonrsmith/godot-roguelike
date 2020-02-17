@@ -1,10 +1,8 @@
 # todo
 * items
-  * pickup items
   * use items
-  * backpack
+  * scrolls
 * restart after death
-* refactor out globals, like open rpg
 * hp bar ui
 
 # bugs
@@ -61,7 +59,8 @@
 * genre ideas:
   * latin american indiginous
   * pirate
-  * spaceship
+  * generational spaceship gone wrong, inspired by the expanse
+  * space bounty hunter, inspired by mandalorian
 * player may be able to take on properties of defeated enemies
 * make ai smarter:
   * http://www.gameaipro.com/

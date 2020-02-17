@@ -9,7 +9,6 @@ export(bool) var debug_actions = true
 func _ready() -> void:
 	globals.time_manager = self
 	set_process(false)
-	run_actions()
 
 func register(entity) -> void:
 	_entities.append(entity)

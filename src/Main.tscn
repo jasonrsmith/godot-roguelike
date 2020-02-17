@@ -20,7 +20,7 @@
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=18]
 [ext_resource path="res://src/fog3.tres" type="TileSet" id=19]
 [ext_resource path="res://src/ui/StatsUI.gd" type="Script" id=20]
-[ext_resource path="res://src/State.gd" type="Script" id=21]
+[ext_resource path="res://src/TimeManager.gd" type="Script" id=21]
 [ext_resource path="res://src/Main.gd" type="Script" id=22]
 [ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=23]
 [ext_resource path="res://src/DebugSettings.gd" type="Script" id=24]
@@ -42,10 +42,10 @@ script = ExtResource( 22 )
 
 [node name="DebugSettings" type="Node2D" parent="."]
 script = ExtResource( 24 )
+show_enemy_sight = true
 give_player_start_items = true
 show_mouse_pos = true
-hide_fov = true
-disable_entity_hiding = true
+rng_seed = "38f44f3b"
 
 [node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
@@ -68,14 +68,6 @@ script = ExtResource( 2 )
 
 [node name="TimeManager" type="Node2D" parent="."]
 script = ExtResource( 21 )
-
-[node name="Spawner" type="Node2D" parent="."]
-script = ExtResource( 5 )
-
-[node name="BSP" type="Node2D" parent="."]
-script = ExtResource( 9 )
-max_size = 12.0
-min_size = 8.0
 
 [node name="FOV" type="Node2D" parent="."]
 script = ExtResource( 15 )
@@ -133,6 +125,14 @@ centered_textures = true
 format = 1
 tile_data = PoolIntArray( 131080, 0, 0, 131086, 0, 0, 131088, 0, 0, 196613, 0, 1, 196614, 0, 2, 196615, 0, 196610, 196616, 0, 65538, 196617, 0, 196610, 196618, 0, 2, 196619, 0, 2, 196620, 0, 3, 196622, 0, 131072, 196624, 0, 65536, 196626, 0, 8, 196627, 0, 11, 262152, 0, 65536, 262160, 0, 131072, 262162, 0, 65544, 262163, 0, 65542, 262164, 0, 10, 262165, 0, 11, 327685, 0, 196609, 327686, 0, 196610, 327687, 0, 196610, 327688, 0, 65538, 327689, 0, 196610, 327690, 0, 196611, 327694, 0, 0, 327698, 0, 196616, 327699, 0, 196617, 327700, 0, 131077, 327701, 0, 131083, 393224, 0, 131072, 393227, 0, 196608, 393230, 0, 65536, 393232, 0, 0, 393236, 0, 196616, 393237, 0, 196619, 458766, 0, 131072, 458768, 0, 131073, 458769, 0, 196610, 458770, 0, 196610, 458771, 0, 3, 524292, 0, 8, 524293, 0, 10, 524294, 0, 10, 524295, 0, 10, 524296, 0, 10, 524297, 0, 10, 524298, 0, 11, 524307, 0, 131072, 589828, 0, 65544, 589829, 0, 131078, 589830, 0, 196618, 589831, 0, 196618, 589832, 0, 196617, 589833, 0, 131077, 589834, 0, 131083, 589836, 0, 8, 589837, 0, 11, 589841, 0, 0, 655364, 0, 65544, 655365, 0, 131083, 655369, 0, 65544, 655370, 0, 131083, 655372, 0, 131076, 655373, 0, 196619, 655375, 0, 8, 655376, 0, 10, 655377, 0, 196612, 655378, 0, 196610, 655379, 0, 3, 655381, 0, 0, 720900, 0, 65544, 720901, 0, 131083, 720905, 0, 65544, 720906, 0, 131083, 720908, 0, 131072, 720911, 0, 65544, 720912, 0, 131078, 720913, 0, 196619, 720915, 0, 65536, 720917, 0, 131073, 720918, 0, 3, 786436, 0, 65544, 786437, 0, 65542, 786438, 0, 10, 786439, 0, 10, 786440, 0, 10, 786441, 0, 65541, 786442, 0, 131083, 786446, 0, 8, 786447, 0, 65541, 786448, 0, 131083, 786450, 0, 8, 786451, 0, 9, 786452, 0, 11, 851972, 0, 196616, 851973, 0, 196618, 851974, 0, 196618, 851975, 0, 196618, 851976, 0, 196618, 851977, 0, 196617, 851978, 0, 196619, 851980, 0, 8, 851981, 0, 10, 851982, 0, 65541, 851983, 0, 131081, 851984, 0, 65542, 851985, 0, 10, 851986, 0, 65541, 851987, 0, 131081, 851988, 0, 131083, 917516, 0, 65544, 917517, 0, 131081, 917518, 0, 131078, 917519, 0, 196617, 917520, 0, 196617, 917521, 0, 196618, 917522, 0, 196618, 917523, 0, 196617, 917524, 0, 196619, 983052, 0, 196616, 983053, 0, 196618, 983054, 0, 196619 )
 script = ExtResource( 17 )
+
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="BSP" type="Node2D" parent="."]
+script = ExtResource( 9 )
+max_size = 12.0
+min_size = 8.0
 
 [node name="EntityContainers" type="Node2D" parent="."]
 

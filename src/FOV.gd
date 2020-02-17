@@ -3,13 +3,7 @@
 extends Node2D
 class_name FOV
 
-var _board
-var _player_entity : Entity
 var _shadows
-
-func initialize(player_entity, board):
-	_player_entity = player_entity
-	_board = board
 
 class ShadowLine:
 	var _shadows : Array = []
@@ -111,14 +105,14 @@ func transform_octant(row: int, col: int, octant: int) -> Vector2:
 func refresh(map_pos: Vector2) -> void:
 	var seen = {}
 	seen[map_pos] = true
-	_board.mark_tile_visible(map_pos)
+	globals.board.mark_tile_visible(map_pos)
 	for octant in range(8):
-		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant, _player_entity.stats.sight)
+		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant, globals.player_entity.stats.sight)
 		for x in seen_in_octant:
 			seen[x] = true
-	for tile in _board.get_visible_tiles():
+	for tile in globals.board.get_visible_tiles():
 		if not seen.has(tile):
-			_board.mark_tile_invisible(tile)
+			globals.board.mark_tile_invisible(tile)
 
 
 func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dictionary:
@@ -127,26 +121,26 @@ func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dict
 	var seen = {}
 	
 	for row in range(1, max_map_distance):
-		if not _board.contains(map_pos + transform_octant(row, 0, octant)):
+		if not globals.board.contains(map_pos + transform_octant(row, 0, octant)):
 			return seen
 		for col in range(0, row + 1):
 			var tile_pos = map_pos + transform_octant(row, col, octant)
 
-			if not _board.contains(tile_pos):
+			if not globals.board.contains(tile_pos):
 				break
 			if full_shadow:
-				_board.mark_tile_invisible(tile_pos)
+				globals.board.mark_tile_invisible(tile_pos)
 			else:
 				var projection = Shadow.project_tile(row, col)
 				var is_visible = !line.is_in_shadow(projection)
 				if is_visible:
-					_board.mark_tile_visible(tile_pos)
-					if _board.is_wall(tile_pos):
+					globals.board.mark_tile_visible(tile_pos)
+					if globals.board.is_wall(tile_pos):
 						line.add(projection)
 						full_shadow = line.is_full_shadow()
 					seen[tile_pos] = true
 				else:
-					_board.mark_tile_invisible(tile_pos)
+					globals.board.mark_tile_invisible(tile_pos)
 	_shadows = line._shadows
 	update()
 	return seen

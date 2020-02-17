@@ -28,12 +28,4 @@ var debug_settings : DebugSettings
 var debug_mouse_pos : DebugMousePos
 var debug_grid : DebugGrid
 var main : Main
-
-var max_int := 9223372036854775807
-
 var rng := RandomNumberGenerator.new()
-
-onready var system_label = preload("res://src/SystemLabel.tscn")
-
-func _init():
-	rng.randomize()

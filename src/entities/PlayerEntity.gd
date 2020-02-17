@@ -21,6 +21,7 @@ func _ready():
 
 
 func take_damage(hit: Hit, _from: Object) -> void:
+	print_debug(_from.get_instance_id())
 	globals.camera.shake(0.25, 3)
 	var from_name : String = _from.display_name if "display_name" in _from else "???"
 	globals.console.print_line("You take " + str(hit.damage) + " damage from " + from_name + ".", globals.LOG_CAT.CRITICAL)
@@ -45,7 +46,7 @@ func take_turn() -> int:
 		ACTION.MOVE_OR_ATTACK:
 			assert(action.params.has('direction'))
 			var direction = action.params.direction
-			var entity = globals.board.get_entity_at(
+			var entity = globals.npc_area.get_npc_at(
 				globals.board.world_to_map(position) + direction)
 			if entity:
 				execute_attack(direction)
@@ -83,7 +84,7 @@ func execute_move(direction: Vector2) -> void:
 		bump()
 
 func execute_attack(direction: Vector2) -> void:
-	var target_entity = globals.board.get_entity_at(
+	var target_entity = globals.npc_area.get_npc_at(
 		globals.board.world_to_map(position) + direction)
 	var hit := Hit.new(stats.strength)
 	target_entity.take_damage(hit, self)

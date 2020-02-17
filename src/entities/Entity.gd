@@ -55,7 +55,8 @@ func bump() -> void:
 func take_damage(hit: Hit, _from: Object) -> void:
 	stats.take_damage(hit)
 	if !stats.is_alive:
-		globals.board.remove_entity(self)
+		# TODO refactor to NPCEntity
+		globals.npc_area.remove_npc(self)
 	for i in range(4):
 		self.modulate.a = 0.5
 		self.modulate.r = 2.0
@@ -113,3 +114,8 @@ func _on_collide_with_entity(entity: Entity):
 
 func _on_health_depleted():
 	pass
+
+func hide():
+	if get_instance_id() == 5640:
+		print_debug(str(get_instance_id()) + " hide")
+	.hide()

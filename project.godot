@@ -177,7 +177,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "TimeManager",
 "language": "GDScript",
-"path": "res://src/State.gd"
+"path": "res://src/TimeManager.gd"
 } ]
 _global_script_class_icons={
 "BSP": "",

@@ -35,9 +35,9 @@ func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
 		var added := false
 		while !added:
 			var x : float = (room.position.x +
-				floor(rand_range(0, room.size.x)))
+				floor(globals.rng.randf_range(0, room.size.x)))
 			var y : float = (room.position.y +
-				floor(rand_range(0, room.size.y)))
+				floor(globals.rng.randf_range(0, room.size.y)))
 			var map_pos := Vector2(x, y)
 			if !entity_spawn_points.has(map_pos):
 				entity_spawn_points[map_pos] = true
