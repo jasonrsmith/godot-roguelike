@@ -1,18 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/entities/BrawlerPlayerEntity.gd" type="Script" id=2]
-[ext_resource path="res://assets/sprites/characters/brawler.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "extends PlayerEntity
+class_name BrawlerPlayerEntity
+"
+
+[sub_resource type="RectangleShape2D" id=2]
 
 [node name="BrawlerPlayerEntity" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
-
-[node name="Sprite" parent="Pivot" index="0"]
-texture = ExtResource( 3 )
+script = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="." index="2"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
-[editable path="Pivot/Sprite/Camera2D"]
+[editable path="TooltipCanvas"]

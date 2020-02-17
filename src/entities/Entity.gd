@@ -10,14 +10,6 @@ onready var backpack = $Backpack
 
 export var display_name := "thing"
 
-enum CLASSIFIERS {
-	ITEM,
-	NPC,
-	PLAYER,
-	CONSUMABLE
-}
-
-var _classifiers = {}
 var _inside_backpack : Backpack
 
 func _ready() -> void:
@@ -71,15 +63,6 @@ func take_damage(hit: Hit, _from: Object) -> void:
 	if !stats.is_alive:
 		remove()
 
-func add_classifier(classifier: String) -> void:
-	_classifiers[classifier] = true
-
-func has_classifier(classifier: String) -> bool:
-	return _classifiers.has(classifier)
-
-func remove_classifier(classifier: String) -> void:
-	_classifiers.erase(classifier)
-
 func remove():
 	hide()
 	queue_free()
@@ -114,8 +97,3 @@ func _on_collide_with_entity(entity: Entity):
 
 func _on_health_depleted():
 	pass
-
-func hide():
-	if get_instance_id() == 5640:
-		print_debug(str(get_instance_id()) + " hide")
-	.hide()

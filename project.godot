@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Board.gd"
 }, {
-"base": "PlayerEntity",
-"class": "BrawlerPlayerEntity",
-"language": "GDScript",
-"path": "res://src/entities/BrawlerPlayerEntity.gd"
-}, {
 "base": "NPCEntity",
 "class": "Chad",
 "language": "GDScript",
@@ -183,7 +178,6 @@ _global_script_class_icons={
 "BSP": "",
 "Backpack": "",
 "Board": "",
-"BrawlerPlayerEntity": "",
 "Chad": "",
 "CharacterInfoModal": "",
 "Console": "",
