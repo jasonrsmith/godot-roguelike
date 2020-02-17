@@ -1,9 +1,5 @@
 # todo
-* add ActorEntity, change NPCArea to ActorArea:
-  * NPCEntity and PlayerEntity inherit from ActorEntity
-  * ActorEntity has backpack, not Entity
 * items
-  * use items
   * scrolls
 * restart after death
 * hp bar ui

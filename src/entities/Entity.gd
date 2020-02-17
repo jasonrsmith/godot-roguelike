@@ -106,6 +106,9 @@ func heal(amount : int):
 	health = min(health + amount, max_health)
 	emit_signal("health_changed", health, old_health)
 
+func drop() -> void:
+	pass
+
 func _get_max_health() -> int:
 	return max_health
 
