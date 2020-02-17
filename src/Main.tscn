@@ -1,15 +1,14 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/ui/Console.gd" type="Script" id=1]
 [ext_resource path="res://src/DebugGrid.gd" type="Script" id=2]
 [ext_resource path="res://assets/ThaleahFat.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://src/NPCArea.gd" type="Script" id=4]
+[ext_resource path="res://src/ActorArea.gd" type="Script" id=4]
 [ext_resource path="res://src/Spawner.gd" type="Script" id=5]
 [ext_resource path="res://src/Board.gd" type="Script" id=6]
 [ext_resource path="res://gui_theme.tres" type="Theme" id=7]
 [ext_resource path="res://board.tres" type="TileSet" id=8]
 [ext_resource path="res://src/BSP.gd" type="Script" id=9]
-[ext_resource path="res://assets/sprites/torch.png" type="Texture" id=10]
 [ext_resource path="res://overlay_theme.tres" type="Theme" id=11]
 [ext_resource path="res://src/ui/EntityListItem.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/ui/CharacterInfoModal.gd" type="Script" id=13]
@@ -22,7 +21,6 @@
 [ext_resource path="res://src/ui/StatsUI.gd" type="Script" id=20]
 [ext_resource path="res://src/TimeManager.gd" type="Script" id=21]
 [ext_resource path="res://src/Main.gd" type="Script" id=22]
-[ext_resource path="res://src/entities/PlayerEntity.tscn" type="PackedScene" id=23]
 [ext_resource path="res://src/DebugSettings.gd" type="Script" id=24]
 [ext_resource path="res://src/ui/DeadScreen.gd" type="Script" id=25]
 
@@ -135,19 +133,8 @@ min_size = 8.0
 [node name="ItemArea" type="Position2D" parent="EntityContainers"]
 script = ExtResource( 16 )
 
-[node name="NPCArea" type="Position2D" parent="EntityContainers"]
+[node name="ActorArea" type="Position2D" parent="EntityContainers"]
 script = ExtResource( 4 )
-
-[node name="PlayerEntity" parent="." instance=ExtResource( 23 )]
-
-[node name="Light2D" type="Light2D" parent="PlayerEntity/Pivot/Sprite" index="1"]
-texture = ExtResource( 10 )
-texture_scale = 3.35
-energy = 1.3
-range_item_cull_mask = 2
-shadow_enabled = true
-shadow_buffer_size = 1024
-shadow_gradient_length = 1.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -329,5 +316,3 @@ custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Restart? [Y/n]"
 align = 1
-
-[editable path="PlayerEntity"]

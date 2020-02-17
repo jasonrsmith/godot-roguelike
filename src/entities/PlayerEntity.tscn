@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/entities/PlayerEntity.gd" type="Script" id=1]
-[ext_resource path="res://src/entities/stats/PlayerStats.tres" type="Resource" id=2]
+[ext_resource path="res://assets/sprites/torch.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/characters/brawler.png" type="Texture" id=3]
 [ext_resource path="res://src/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://src/PlayerInput.gd" type="Script" id=5]
@@ -12,8 +12,11 @@
 
 [node name="PlayerEntity" type="KinematicBody2D"]
 script = ExtResource( 1 )
-stats = ExtResource( 2 )
 display_name = "You"
+max_health = 10000
+image = ExtResource( 3 )
+speed = 100
+sight = 10
 
 [node name="Pivot" type="Position2D" parent="."]
 
@@ -30,15 +33,22 @@ smoothing_speed = 15.0
 script = ExtResource( 4 )
 move_camera_enabled = true
 
+[node name="Light2D" type="Light2D" parent="Pivot/Sprite"]
+texture = ExtResource( 2 )
+texture_scale = 3.35
+energy = 1.3
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_buffer_size = 1024
+shadow_gradient_length = 1.0
+
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]
-
-[node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
-text = "You"
+[node name="TooltipCanvas" type="CanvasLayer" parent="." instance=ExtResource( 6 )]
+follow_viewport_enable = true
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -49,5 +59,3 @@ one_shot = true
 [node name="Backpack" type="Node2D" parent="."]
 position = Vector2( 1, 0 )
 script = ExtResource( 7 )
-
-[editable path="TooltipCanvas"]

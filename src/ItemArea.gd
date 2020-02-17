@@ -34,7 +34,7 @@ func _on_player_moved(map_pos: Vector2) -> void:
 	if !items:
 		return
 	for item in items:
-		globals.console.print_line("You see a " + item.display_name + ". " + item.stats.description)
+		globals.console.print_line("You see a " + item.display_name + ". " + item.description)
 
 func _on_tile_was_seen(map_pos: Vector2) -> void:
 	var items := get_items_at_map_pos(map_pos)

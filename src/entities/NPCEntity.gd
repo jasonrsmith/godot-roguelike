@@ -17,7 +17,7 @@ var _path_green_color : float
 
 func _ready():
 	globals.time_manager.register(self)
-	vision_radius = stats.sight
+	vision_radius = sight
 	var shape = CircleShape2D.new()
 	shape.radius = globals.map_cell_size * vision_radius
 	_vision_shape.set_shape(shape)
@@ -30,7 +30,7 @@ func _ready():
 func take_turn() -> int:
 	if !_player_in_area:
 		set_physics_process(false)
-		return stats.speed
+		return speed
 	set_physics_process(true)
 	if _player_seen or _path_to_player.size() > 1:
 		var map_pos = globals.board.world_to_map(globals.player_entity.position)
@@ -39,7 +39,7 @@ func take_turn() -> int:
 		else:
 			execute_move_toward_player()
 		return 100
-	return stats.speed
+	return speed
 
 func _physics_process(delta: float) -> void:
 	_check_for_player()
@@ -86,7 +86,7 @@ func execute_move_toward_player():
 		move_to_map_pos(target_map_pos)
 
 func execute_attack(entity: Entity):
-	var hit = Hit.new(stats.strength)
+	var hit = Hit.new(strength)
 	entity.take_damage(hit, self)
 
 func refresh_target_path(map_pos: Vector2):

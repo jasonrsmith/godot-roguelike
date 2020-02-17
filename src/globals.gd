@@ -20,7 +20,7 @@ var fov : FOV
 var bsp : BSP
 var spawner : Spawner
 var item_area : ItemArea
-var npc_area : NPCArea
+var actor_area : NPCArea
 var character_info_modal : CharacterInfoModal
 var time_manager : TimeManager
 var dead_screen : DeadScreen

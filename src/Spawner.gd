@@ -3,7 +3,8 @@ class_name Spawner
 
 onready var _chad_entity = preload("res://src/entities/Chad.tscn")
 onready var _snake_entity = preload("res://src/entities/Snake.tscn")
-onready var _entity = preload("res://src/entities/Entity.tscn")
+onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
+onready var _player_entity = preload("res://src/entities/PlayerEntity.tscn")
 
 export var max_monsters_per_room : int = 5
 export var max_items_per_room : int = 2
@@ -22,8 +23,7 @@ func random_monster() -> NPCEntity:
 
 func random_item() -> Entity:
 	var item : Entity
-	item = _entity.instance()
-	item.load_stats("res://src/items/health_potion_small_item.tres")
+	item = _health_potion_entity.instance()
 	return item
 
 func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
@@ -47,3 +47,8 @@ func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
 		entity.set_map_pos(spawn_point)
 		spawned_entities.append(entity)
 	return spawned_entities
+
+func spawn_player() -> void:
+	globals.player_entity = _player_entity.instance()
+	var player_map_pos = globals.board.find_player_spawn_point()
+	globals.player_entity.set_map_pos(player_map_pos)

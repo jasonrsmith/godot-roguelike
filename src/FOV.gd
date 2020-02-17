@@ -107,7 +107,7 @@ func refresh(map_pos: Vector2) -> void:
 	seen[map_pos] = true
 	globals.board.mark_tile_visible(map_pos)
 	for octant in range(8):
-		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant, globals.player_entity.stats.sight)
+		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant, globals.player_entity.sight)
 		for x in seen_in_octant:
 			seen[x] = true
 	for tile in globals.board.get_visible_tiles():

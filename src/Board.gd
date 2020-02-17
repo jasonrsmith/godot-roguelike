@@ -90,7 +90,7 @@ func populate_rooms() -> void:
 			var monsters : Array = globals.spawner.spawn_room(
 				room, globals.SPAWN_TYPE_RANDOM_MONSTER, -2, 5)
 			for monster in monsters:
-				globals.npc_area.add_npc(monster)
+				globals.actor_area.add(monster)
 			var items : Array = globals.spawner.spawn_room(
 				room, globals.SPAWN_TYPE_RANDOM_ITEM, 1, 2)
 			for item in items:
@@ -154,11 +154,11 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	if collisions_enabled and get_tile_at_map_pos(cell_target).is_wall:
 		return Vector2()
 	# colliding with other entity
-	if globals.npc_area.get_npc_at(cell_target):
+	if globals.actor_area.get_at_map_pos(cell_target):
 		return Vector2()
 	
-	if entity is NPCEntity:
-		globals.npc_area.move(cell_start, cell_target)
+	if entity is ActorEntity:
+		globals.actor_area.move(cell_start, cell_target)
 #	_astar.set_point_disabled(get_map_pos_index(cell_target))
 #	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
 	return cell_target
@@ -182,7 +182,7 @@ func mark_tile_visible(tile_map_pos: Vector2) -> void:
 	_visible_tiles[tile_map_pos]= true
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(true)
-	var entity : Entity = globals.npc_area.get_npc_at(tile_map_pos)
+	var entity : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
 	if entity and !entity.is_visible_in_tree():
 		entity.show()
 
@@ -190,7 +190,7 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	_visible_tiles.erase(tile_map_pos)
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(false)
-	var entity : Entity = globals.npc_area.get_npc_at(tile_map_pos)
+	var entity : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
 	if entity and entity.is_visible_in_tree() and !globals.debug_settings.disable_entity_hiding:
 		print_debug("** hiding ent" + str(entity))
 		globals.console.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
@@ -210,7 +210,7 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 			if x == 0 and y == 0:
 				continue
 			var adjacent_pos := map_pos + Vector2(x, y)
-			if globals.npc_area.get_npc_at(adjacent_pos):
+			if globals.actor_area.get_at_map_pos(adjacent_pos):
 				surrounding_entities.append(adjacent_pos)
 	return surrounding_entities
 
@@ -221,11 +221,11 @@ func get_mouse_map_pos() -> Vector2:
 func _on_tile_was_seen(map_pos: Vector2):
 	var tile := get_tile_at_map_pos(map_pos)
 	#set_cellv(map_pos, tile.cell_type)
-	var entity : Entity = globals.npc_area.get_npc_at(map_pos)
+	var entity : Entity = globals.actor_area.get_at_map_pos(map_pos)
 	if entity:
 		entity.show()
 
 func _on_tile_went_out_of_view(map_pos: Vector2):
-	var entity : Entity = globals.npc_area.get_npc_at(map_pos)
+	var entity : Entity = globals.actor_area.get_at_map_pos(map_pos)
 	if entity and !globals.debug_settings.disable_entity_hiding:
 		entity.hide()

@@ -6,14 +6,12 @@ func _ready() -> void:
 	_init_rng()
 
 	OS.set_window_size(Vector2(1024, 768))
-	globals.player_input.initialize(globals.player_entity)
 	globals.board.init_map()
-	
-	var player_map_pos = globals.board.find_player_spawn_point()
-	globals.player_entity.set_map_pos(player_map_pos)
-	
+	globals.spawner.spawn_player()
+	globals.actor_area.add(globals.player_entity)
+	globals.player_input.initialize(globals.player_entity)
 	globals.board.populate_rooms()
-	globals.fov.refresh(player_map_pos)
+	globals.fov.refresh(globals.player_entity.get_map_pos())
 	
 	if globals.debug_settings.give_player_start_items:
 		_debug_give_player_stuff()

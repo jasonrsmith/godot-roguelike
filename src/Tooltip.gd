@@ -17,7 +17,7 @@ func _input(event):
 	_update_tooltip_visibility_for_map_pos(map_pos)
 
 func _update_tooltip_visibility_for_map_pos(map_pos: Vector2):
-	var mouse_monster_entity = globals.npc_area.get_npc_at(map_pos)
+	var mouse_monster_entity = globals.actor_area.get_at_map_pos(map_pos)
 	var mouse_item_entities = globals.item_area.get_items_at_map_pos(map_pos)
 	var mouse_entity : Entity
 	var item_pos := 0

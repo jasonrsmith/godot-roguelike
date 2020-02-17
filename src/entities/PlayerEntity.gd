@@ -16,9 +16,8 @@ class Action:
 func _ready():
 	globals.player_entity = self
 	globals.time_manager.register(self)
-	stats.connect('health_changed', self, '_on_health_changed')
-	_on_health_changed(stats.health, stats.health)
-
+	connect('health_changed', self, '_on_health_changed')
+	_on_health_changed(health, health)
 
 func take_damage(hit: Hit, _from: Object) -> void:
 	print_debug(_from.get_instance_id())
@@ -46,17 +45,17 @@ func take_turn() -> int:
 		ACTION.MOVE_OR_ATTACK:
 			assert(action.params.has('direction'))
 			var direction = action.params.direction
-			var entity = globals.npc_area.get_npc_at(
+			var entity = globals.actor_area.get_at_map_pos(
 				globals.board.world_to_map(position) + direction)
 			if entity:
 				execute_attack(direction)
 			else:
 				execute_move(direction)
 			# TODO: give actual costs to move
-			return stats.speed
+			return speed
 		
 		ACTION.WAIT:
-			return stats.speed
+			return speed
 		
 		ACTION.PICKUP:
 			var items : Array = globals.item_area.get_items_at_map_pos(get_map_pos())
@@ -68,12 +67,12 @@ func take_turn() -> int:
 				add_entity_to_backpack(item)
 				globals.item_area.remove_item(item)
 				globals.console.print_line("You pick up the " + item.display_name + ".")
-				return stats.speed
+				return speed
 			else:
 				globals.ui.show_pickup_screen()
 				return 0
 	
-	return stats.speed
+	return speed
 
 func execute_move(direction: Vector2) -> void:
 	var target_map_pos : Vector2 = globals.board.request_move(self, direction)
@@ -84,12 +83,12 @@ func execute_move(direction: Vector2) -> void:
 		bump()
 
 func execute_attack(direction: Vector2) -> void:
-	var target_entity = globals.npc_area.get_npc_at(
+	var target_entity = globals.actor_area.get_at_map_pos(
 		globals.board.world_to_map(position) + direction)
-	var hit := Hit.new(stats.strength)
+	var hit := Hit.new(strength)
 	target_entity.take_damage(hit, self)
 	globals.console.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
-	if !target_entity.stats.is_alive:
+	if !target_entity.is_alive:
 		globals.console.print_line("You kill " + target_entity.display_name + ".")
 
 func _on_health_changed(health: int, old_health: int):

@@ -2,11 +2,13 @@
 
 [ext_resource path="res://src/entities/NPCEntity.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entities/Snake.gd" type="Script" id=2]
-[ext_resource path="res://src/entities/stats/SnakeStats.tres" type="Resource" id=3]
+[ext_resource path="res://assets/sprites/characters/mob2.png" type="Texture" id=3]
 
 [node name="Snake" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-stats = ExtResource( 3 )
 display_name = "Snake"
+image = ExtResource( 3 )
+speed = 400
+sight = 10
 
 [editable path="TooltipCanvas"]
