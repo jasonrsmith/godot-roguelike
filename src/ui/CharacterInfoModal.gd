@@ -18,8 +18,10 @@ var _item_hotkeys = {}
 
 func _ready() -> void:
 	globals.character_info_modal = self
+	events.connect("inventory_action_modal_closed", self, "_on_inventory_action_modal_closed")
 
 func show_inventory():
+	_item_hotkeys = {}
 	_current_screen = SCREEN_TYPE.INVENTORY
 	_title_label.set_text("Backpack")
 	var backpack_entities = globals.player_entity.backpack.get_all_entities()
@@ -65,3 +67,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				SCREEN_TYPE.INVENTORY:
 					_show_inventory_actions(entity)
 	get_tree().set_input_as_handled()
+
+func _on_inventory_action_modal_closed() -> void:
+	show_inventory()

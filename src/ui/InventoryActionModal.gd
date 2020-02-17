@@ -14,7 +14,10 @@ func init(entity: Entity) -> void:
 	_entity = entity
 	_title_label.set_text(_entity.display_name.capitalize())
 	_add_menu_option("[d]", "Drop")
-	_add_menu_option("[q]", "Quaff")
+	if entity.has_method("use"):
+		_add_menu_option("[u]", "Use")
+	if entity.has_method("equip"):
+		_add_menu_option("[e]", "Equip")
 	show()
 
 func _add_menu_option(shortcut: String, description: String) -> void:
@@ -31,6 +34,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		queue_free()
 	if not event is InputEventKey:
 		return
-	if event.is_action_pressed("ui_inventory_quaff"):
-		print_debug("quaff " + _entity.display_name)
+	if event.is_action_pressed("ui_use"):
+		globals.player_entity.backpack.remove_entity(_entity)
+		_entity.use(globals.player_entity)
+		events.emit_signal("inventory_action_modal_closed")
+		queue_free()
 	get_tree().set_input_as_handled()

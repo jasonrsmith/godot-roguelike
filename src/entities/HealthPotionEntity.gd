@@ -8,3 +8,4 @@ func _ready():
 
 func use(entity: ActorEntity):
 	entity.heal(heal_hp)
+	remove()

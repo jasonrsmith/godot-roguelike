@@ -177,8 +177,6 @@ func is_wall(map_pos: Vector2) -> bool:
 	return get_tile_at_map_pos(map_pos).is_wall
 
 func mark_tile_visible(tile_map_pos: Vector2) -> void:
-	if tile_map_pos == Vector2(8, 23):
-		print_debug("visible 8,23")
 	_visible_tiles[tile_map_pos]= true
 	var tile = get_tile_at_map_pos(tile_map_pos)
 	tile.set_is_visible(true)
