@@ -92,7 +92,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "HealParticles",
 "language": "GDScript",
-"path": "res://src/particles/HealParticles.gd"
+"path": "res://src/fx/HealParticles.gd"
 }, {
 "base": "PotionEntity",
 "class": "HealthPotionEntity",

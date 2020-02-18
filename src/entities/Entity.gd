@@ -6,7 +6,6 @@ onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
 onready var tooltip  = $TooltipCanvas/Tooltip
 onready var backpack = $Backpack
-onready var heal_particles : HealParticles = $HealParticles
 
 export var display_name : String = "thing"
 export var description : String

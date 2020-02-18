@@ -5,6 +5,8 @@ enum ACTION { MOVE_OR_ATTACK, WAIT, PICKUP, USE }
 
 var _action
 
+var _heal_effect = preload("res://src/particles/HealParticles.tscn")
+
 class Action:
 	var type: int
 	var params: Dictionary
@@ -28,7 +30,8 @@ func take_damage(hit : Hit, from: Object) -> void:
 func heal(amount: int, from: Object) -> void:
 	var from_name : String = from.display_name if "display_name" in from else "???"
 	globals.console.print_line("You heal " + str(amount) + " points from the " + from_name + ".", globals.LOG_CAT.PLAYER_INFO)
-	heal_particles.run_once()
+	#heal_particles.run_once()
+	add_child(_heal_effect.instance())
 	.heal(amount, from)
 
 func _on_health_depleted():
