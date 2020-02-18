@@ -44,12 +44,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	get_tree().set_input_as_handled()
-	
+	print_debug("action modal handled")
 	if event.is_action_pressed("ui_use") and _entity.has_method("use"):
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.USE,
 			{"entity": _entity})
 		events.emit_signal("player_acted")
+		# XXX HACK: prevent "u" movement PlayerInput key from conflicting with "use"
+		globals.player_input._timer.start(0.3)
 		close()
 
 	if event.is_action_pressed("ui_drop") and _entity.has_method("drop"):

@@ -1,5 +1,4 @@
 # todo
-* BUG: player moves when hitting "u" in action modal
 * items
   * scrolls:
     * magic missle scroll

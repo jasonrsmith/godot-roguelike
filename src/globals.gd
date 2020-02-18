@@ -29,3 +29,6 @@ var debug_mouse_pos : DebugMousePos
 var debug_grid : DebugGrid
 var main : Main
 var rng := RandomNumberGenerator.new()
+
+func is_modal_shown() -> bool:
+	return character_info_modal.is_visible_in_tree()
