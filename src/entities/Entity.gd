@@ -11,6 +11,7 @@ export var display_name : String = "thing"
 export var description : String
 export var max_health : int = 1 setget set_max_health, _get_max_health
 export var image : Texture
+export var is_proper_noun : bool = false
 
 var health : int
 var is_alive : bool setget ,_is_alive
@@ -71,7 +72,7 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 	backpack.remove_entity(entity)
 	entity._inside_backpack = null
 
-func take_damage(hit : Hit, from: Object):
+func take_damage(hit : Hit, from: Object) -> void:
 	var old_health = health
 	health -= hit.damage
 	health = max(0, health)
@@ -101,7 +102,7 @@ func set_max_health(value : int):
 		return
 	max_health = max(1, value)
 
-func heal(amount : int):
+func heal(amount : int, from: Object) -> void:
 	var old_health = health
 	health = min(health + amount, max_health)
 	emit_signal("health_changed", health, old_health)

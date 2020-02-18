@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Position2D",
+"class": "ActorArea",
+"language": "GDScript",
+"path": "res://src/ActorArea.gd"
+}, {
 "base": "Entity",
 "class": "ActorEntity",
 "language": "GDScript",
@@ -79,22 +84,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/ui/EntityListItem.gd"
 }, {
-"base": "Resource",
-"class": "EntityStats",
-"language": "GDScript",
-"path": "res://src/entities/stats/EntityStats.gd"
-}, {
 "base": "Node2D",
 "class": "FOV",
 "language": "GDScript",
 "path": "res://src/FOV.gd"
 }, {
-"base": "Reference",
-"class": "Heal",
-"language": "GDScript",
-"path": "res://src/entities/stats/Heal.gd"
-}, {
-"base": "Entity",
+"base": "PotionEntity",
 "class": "HealthPotionEntity",
 "language": "GDScript",
 "path": "res://src/entities/HealthPotionEntity.gd"
@@ -102,7 +97,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Hit",
 "language": "GDScript",
-"path": "res://src/entities/stats/Hit.gd"
+"path": "res://src/Hit.gd"
 }, {
 "base": "Control",
 "class": "InventoryActionModal",
@@ -119,11 +114,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Main.gd"
 }, {
-"base": "Position2D",
-"class": "NPCArea",
-"language": "GDScript",
-"path": "res://src/ActorArea.gd"
-}, {
 "base": "ActorEntity",
 "class": "NPCEntity",
 "language": "GDScript",
@@ -138,6 +128,11 @@ _global_script_classes=[ {
 "class": "PlayerInput",
 "language": "GDScript",
 "path": "res://src/PlayerInput.gd"
+}, {
+"base": "Entity",
+"class": "PotionEntity",
+"language": "GDScript",
+"path": "res://src/entities/PotionEntity.gd"
 }, {
 "base": "Node2D",
 "class": "ShadowMapper",
@@ -180,6 +175,7 @@ _global_script_classes=[ {
 "path": "res://src/TimeManager.gd"
 } ]
 _global_script_class_icons={
+"ActorArea": "",
 "ActorEntity": "",
 "BSP": "",
 "Backpack": "",
@@ -194,18 +190,16 @@ _global_script_class_icons={
 "DebugSettings": "",
 "Entity": "",
 "EntityListItem": "",
-"EntityStats": "",
 "FOV": "",
-"Heal": "",
 "HealthPotionEntity": "",
 "Hit": "",
 "InventoryActionModal": "",
 "ItemArea": "",
 "Main": "",
-"NPCArea": "",
 "NPCEntity": "",
 "PlayerEntity": "",
 "PlayerInput": "",
+"PotionEntity": "",
 "ShadowMapper": "",
 "Snake": "",
 "Spawner": "",
@@ -295,11 +289,6 @@ ui_zoom_out={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-ui_zoom_in={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
 ui_cam_drag={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
@@ -350,9 +339,9 @@ ui_drop={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
  ]
 }
-ui_pickup={
+ui_zoom_in={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 ui_use={

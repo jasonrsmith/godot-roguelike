@@ -43,12 +43,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		events.emit_signal("player_acted")
 		return
 	
-	if event.is_action_pressed("ui_pickup"):
-		globals.player_entity.set_action(
-			globals.player_entity.ACTION.PICKUP)
-		events.emit_signal("player_acted")
-		return
-	
 	if event.is_action_pressed("ui_drop"):
 		#globals.ui.show_drop_screen()
 		return

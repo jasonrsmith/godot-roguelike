@@ -47,8 +47,7 @@ shadow_gradient_length = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="TooltipCanvas" type="CanvasLayer" parent="." instance=ExtResource( 6 )]
-follow_viewport_enable = true
+[node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 5 )

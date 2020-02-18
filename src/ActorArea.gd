@@ -1,5 +1,5 @@
 extends Position2D
-class_name NPCArea
+class_name ActorArea
 
 var _entity_idx := {}
 

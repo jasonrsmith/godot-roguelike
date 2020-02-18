@@ -1,5 +1,9 @@
 # todo
 * items
+  * handle item stacks, bug, can't pick multiple item stacks:
+    * implement single item in tile, no stacking
+    * pickup on collide with player
+    * player swaps item on collide
   * scrolls
 * restart after death
 * hp bar ui

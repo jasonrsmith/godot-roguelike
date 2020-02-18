@@ -21,18 +21,16 @@ var level : int
 func _ready() -> void:
 	pass
 
-	
 func reset():
 	.reset()
 	mana = self.max_mana
-	
+
 func set_mana(value : int):
 	var old_mana = mana
 	mana = max(0, value)
 	emit_signal("mana_changed", mana, old_mana)
 	if mana == 0:
 		emit_signal("mana_depleted")
-	
 
 func set_max_mana(value : int):
 	if value == null:
