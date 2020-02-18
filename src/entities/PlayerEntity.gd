@@ -28,6 +28,7 @@ func take_damage(hit : Hit, from: Object) -> void:
 func heal(amount: int, from: Object) -> void:
 	var from_name : String = from.display_name if "display_name" in from else "???"
 	globals.console.print_line("You heal " + str(amount) + " points from the " + from_name + ".", globals.LOG_CAT.PLAYER_INFO)
+	heal_particles.run_once()
 	.heal(amount, from)
 
 func _on_health_depleted():

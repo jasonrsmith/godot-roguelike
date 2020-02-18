@@ -20,6 +20,9 @@ func _ready() -> void:
 	globals.character_info_modal = self
 	events.connect("inventory_action_modal_closed", self, "_on_inventory_action_modal_closed")
 
+func close() -> void:
+	hide()
+
 func show_inventory():
 	_item_hotkeys = {}
 	_current_screen = SCREEN_TYPE.INVENTORY

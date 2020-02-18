@@ -3,7 +3,11 @@ class_name Spawner
 
 onready var _chad_entity = preload("res://src/entities/Chad.tscn")
 onready var _snake_entity = preload("res://src/entities/Snake.tscn")
+
 onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
+onready var _magic_missle_scroll = preload("res://src/entities/MagicMissleScrollEntity.tscn")
+
+
 onready var _player_entity = preload("res://src/entities/PlayerEntity.tscn")
 
 export var max_monsters_per_room : int = 5
@@ -23,7 +27,11 @@ func random_monster() -> NPCEntity:
 
 func random_item() -> Entity:
 	var item : Entity
-	item = _health_potion_entity.instance()
+	if globals.rng.randf() > 0.5:
+		item = _health_potion_entity.instance()
+	else:
+		item = _magic_missle_scroll.instance()
+	
 	return item
 
 func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:

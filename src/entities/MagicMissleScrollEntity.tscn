@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/sprites/items/Item__38.png" type="Texture" id=1]
+[ext_resource path="res://src/entities/ScrollEntity.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/entities/MagicMissleScrollEntity.gd" type="Script" id=3]
+
+[node name="MagicMissleScrollEntity" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+display_name = "magic missle scroll"
+description = "Propel a force of mysterious energy toward a target."
+image = ExtResource( 1 )
+
+[editable path="TooltipCanvas"]
