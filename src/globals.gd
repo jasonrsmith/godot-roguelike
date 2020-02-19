@@ -22,6 +22,7 @@ var spawner : Spawner
 var item_area : ItemArea
 var actor_area : ActorArea
 var character_info_modal : CharacterInfoModal
+var inventory_action_modal : InventoryActionModal
 var time_manager : TimeManager
 var dead_screen : DeadScreen
 var debug_settings : DebugSettings

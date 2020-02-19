@@ -2,7 +2,6 @@ extends PanelContainer
 class_name CharacterInfoModal
 
 onready var _list_item = preload("res://src/ui/EntityListItem.tscn")
-onready var _inventory_action_modal = preload("res://src/ui/InventoryActionModal.tscn")
 
 onready var _title_label : Label = $MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer/Title
 onready var _list_container : VBoxContainer = $MarginContainer/VBoxContainer/ListMargin/ListContainer
@@ -22,6 +21,7 @@ func _ready() -> void:
 
 func close() -> void:
 	hide()
+	print_debug(self, "close")
 
 func show_inventory():
 	_item_hotkeys = {}
@@ -29,8 +29,7 @@ func show_inventory():
 	_title_label.set_text("Backpack")
 	var backpack_entities = globals.player_entity.backpack.get_all_entities()
 	_clear_list()
-	rect_size.y = 0
-	yield(get_tree(), "idle_frame")
+	
 	if backpack_entities.size() == 0:
 		var label : Label = Label.new()
 		label.set_text("(empty)")
@@ -48,26 +47,21 @@ func show_inventory():
 		)
 		_item_hotkeys[hotkey] = entity
 		idx += 1
-	#set_anchors_and_margins_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_KEEP_SIZE)
+	yield(get_tree(), "idle_frame")
 	show()
-	print_debug(rect_size)
-	print_debug("min:",rect_min_size)
-	
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():
 		child.queue_free()
-	#$MarginContainer.rect_size.y = 0
-	#$MarginContainer/VBoxContainer.rect_size.y = 0
-	#$MarginContainer/VBoxContainer/ListMargin.rect_size.y = 0
-	#$MarginContainer/VBoxContainer.rect_min_size.y = 0
-	#_list_container.rect_size.y = 0
-	#_list_container.rect_min_size.y = 0
+	yield(get_tree(), "idle_frame")
+	rect_size.y = 0
+	yield(get_tree(), "idle_frame")
 
 func _show_inventory_actions(entity: Entity) -> void:
-	var modal : InventoryActionModal = _inventory_action_modal.instance()
-	add_child(modal)
-	modal.init(entity)
+	#var modal : InventoryActionModal = _inventory_action_modal.instance()
+	#add_child(modal)
+	#modal.init(entity)
+	globals.inventory_action_modal.show_entity(entity)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if !is_visible_in_tree():
@@ -84,4 +78,5 @@ func _unhandled_input(event: InputEvent) -> void:
 	get_tree().set_input_as_handled()
 
 func _on_inventory_action_modal_closed() -> void:
-	show_inventory()
+	pass
+	#show_inventory()
