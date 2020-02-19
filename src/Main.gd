@@ -19,9 +19,13 @@ func _ready() -> void:
 	globals.time_manager.run_actions()
 
 func _debug_give_player_stuff():
-	var item = globals.spawner.random_item()
-	add_child(item)
-	globals.player_entity.add_entity_to_backpack(item)
+	var items = [
+		globals.spawner.magic_missle_scroll(),
+		globals.spawner.health_potion()
+	]
+	for item in items:
+		add_child(item)
+		globals.player_entity.add_entity_to_backpack(item)
 
 func _init_rng():
 	if globals.debug_settings.rng_seed.empty():

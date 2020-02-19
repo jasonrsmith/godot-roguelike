@@ -6,6 +6,7 @@ onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
 onready var tooltip  = $TooltipCanvas/Tooltip
 onready var backpack = $Backpack
+onready var hit_animation = preload("res://src/fx/HitEffect.tscn")
 
 export var display_name : String = "thing"
 export var description : String
@@ -73,6 +74,10 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 	entity._inside_backpack = null
 
 func take_damage(hit : Hit, from: Object) -> void:
+	var animation : HitEffect = hit_animation.instance()
+	add_child(animation)
+	animation.run_once()
+	
 	var old_health = health
 	health -= hit.damage
 	health = max(0, health)

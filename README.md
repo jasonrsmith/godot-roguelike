@@ -6,8 +6,14 @@
       * target visible entities within range
     * fireball scroll:
       * aoe, dot
+* mouse select menu options
+* inventory button
+* save/load game
 * restart after death
 * hp bar ui
+* scaling difficulty
+* multiple floors
+* more enemies
 
 # bugs
 * death screen broken

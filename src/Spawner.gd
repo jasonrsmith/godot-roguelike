@@ -34,6 +34,12 @@ func random_item() -> Entity:
 	
 	return item
 
+func magic_missle_scroll() -> MagicMissleScrollEntity:
+	return _magic_missle_scroll.instance()
+
+func health_potion() -> HealthPotionEntity:
+	return _health_potion_entity.instance()
+
 func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
 	var entity_spawn_points := {}
 	var num_entities : int = int(rand_range(minn, maxn))

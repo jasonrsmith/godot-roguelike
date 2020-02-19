@@ -104,6 +104,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Hit.gd"
 }, {
+"base": "Sprite",
+"class": "HitEffect",
+"language": "GDScript",
+"path": "res://src/fx/HitEffect.gd"
+}, {
 "base": "Control",
 "class": "InventoryActionModal",
 "language": "GDScript",
@@ -209,6 +214,7 @@ _global_script_class_icons={
 "HealParticles": "",
 "HealthPotionEntity": "",
 "Hit": "",
+"HitEffect": "",
 "InventoryActionModal": "",
 "ItemArea": "",
 "MagicMissleScrollEntity": "",
