@@ -25,6 +25,7 @@ func show_entity(entity: Entity) -> void:
 	yield(get_tree(), "idle_frame")
 	show()
 	yield(get_tree(), "idle_frame")
+	globals.character_info_modal.disable()
 
 func close() -> void:
 	events.emit_signal("inventory_action_modal_closed")
@@ -48,6 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
 	if event.is_action_pressed("ui_cancel"):
+		globals.character_info_modal.show()
 		close()
 	get_tree().set_input_as_handled()
 	if event.is_action_pressed("ui_use") and _entity.has_method("use"):

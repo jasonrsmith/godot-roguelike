@@ -10,6 +10,7 @@
 * hp bar ui
 
 # bugs
+* death screen broken
 * enemies still have trouble seeing around each other
 * text isn't as crisp as it ideally would be
   * messing with filtering and antialiasing settings doesn't seem to affect

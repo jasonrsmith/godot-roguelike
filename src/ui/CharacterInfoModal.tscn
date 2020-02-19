@@ -34,7 +34,7 @@ theme = ExtResource( 4 )
 [node name="HeaderMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 visible = false
 margin_right = 557.0
-margin_bottom = 59.0
+margin_bottom = 39.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -43,7 +43,7 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 547.0
-margin_bottom = 49.0
+margin_bottom = 29.0
 theme = ExtResource( 4 )
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer"]
@@ -54,8 +54,9 @@ text = "The Title"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 visible = false
+margin_top = 43.0
 margin_right = 557.0
-margin_bottom = 4.0
+margin_bottom = 47.0
 
 [node name="ListMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 557.0
@@ -71,3 +72,11 @@ margin_right = 547.0
 margin_bottom = 10.0
 custom_constants/separation = 5
 alignment = 1
+
+[node name="DisableOverlay" type="ColorRect" parent="."]
+visible = false
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 569.0
+margin_bottom = 83.0
+color = Color( 0, 0, 0, 0.509804 )

@@ -5,6 +5,7 @@ onready var _list_item = preload("res://src/ui/EntityListItem.tscn")
 
 onready var _title_label : Label = $MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer/Title
 onready var _list_container : VBoxContainer = $MarginContainer/VBoxContainer/ListMargin/ListContainer
+onready var _disable_overlay : ColorRect = $DisableOverlay
 
 enum SCREEN_TYPE { INVENTORY, DROP, DRINK }
 
@@ -22,6 +23,12 @@ func _ready() -> void:
 func close() -> void:
 	hide()
 	print_debug(self, "close")
+
+func disable() -> void:
+	_disable_overlay.show()
+
+func enable() -> void:
+	_disable_overlay.hide()
 
 func show_inventory():
 	_item_hotkeys = {}
@@ -50,6 +57,10 @@ func show_inventory():
 	yield(get_tree(), "idle_frame")
 	show()
 
+func show() -> void:
+	enable()
+	.show()
+
 func _clear_list() -> void:
 	for child in _list_container.get_children():
 		child.queue_free()
@@ -58,9 +69,6 @@ func _clear_list() -> void:
 	yield(get_tree(), "idle_frame")
 
 func _show_inventory_actions(entity: Entity) -> void:
-	#var modal : InventoryActionModal = _inventory_action_modal.instance()
-	#add_child(modal)
-	#modal.init(entity)
 	globals.inventory_action_modal.show_entity(entity)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -79,4 +87,3 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_inventory_action_modal_closed() -> void:
 	pass
-	#show_inventory()
