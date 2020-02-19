@@ -29,6 +29,8 @@ func show_inventory():
 	_title_label.set_text("Backpack")
 	var backpack_entities = globals.player_entity.backpack.get_all_entities()
 	_clear_list()
+	rect_size.y = 0
+	yield(get_tree(), "idle_frame")
 	if backpack_entities.size() == 0:
 		var label : Label = Label.new()
 		label.set_text("(empty)")
@@ -46,11 +48,21 @@ func show_inventory():
 		)
 		_item_hotkeys[hotkey] = entity
 		idx += 1
+	#set_anchors_and_margins_preset(Control.PRESET_TOP_RIGHT, Control.PRESET_MODE_KEEP_SIZE)
 	show()
+	print_debug(rect_size)
+	print_debug("min:",rect_min_size)
+	
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():
 		child.queue_free()
+	#$MarginContainer.rect_size.y = 0
+	#$MarginContainer/VBoxContainer.rect_size.y = 0
+	#$MarginContainer/VBoxContainer/ListMargin.rect_size.y = 0
+	#$MarginContainer/VBoxContainer.rect_min_size.y = 0
+	#_list_container.rect_size.y = 0
+	#_list_container.rect_min_size.y = 0
 
 func _show_inventory_actions(entity: Entity) -> void:
 	var modal : InventoryActionModal = _inventory_action_modal.instance()

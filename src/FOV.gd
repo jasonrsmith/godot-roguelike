@@ -113,6 +113,7 @@ func refresh(map_pos: Vector2) -> void:
 	for tile in globals.board.get_visible_tiles():
 		if not seen.has(tile):
 			globals.board.mark_tile_invisible(tile)
+	events.emit_signal("player_fov_refreshed")
 
 
 func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dictionary:

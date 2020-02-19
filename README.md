@@ -1,4 +1,5 @@
 # todo
+* list enemies in view
 * items
   * scrolls:
     * magic missle scroll
