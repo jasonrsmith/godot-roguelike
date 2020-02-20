@@ -1,7 +1,7 @@
 extends Label
 class_name DebugMousePos
 
-func _ready() -> void:
+func _process(delta: float) -> void:
 	globals.debug_mouse_pos = self
 	if globals.debug_settings.show_mouse_pos:
 		show()

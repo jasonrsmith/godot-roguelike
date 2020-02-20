@@ -6,6 +6,8 @@ var _direction : Vector2
 
 onready var _timer : Timer = $Timer
 
+const MissleFx = preload("res://src/fx/Missle.tscn")
+
 func _ready() -> void:
 	globals.player_input = self
 
@@ -49,6 +51,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("ui_show_inventory"):
 		globals.character_info_modal.show_inventory()
+		return
+	
+	if event.is_action_pressed("ui_home"):
+		var missle = MissleFx.instance()
+		#missle.start()
+		var ents = globals.player_entity.get_visible_entities()
+		if ents.size() > 0:
+			add_child(missle)
+			missle.position = globals.player_entity.position
+			missle.init(ents[0])
+			print_debug("target:", ents[0].position)
 		return
 	
 	_direction = get_key_input_direction(event)

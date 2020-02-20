@@ -4,13 +4,15 @@ class_name DebugSettings
 export var show_enemy_sight : bool
 export var show_map_grid : bool setget set_show_map_grid
 export var give_player_start_items : bool
-export var show_mouse_pos : bool setget set_show_mouse_pos
+#export var show_mouse_pos : bool setget set_show_mouse_pos
+export var show_mouse_pos : bool
 export var hide_fov : bool setget set_hide_fov
 export var disable_entity_hiding : bool
 export var rng_seed : String
 
 func _ready() -> void:
 	globals.debug_settings = self
+	events.connect("game_ready", self, "_on_game_ready")
 
 func set_show_mouse_pos(enabled: bool) -> void:
 	if !globals.debug_mouse_pos:

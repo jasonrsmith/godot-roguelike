@@ -17,6 +17,8 @@ func _ready() -> void:
 		_debug_give_player_stuff()
 	
 	globals.time_manager.run_actions()
+	
+	events.emit_signal("game_ready")
 
 func _debug_give_player_stuff():
 	var items = [
