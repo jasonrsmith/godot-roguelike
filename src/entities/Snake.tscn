@@ -12,5 +12,3 @@ speed = 400
 sight = 10
 
 [editable path="TooltipCanvas"]
-
-[editable path="Area2D"]

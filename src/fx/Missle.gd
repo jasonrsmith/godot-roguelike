@@ -6,14 +6,16 @@ export var steer_force = 3500.0
 var _velocity : Vector2 = Vector2()
 var _acceleration : Vector2 = Vector2()
 var _target : Node2D
-var _target_collide_area : Area2D
 var _exploded := false
+
 onready var _explosion : Particles2D = $Explosion
 onready var _sprite : AnimatedSprite = $AnimatedSprite
+onready var _timer : Timer = $Timer
 
 func _ready() -> void:
 	set_physics_process(false)
 	connect("area_entered", self, "_on_Missile_body_entered")
+	_timer.connect("timeout", self, "_on_Lifetime_timeout")
 
 func init(target: Node2D) -> void:
 	_target = target
@@ -31,19 +33,13 @@ func _physics_process(delta: float) -> void:
 	
 
 func _on_Missile_body_entered(body):
-	if body:
-		print_debug(body)
-#		if body == _target_collide_area:
+	if body and body == _target or body.get_parent() == _target:
 		explode()
 
 func explode() -> void:
 	if _exploded:
 		return
 	_exploded = true
-	_velocity = Vector2()
-	_acceleration = Vector2()
-	#position = _target.position
-	#yield(get_tree().create_timer(0.1), "timeout")
 	_explosion.set_emitting(true)
 	_sprite.hide()
 	yield(get_tree().create_timer(0.5), "timeout")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/entities/PlayerEntity.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/torch.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://src/PlayerInput.gd" type="Script" id=5]
 [ext_resource path="res://src/TooltipCanvas.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/entities/Backpack.gd" type="Script" id=7]
-[ext_resource path="res://src/fx/HitEffect.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -59,5 +58,3 @@ one_shot = true
 [node name="Backpack" type="Node2D" parent="."]
 position = Vector2( 1, 0 )
 script = ExtResource( 7 )
-
-[node name="HitEffect" parent="." instance=ExtResource( 8 )]
