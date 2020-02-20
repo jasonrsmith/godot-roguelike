@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://src/SmallHitArea.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/entities/NPCEntity.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/characters/mob2.png" type="Texture" id=3]
 [ext_resource path="res://src/TooltipCanvas.tscn" type="PackedScene" id=4]
@@ -37,4 +38,9 @@ text = "You"
 [node name="Backpack" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
+[node name="Area2D" parent="." instance=ExtResource( 1 )]
+collision_mask = 4
+
 [editable path="TooltipCanvas"]
+
+[editable path="Area2D"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://src/fx/Missle.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Small_Blackball_10x26.png" type="Texture" id=2]
@@ -253,7 +253,12 @@ animations = [ {
 "speed": 20.0
 } ]
 
+[sub_resource type="CanvasItemMaterial" id=70]
+blend_mode = 1
+
 [sub_resource type="Gradient" id=63]
+offsets = PoolRealArray( 0, 0.177326, 0.354651, 0.462209, 0.488372, 0.69186, 1, 2, 3 )
+colors = PoolColorArray( 0.14902, 0.168627, 0.266667, 1, 1, 1, 1, 1, 0.352941, 0.411765, 0.533333, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.752941, 0.796078, 0.862745, 1, 0.227451, 0.266667, 0.4, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1 )
 
 [sub_resource type="GradientTexture" id=64]
 gradient = SubResource( 63 )
@@ -279,8 +284,8 @@ emission_sphere_radius = 2.0
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 100.0
-initial_velocity_random = 0.5
+initial_velocity = 14.69
+initial_velocity_random = 0.52
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
@@ -293,6 +298,8 @@ color_ramp = SubResource( 64 )
 
 [node name="Missle" type="Area2D"]
 z_index = 100
+collision_layer = 4
+collision_mask = 4
 script = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -305,13 +312,15 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 4.71239
 frames = SubResource( 62 )
-frame = 1
+frame = 5
 playing = true
 
 [node name="Explosion" type="Particles2D" parent="."]
+material = SubResource( 70 )
 emitting = false
-amount = 230
+amount = 140
 lifetime = 0.5
 one_shot = true
-explosiveness = 0.5
+speed_scale = 2.09
+explosiveness = 0.15
 process_material = SubResource( 69 )
