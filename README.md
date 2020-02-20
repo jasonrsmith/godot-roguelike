@@ -68,13 +68,23 @@
   * pickup on collide with item
   * visual contrasting
 * genre ideas:
-  * latin american indiginous
-  * pirate
-  * generational spaceship gone wrong, inspired by the expanse
-  * space bounty hunter, inspired by mandalorian
+  * one of:
+    * latin american indiginous
+    * pirate
+    * generational spaceship gone wrong, inspired by the expanse
+    * space bounty hunter, inspired by mandalorian
+    * standard tolkien fantasy (bleh)
 * player may be able to take on properties of defeated enemies
 * make ai smarter:
   * http://www.gameaipro.com/
+* scroll crafting:
+  * collect liquids, gems, papers to create scrolls
+  * scroll recipes are randomly generated with every game
+  * player can risk using ingredients to discover recipes, or find or buy recipe books
+* home base:
+  * the player can decorate their house
+* themes:
+  * dark atmosphere, avoid cute sprites and animations
 
 # art
 * transitioning between different tiles:

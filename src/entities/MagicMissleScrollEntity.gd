@@ -4,5 +4,11 @@ class_name MagicMissleScrollEntity
 export var damage : int
 export var missle_range : int
 
+var _target : Entity
+
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
+
+func use(entity: Entity) -> void:
+	if !_target and entity == globals.player_entity:
+		pass

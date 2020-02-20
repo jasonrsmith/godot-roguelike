@@ -56,7 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_home"):
 		var missle = MissleFx.instance()
 		#missle.start()
-		var ents = globals.player_entity.get_visible_entities()
+		var ents = globals.player_entity.get_visible_npcs()
 		if ents.size() > 0:
 			add_child(missle)
 			missle.position = globals.player_entity.position

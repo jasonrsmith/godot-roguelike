@@ -98,14 +98,20 @@ func execute_attack(direction: Vector2) -> void:
 	if !target_entity.is_alive:
 		globals.console.print_line("You kill " + target_entity.display_name + ".")
 
-func get_visible_entities() -> Array:
+func get_visible_npcs() -> Array:
 	var visible_tiles : Array = globals.board.get_visible_tiles()
 	var entities := []
 	for tile_map_pos in visible_tiles:
 		var actor : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
-		var item : Entity = globals.item_area.get_item_at_map_pos(tile_map_pos)
 		if actor and actor != self:
 			entities.append(actor)
+	return entities
+
+func get_visible_items() -> Array:
+	var visible_tiles : Array = globals.board.get_visible_tiles()
+	var entities := []
+	for tile_map_pos in visible_tiles:
+		var item : Entity = globals.item_area.get_item_at_map_pos(tile_map_pos)
 		if item:
 			entities.append(item)
 	return entities

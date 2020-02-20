@@ -315,7 +315,7 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 4.71239
 frames = SubResource( 62 )
-frame = 36
+frame = 11
 playing = true
 
 [node name="Explosion" type="Particles2D" parent="."]

@@ -42,8 +42,24 @@ func show_inventory():
 		label.set_text("(empty)")
 		_list_container.add_child(label)
 	
+	_create_list_items_from_entities(backpack_entities)
+	show()
+
+func show_visible_entities():
+	_item_hotkeys = {}
+	_current_screen = SCREEN_TYPE.INVENTORY
+	_title_label.set_text("Choose target")
+	var visible_entities = globals.player_entity.get_visible_entities()
+	
+
+func show() -> void:
+	yield(get_tree(), "idle_frame")
+	enable()
+	.show()
+
+func _create_list_items_from_entities(entities: Array) -> void:
 	var idx := 0
-	for entity in backpack_entities:
+	for entity in entities:
 		var item = _list_item.instance()
 		var hotkey := SHORTCUT_LIST.substr(idx, 1)
 		_list_container.add_child(item)
@@ -54,12 +70,6 @@ func show_inventory():
 		)
 		_item_hotkeys[hotkey] = entity
 		idx += 1
-	yield(get_tree(), "idle_frame")
-	show()
-
-func show() -> void:
-	enable()
-	.show()
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():
