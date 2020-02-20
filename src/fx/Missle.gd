@@ -18,6 +18,7 @@ func _ready() -> void:
 func init(target: Node2D) -> void:
 	_target = target
 	global_rotation = global_position.angle_to_point(target.global_position)
+	global_rotation += globals.rng.randf_range(-0.9, 0.9)
 	set_physics_process(true)
 
 func _physics_process(delta: float) -> void:
