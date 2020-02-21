@@ -1,19 +1,23 @@
 extends Reference
 class_name Promise
 
-var error : int = OK
-var done : bool = false
+var request
+var response : PromiseResponse
 
-var request : Dictionary
-var response : Dictionary
+class PromiseResponse:
+	var error : int = OK
+	var request
+	var result
 
-signal done(response, request)
+signal done(response)
 
-func _init(request: Dictionary):
+func _init(request):
 	self.request = request
 
-func complete(response: Dictionary) -> void:
+func complete(result, error = OK) -> void:
+	var response = PromiseResponse.new()
+	response.error = error
+	response.request = request
+	response.result = result
 	self.response = response
-	self.response["error"] = error
-	done = true
-	emit_signal("done", self.response, self.request)
+	emit_signal("done", response)

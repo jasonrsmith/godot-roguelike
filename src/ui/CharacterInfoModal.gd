@@ -102,7 +102,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					_show_inventory_actions(entity)
 				
 				SCREEN_TYPE.SELECT_ENTITY:
-					_promise.complete({"result": entity})
+					_promise.complete(entity)
 					call_deferred("close")
 	get_tree().set_input_as_handled()
 
