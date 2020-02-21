@@ -7,5 +7,7 @@
 script = ExtResource( 3 )
 display_name = "magic missle scroll"
 description = "Propel a force of mysterious energy toward a target."
+damage = 3
+missle_range = 10
 
 [editable path="TooltipCanvas"]

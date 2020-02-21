@@ -1,11 +1,11 @@
 extends Area2D
 
 export var speed : int = 300
-export var steer_force : float = 3500.0
+export var steer_force := 3500.0
 
 var _velocity : Vector2 = Vector2()
 var _acceleration : Vector2 = Vector2()
-var _target : Node2D
+var _target : Entity
 var _exploded := false
 
 onready var _explosion : Particles2D = $Explosion
@@ -17,7 +17,7 @@ func _ready() -> void:
 	connect("area_entered", self, "_on_Missile_body_entered")
 	_timer.connect("timeout", self, "_on_Lifetime_timeout")
 
-func init(target: Node2D) -> void:
+func init(target: Entity) -> void:
 	_target = target
 	global_rotation = global_position.angle_to_point(target.global_position)
 	global_rotation += globals.rng.randf_range(-0.9, 0.9)
@@ -42,6 +42,8 @@ func explode() -> void:
 	_exploded = true
 	_explosion.set_emitting(true)
 	_sprite.hide()
+	if !_target.is_alive:
+		_target.hide()
 	yield(get_tree().create_timer(0.5), "timeout")
 	queue_free()
 

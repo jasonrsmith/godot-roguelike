@@ -73,10 +73,11 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 	backpack.remove_entity(entity)
 	entity._inside_backpack = null
 
-func take_damage(hit : Hit, from: Object) -> void:
-	var animation : HitEffect = hit_animation.instance()
-	add_child(animation)
-	animation.run_once()
+func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) -> void:
+	if !delayed_hit_animation_promise:
+		var animation : HitEffect = hit_animation.instance()
+		add_child(animation)
+		animation.run_once()
 	
 	var old_health = health
 	health -= hit.damage
@@ -88,6 +89,11 @@ func take_damage(hit : Hit, from: Object) -> void:
 	if !_is_alive():
 		# TODO refactor to NPCEntity
 		globals.actor_area.remove(self)
+		if delayed_hit_animation_promise:
+			yield(delayed_hit_animation_promise, "done")
+		hide()
+		return
+
 	for i in range(4):
 		self.modulate.a = 0.5
 		self.modulate.r = 2.0
@@ -99,8 +105,6 @@ func take_damage(hit : Hit, from: Object) -> void:
 		self.modulate.g = 1.0
 		self.modulate.b = 1.0
 		yield(get_tree(), "idle_frame")
-	if !_is_alive():
-		remove()
 
 func set_max_health(value : int):
 	if value == null:

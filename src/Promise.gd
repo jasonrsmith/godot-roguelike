@@ -11,10 +11,10 @@ class PromiseResponse:
 
 signal done(response)
 
-func _init(request):
+func _init(request = null):
 	self.request = request
 
-func complete(result, error = OK) -> void:
+func complete(result = null, error = OK) -> void:
 	var response = PromiseResponse.new()
 	response.error = error
 	response.request = request

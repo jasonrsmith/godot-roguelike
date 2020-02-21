@@ -6,7 +6,7 @@
 
 [node name="Snake" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-display_name = "Snake"
+display_name = "snake"
 image = ExtResource( 3 )
 speed = 400
 sight = 10

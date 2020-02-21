@@ -24,8 +24,9 @@ func run_actions():
 		if _next_entity_idx == _entities.size():
 			_next_entity_idx = 0
 		var entity = _entities[_next_entity_idx]
-		if entity.is_queued_for_deletion() or !entity.is_alive:
+		if !entity or !entity.is_alive:
 			release(entity)
+			entity.queue_free()
 			continue
 		_next_entity_idx = (
 			(_next_entity_idx + 1) %

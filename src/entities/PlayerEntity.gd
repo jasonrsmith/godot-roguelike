@@ -22,7 +22,7 @@ func _ready():
 	events.connect("player_fov_refreshed", self, "_on_fov_refreshed")
 	_on_health_changed(health, health)
 
-func take_damage(hit : Hit, from: Object) -> void:
+func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) -> void:
 	globals.camera.shake(0.25, 3)
 	var from_name : String = from.display_name if "display_name" in from else "???"
 	globals.console.print_line("You take " + str(hit.damage) + " damage from " + from_name + ".", globals.LOG_CAT.CRITICAL)

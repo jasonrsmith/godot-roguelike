@@ -1,25 +1,28 @@
 # todo
-* list enemies in view
-* items
-  * scrolls:
-    * magic missle scroll
-      * target visible entities within range
-    * fireball scroll:
-      * aoe, dot
-* mouse select menu options
-* inventory button
-* save/load game
-* restart after death
-* hp bar ui
-* scaling difficulty
-* multiple floors
-* more enemies
+* p0
+  * list enemies in view in HUD
+  * wire in clicking in menu items
+  * move up/down through menu
+  * items
+    * scrolls:
+      * fireball scroll:
+        * aoe, dot
+  * mouse select menu options
+* p1
+  * multiple floors
+  * inventory button
+  * save/load game
+  * restart after death
+  * hp bar ui
+  * scaling difficulty
+  * more enemies
+  * restart after death
+  * text isn't as crisp as it ideally would be
+    * messing with filtering and antialiasing settings doesn't seem to affect
 
 # bugs
-* death screen broken
-* enemies still have trouble seeing around each other
-* text isn't as crisp as it ideally would be
-  * messing with filtering and antialiasing settings doesn't seem to affect
+* enemies move during missle target selection
+* race condition for death animation and npc dieing in Missle.gd _seek
 
 # long-term would be nice
 * animations, animation frames
