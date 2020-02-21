@@ -149,6 +149,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/PotionEntity.gd"
 }, {
+"base": "Reference",
+"class": "Promise",
+"language": "GDScript",
+"path": "res://src/Promise.gd"
+}, {
 "base": "Entity",
 "class": "ScrollEntity",
 "language": "GDScript",
@@ -223,6 +228,7 @@ _global_script_class_icons={
 "PlayerEntity": "",
 "PlayerInput": "",
 "PotionEntity": "",
+"Promise": "",
 "ScrollEntity": "",
 "ShadowMapper": "",
 "Snake": "",

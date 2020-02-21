@@ -18,7 +18,7 @@ __meta__ = {
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 569.0
-margin_bottom = 32.0
+margin_bottom = 83.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -28,11 +28,10 @@ custom_constants/margin_bottom = 5
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 562.0
-margin_bottom = 25.0
+margin_bottom = 76.0
 theme = ExtResource( 4 )
 
 [node name="HeaderMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
 margin_right = 557.0
 margin_bottom = 39.0
 __meta__ = {
@@ -53,14 +52,14 @@ theme = ExtResource( 4 )
 text = "The Title"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-visible = false
 margin_top = 43.0
 margin_right = 557.0
 margin_bottom = 47.0
 
 [node name="ListMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 51.0
 margin_right = 557.0
-margin_bottom = 20.0
+margin_bottom = 71.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
