@@ -9,6 +9,7 @@
         * aoe, dot
   * mouse select menu options
 * p1
+  * inventory hotkeys static like brogue
   * multiple floors
   * inventory button
   * save/load game
@@ -21,7 +22,7 @@
     * messing with filtering and antialiasing settings doesn't seem to affect
 
 # bugs
-* race condition for death animation and npc dieing in Missle.gd _seek
+* enemies move during missle target selection
 
 # long-term would be nice
 * animations, animation frames
@@ -88,9 +89,14 @@
 * themes:
   * dark atmosphere, avoid cute sprites and animations
 * 30-90min typical playruns
+* mining for coin, like angband
 
 # art
 * transitioning between different tiles:
   * https://www.youtube.com/watch?v=FgV-OIg90nM
 * general pixelart guides:
   * http://lpc.opengameart.org/static/lpc-style-guide/styleguide.html#useful-generalist-resources
+
+# ui
+* roguelikedev faq threa
+  * https://www.reddit.com/r/roguelikedev/comments/3cqsaq/faq_friday_16_ui_design/
