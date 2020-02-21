@@ -21,7 +21,6 @@
     * messing with filtering and antialiasing settings doesn't seem to affect
 
 # bugs
-* enemies move during missle target selection
 * race condition for death animation and npc dieing in Missle.gd _seek
 
 # long-term would be nice
@@ -88,6 +87,7 @@
   * the player can decorate their house
 * themes:
   * dark atmosphere, avoid cute sprites and animations
+* 30-90min typical playruns
 
 # art
 * transitioning between different tiles:

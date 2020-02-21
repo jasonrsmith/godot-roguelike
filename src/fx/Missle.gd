@@ -52,7 +52,7 @@ func _on_Lifetime_timeout():
 
 func _seek() -> Vector2:
 	var steer := Vector2()
-	if _target:
+	if _target and !_target.is_queued_for_deletion():
 		var desired = (_target.position - position).normalized() * speed
 		steer = (desired - _velocity).normalized() * steer_force
 	return steer
