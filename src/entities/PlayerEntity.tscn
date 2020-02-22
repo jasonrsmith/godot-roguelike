@@ -30,6 +30,10 @@ drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
 smoothing_speed = 15.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
 script = ExtResource( 4 )
 move_camera_enabled = true
 
@@ -49,6 +53,12 @@ shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]
 
+[node name="Tooltip" parent="TooltipCanvas" index="0"]
+visible = true
+
+[node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
+text = "."
+
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource( 5 )
 
@@ -58,3 +68,5 @@ one_shot = true
 [node name="Backpack" type="Node2D" parent="."]
 position = Vector2( 1, 0 )
 script = ExtResource( 7 )
+
+[editable path="TooltipCanvas"]
