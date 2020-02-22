@@ -22,6 +22,7 @@
     * messing with filtering and antialiasing settings doesn't seem to affect
 
 # bugs
+* camera viewport should center in map region enclosed by ui
 
 # long-term would be nice
 * animations, animation frames

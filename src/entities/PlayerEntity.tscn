@@ -53,10 +53,11 @@ shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]
 
-[node name="Tooltip" parent="TooltipCanvas" index="0"]
-visible = true
+[node name="MarginContainer" parent="TooltipCanvas/Tooltip" index="0"]
+margin_right = 31.0
 
 [node name="Label" parent="TooltipCanvas/Tooltip/MarginContainer" index="0"]
+margin_right = 25.0
 text = "."
 
 [node name="PlayerInput" type="Node" parent="."]

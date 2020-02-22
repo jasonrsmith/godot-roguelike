@@ -120,6 +120,9 @@ func get_visible_items() -> Array:
 			entities.append(item)
 	return entities
 
+func get_visible_entities() -> Array:
+	return get_visible_npcs() + get_visible_items()
+
 func _on_health_changed(health: int, old_health: int):
 	events.emit_signal("player_health_changed", health, old_health)
 

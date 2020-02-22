@@ -71,9 +71,9 @@ func _create_list_items_from_entities(entities: Array) -> void:
 		var hotkey := SHORTCUT_LIST.substr(idx, 1)
 		_list_container.add_child(item)
 		item.init(
-			"[" + hotkey + "]",
 			entity.display_name,
-			entity.sprite.get_texture()
+			entity.sprite.get_texture(),
+			"[" + hotkey + "]"
 		)
 		_item_hotkeys[hotkey] = entity
 		idx += 1

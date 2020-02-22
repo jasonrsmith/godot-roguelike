@@ -96,7 +96,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="UI"]
+[node name="LeftUI" type="MarginContainer" parent="UI"]
 anchor_bottom = 1.0
 margin_right = 250.0
 custom_constants/margin_top = 10
@@ -105,7 +105,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 250.0
@@ -115,7 +115,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsUI" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer"]
+[node name="StatsUI" type="MarginContainer" parent="UI/LeftUI/VBoxContainer"]
 margin_right = 240.0
 margin_bottom = 29.0
 custom_constants/margin_top = 0
@@ -125,13 +125,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer/StatsUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI/VBoxContainer/StatsUI"]
 margin_left = 10.0
 margin_right = 230.0
 margin_bottom = 19.0
 custom_constants/separation = 0
 
-[node name="HP" type="Label" parent="UI/MarginContainer/VBoxContainer/StatsUI/VBoxContainer"]
+[node name="HP" type="Label" parent="UI/LeftUI/VBoxContainer/StatsUI/VBoxContainer"]
 margin_right = 220.0
 margin_bottom = 19.0
 theme = ExtResource( 7 )
@@ -142,7 +142,7 @@ custom_constants/shadow_offset_y = 1
 custom_constants/shadow_as_outline = 4
 text = "HP: 0 / 0"
 
-[node name="NPCList" type="Control" parent="UI/MarginContainer/VBoxContainer"]
+[node name="NPCList" type="Control" parent="UI/LeftUI/VBoxContainer"]
 margin_top = 33.0
 margin_right = 240.0
 margin_bottom = 33.0
@@ -151,14 +151,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer/NPCList"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI/VBoxContainer/NPCList"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NPCListItem" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/NPCList"]
+[node name="NPCListItem" type="HBoxContainer" parent="UI/LeftUI/VBoxContainer/NPCList"]
 visible = false
 margin_right = 349.0
 margin_bottom = 19.0
@@ -167,12 +167,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/NPCList/NPCListItem"]
+[node name="TextureRect" type="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/NPCListItem"]
 margin_right = 16.0
 margin_bottom = 63.0
 texture = ExtResource( 12 )
 
-[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/NPCList/NPCListItem"]
+[node name="Label" type="Label" parent="UI/LeftUI/VBoxContainer/NPCList/NPCListItem"]
 margin_left = 21.0
 margin_right = 221.0
 margin_bottom = 63.0

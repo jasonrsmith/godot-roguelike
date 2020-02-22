@@ -10,8 +10,9 @@ var _shortcut_hotkey : String
 func _ready() -> void:
 	pass # Replace with function body.
 
-func init(shortcut: String, name: String, image: Texture) -> void:
-	_shortcut_hotkey = shortcut
+func init(name: String, image: Texture, shortcut = "") -> void:
+	if shortcut != "":
+		_shortcut_hotkey = shortcut
 	_shortcut.set_text(shortcut)
 	_name.set_text(name)
 	if !image:
