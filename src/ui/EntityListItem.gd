@@ -20,6 +20,10 @@ func init(name: String, image: Texture, shortcut = "") -> void:
 	else:
 		_image.set_texture(image)
 
+func shorten(width: int) -> void:
+	_name.autowrap = true
+	_name.rect_min_size.x = width
+
 func _input(event: InputEvent) -> void:
 	if event in InputEventKey and _shortcut_hotkey == char(event.scancode+32):
 		print_debug("HOTKEY HIT:", char(event.scancode+32))

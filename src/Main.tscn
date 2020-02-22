@@ -11,7 +11,7 @@
 [ext_resource path="res://src/BSP.gd" type="Script" id=9]
 [ext_resource path="res://src/ui/CharacterInfoModal.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/ui/InventoryActionModal.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/sprites/characters/mob1.png" type="Texture" id=12]
+[ext_resource path="res://src/ui/EntityListItem.tscn" type="PackedScene" id=12]
 [ext_resource path="res://overlay_theme.tres" type="Theme" id=13]
 [ext_resource path="res://src/ui/DebugMouseGrid.gd" type="Script" id=14]
 [ext_resource path="res://src/FOV.gd" type="Script" id=15]
@@ -158,26 +158,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NPCListItem" type="HBoxContainer" parent="UI/LeftUI/VBoxContainer/NPCList"]
-visible = false
-margin_right = 349.0
-margin_bottom = 19.0
-custom_constants/separation = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EntityListItem" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
+margin_right = 240.0
 
-[node name="TextureRect" type="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/NPCListItem"]
-margin_right = 16.0
-margin_bottom = 63.0
-texture = ExtResource( 12 )
+[node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="0"]
+margin_top = 11.0
+margin_right = 0.0
+margin_bottom = 30.0
+text = ""
 
-[node name="Label" type="Label" parent="UI/LeftUI/VBoxContainer/NPCList/NPCListItem"]
-margin_left = 21.0
-margin_right = 221.0
-margin_bottom = 63.0
-rect_min_size = Vector2( 200, 0 )
-text = "Some bad guy terrible terrible bad"
+[node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="1"]
+margin_left = 20.0
+margin_right = 52.0
+margin_bottom = 41.0
+
+[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="2"]
+margin_left = 72.0
+margin_top = 0.0
+margin_right = 222.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 150, 0 )
+text = "why why why why why why"
 autowrap = true
 
 [node name="Debug" type="Control" parent="UI"]
@@ -266,6 +267,9 @@ custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Restart? [Y/n]"
 align = 1
 
+[node name="TimeManager" type="Node2D" parent="."]
+script = ExtResource( 21 )
+
 [node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
 light_mask = 3
@@ -281,9 +285,6 @@ collisions_enabled = true
 
 [node name="DebugGrid" type="Node2D" parent="."]
 script = ExtResource( 2 )
-
-[node name="TimeManager" type="Node2D" parent="."]
-script = ExtResource( 21 )
 
 [node name="EntityContainers" type="Node2D" parent="."]
 
@@ -358,3 +359,5 @@ script = ExtResource( 5 )
 script = ExtResource( 9 )
 max_size = 12.0
 min_size = 8.0
+
+[editable path="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem"]

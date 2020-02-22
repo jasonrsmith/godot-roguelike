@@ -15,3 +15,4 @@ func _on_player_fov_refreshed() -> void:
 		var item : EntityListItem = EntityListItemScene.instance()
 		_list.add_child(item)
 		item.init(entity.display_name, entity.image)
+		item.shorten(rect_size.x - 100)
