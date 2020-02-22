@@ -160,26 +160,45 @@ __meta__ = {
 
 [node name="EntityListItem" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
 margin_right = 240.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 0, 95 )
 
 [node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="0"]
-margin_top = 11.0
+visible = false
 margin_right = 0.0
-margin_bottom = 30.0
 text = ""
 
 [node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="1"]
-margin_left = 20.0
-margin_right = 52.0
-margin_bottom = 41.0
+margin_left = 0.0
+margin_right = 32.0
+margin_bottom = 85.0
 
 [node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="2"]
-margin_left = 72.0
+margin_left = 52.0
 margin_top = 0.0
-margin_right = 222.0
-margin_bottom = 41.0
-rect_min_size = Vector2( 150, 0 )
-text = "why why why why why why"
+margin_right = 192.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 140, 0 )
+text = "why why why why why why why why why why"
 autowrap = true
+
+[node name="EntityListItem2" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
+margin_top = 99.0
+margin_right = 240.0
+margin_bottom = 139.0
+
+[node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="0"]
+visible = false
+margin_right = 0.0
+text = ""
+
+[node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="1"]
+margin_left = 0.0
+margin_right = 32.0
+
+[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="2"]
+margin_left = 52.0
+margin_right = 236.0
 
 [node name="Debug" type="Control" parent="UI"]
 anchor_right = 1.0
@@ -361,3 +380,5 @@ max_size = 12.0
 min_size = 8.0
 
 [editable path="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem"]
+
+[editable path="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2"]
