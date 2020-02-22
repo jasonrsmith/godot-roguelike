@@ -6,7 +6,7 @@ var _direction : Vector2
 
 onready var _timer : Timer = $Timer
 
-const MissleFx = preload("res://src/fx/Missle.tscn")
+const MissleFx = preload("res://src/fx/Fireball.tscn")
 
 func _ready() -> void:
 	globals.player_input = self

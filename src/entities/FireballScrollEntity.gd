@@ -1,20 +1,21 @@
 extends ScrollEntity
 class_name FireballScrollEntity
 
-const MissleFx = preload("res://src/fx/Missle.tscn")
+const FireballFx = preload("res://src/fx/FireballFx.tscn")
 
 export var damage : int
-export var missle_range : int
+export var max_range : int
+export var aoe_radius : int
 
 func use(entity: Entity, target_entity = null) -> void:
 	if !target_entity:
 		globals.console.print_line("There's nothing you can target.  You lose the scroll and feel very foolish.  You contemplate giving up the adventuring lifestyle for good, learning computer programming, and getting a high-paying job in tech.")
 		return
 
-	var missle_fx = MissleFx.instance()
+	var fireball_fx = FireballFx.instance()
 	get_tree().get_root().add_child(missle_fx)
-	missle_fx.init(target_entity)
-	missle_fx.position = entity.position
+	fireball_fx.init(target_entity)
+	fireball_fx.position = entity.position
 
 	var animation_finished_promise : Promise = Promise.new()
 	var target_name : String = (target_entity.display_name

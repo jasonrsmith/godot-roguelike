@@ -7,7 +7,9 @@
   * items:
     * scrolls:
       * fireball scroll:
-        * aoe, dot
+        * aoe
+        * dot
+        * terrain can burn and transform
 * p1
   * inventory hotkeys static like brogue
   * multiple floors

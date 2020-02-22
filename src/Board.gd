@@ -190,8 +190,6 @@ func mark_tile_invisible(tile_map_pos: Vector2) -> void:
 	tile.set_is_visible(false)
 	var entity : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
 	if entity and entity.is_visible_in_tree() and !globals.debug_settings.disable_entity_hiding:
-		print_debug("** hiding ent" + str(entity))
-		globals.console.print_line(entity.display_name + " is out of fov and is now hidden", globals.LOG_CAT.ERROR)
 		entity.hide()
 
 func is_tile_visible(tile_map_pos: Vector2) -> bool:

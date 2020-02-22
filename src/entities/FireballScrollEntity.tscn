@@ -5,6 +5,5 @@
 
 [node name="FireballScrollEntity" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-image = null
 
 [editable path="TooltipCanvas"]
