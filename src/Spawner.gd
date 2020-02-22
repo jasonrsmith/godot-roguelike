@@ -1,7 +1,7 @@
 extends Node2D
 class_name Spawner
 
-onready var _chad_entity = preload("res://src/entities/Chad.tscn")
+onready var _peter_entity = preload("res://src/entities/Peter.tscn")
 onready var _snake_entity = preload("res://src/entities/Snake.tscn")
 
 onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
@@ -20,7 +20,7 @@ func _ready():
 func random_monster() -> NPCEntity:
 	var monster : NPCEntity
 	if globals.rng.randf() > 0.5:
-		monster = _chad_entity.instance()
+		monster = _peter_entity.instance()
 	else:
 		monster = _snake_entity.instance()
 	return monster
@@ -31,7 +31,7 @@ func random_item() -> Entity:
 		item = _health_potion_entity.instance()
 	else:
 		item = _magic_missle_scroll.instance()
-	
+
 	return item
 
 func magic_missle_scroll() -> MagicMissleScrollEntity:
@@ -44,7 +44,7 @@ func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
 	var entity_spawn_points := {}
 	var num_entities : int = int(rand_range(minn, maxn))
 	var spawned_entities = []
-	
+
 	for i in range(num_entities):
 		var added := false
 		while !added:

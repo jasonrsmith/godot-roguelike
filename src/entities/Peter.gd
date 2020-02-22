@@ -1,2 +1,2 @@
 extends NPCEntity
-class_name Chad
+class_name Peter

@@ -317,6 +317,7 @@ shape = SubResource( 1 )
 rotation = 4.71239
 frames = SubResource( 62 )
 animation = "New Anim"
+frame = 36
 playing = true
 
 [node name="Explosion" type="Particles2D" parent="."]
