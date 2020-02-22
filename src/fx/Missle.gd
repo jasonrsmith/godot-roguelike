@@ -44,7 +44,7 @@ func explode() -> void:
 	_sprite.hide()
 	if !_target.is_alive:
 		_target.hide()
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.25), "timeout")
 	queue_free()
 
 func _on_Lifetime_timeout():

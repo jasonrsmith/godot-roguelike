@@ -70,8 +70,12 @@ func take_turn() -> int:
 			var entity : Entity = action.params.entity
 			assert(entity.has_method('use'))
 			globals.console.print_line("You %s the %s." % [entity.use_verb_second_person, entity.display_name])
+			
+			var target
+			if action.params.has('target'):
+				target = action.params.target
 			backpack.remove_entity(entity)
-			entity.use(self)
+			entity.use(self, target)
 			return speed
 	
 	return speed

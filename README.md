@@ -22,7 +22,6 @@
     * messing with filtering and antialiasing settings doesn't seem to affect
 
 # bugs
-* enemies move during missle target selection
 
 # long-term would be nice
 * animations, animation frames
@@ -88,8 +87,10 @@
   * the player can decorate their house
 * themes:
   * dark atmosphere, avoid cute sprites and animations
-* 30-90min typical playruns
+* 1-3hr typical playruns
 * mining for coin, like angband
+* big color contrasts in tilesets:
+  * emulate some of the feel of ascii without being ascii
 
 # art
 * transitioning between different tiles:

@@ -18,7 +18,7 @@ func release(entity) -> void:
 
 func run_actions():
 	if _entities.size() == 0:
-		assert("nothing to run!")
+		assert(false, "nothing to run!")
 		return
 	while true:
 		if _next_entity_idx == _entities.size():
@@ -26,7 +26,7 @@ func run_actions():
 		var entity = _entities[_next_entity_idx]
 		if !entity or !entity.is_alive:
 			release(entity)
-			entity.queue_free()
+			#entity.queue_free()
 			continue
 		_next_entity_idx = (
 			(_next_entity_idx + 1) %

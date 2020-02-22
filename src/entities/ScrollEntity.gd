@@ -7,5 +7,5 @@ var use_verb_third = "reads"
 func _ready() -> void:
 	pass
 
-func use(entity: Entity) -> void:
+func use(entity: Entity, target_entity = null) -> void:
 	assert(false, "override me")

@@ -39,9 +39,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("ui_wait"):
-		print_debug("player sees wait")
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.WAIT)
+		print_debug("player_acted")
 		events.emit_signal("player_acted")
 		return
 	
@@ -69,5 +69,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.MOVE_OR_ATTACK,
 			{"direction": _direction})
+
 		events.emit_signal("player_acted")
 		_direction = Vector2()

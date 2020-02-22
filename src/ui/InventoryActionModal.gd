@@ -52,15 +52,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		globals.character_info_modal.show()
 		close()
 	get_tree().set_input_as_handled()
+	
 	if event.is_action_pressed("ui_use") and _entity.has_method("use"):
-		globals.player_entity.set_action(
-			globals.player_entity.ACTION.USE,
-			{"entity": _entity})
-		events.emit_signal("player_acted")
-		# XXX HACK: prevent "u" movement PlayerInput key from conflicting with "use"
-		globals.player_input._timer.start(0.3)
+		var target : Entity
+		
 		globals.character_info_modal.close()
 		close()
+		
+		if _entity.has_method("acquire_target"):
+			var target_promise : Promise = _entity.acquire_target(globals.player_entity)
+			yield(target_promise, "done")
+			target = target_promise.response.result
+		
+		globals.player_entity.set_action(
+			globals.player_entity.ACTION.USE,
+			{"entity": _entity, "target": target})
+		
+		# XXX HACK: prevent "u" movement PlayerInput key from conflicting with "use"
+		globals.player_input._timer.start(0.3)
+		events.emit_signal("player_acted")
 		
 	if event.is_action_pressed("ui_drop") and _entity.has_method("drop"):
 		# see if we need to pickup an item in the area
