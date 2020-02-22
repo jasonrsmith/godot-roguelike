@@ -23,7 +23,7 @@ func _ready():
 	_on_health_changed(health, health)
 
 func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) -> void:
-	globals.camera.shake(0.25, 3)
+	globals.camera.shake(0.25, 2)
 	var from_name : String = from.display_name if "display_name" in from else "???"
 	globals.console.print_line("You take " + str(hit.damage) + " damage from " + from_name + ".", globals.LOG_CAT.CRITICAL)
 	.take_damage(hit, from)

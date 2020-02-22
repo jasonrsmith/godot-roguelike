@@ -5,6 +5,7 @@ const ZOOM_MIN = 0.25
 const ZOOM_DEFAULT = 0.5
 
 var _drag = false
+export (Vector2) var initial_offset = Vector2(-75, 50)
 export (bool) var move_camera_enabled
 export (float) var pan_sensitivity = 10.0
 export (float) var pinch_sensitivity = 1.0
@@ -14,24 +15,25 @@ var _shake_max_mag
 var _shake_mag
 var _is_shaking : bool = false
 
+
 func _ready() -> void:
 	globals.camera = self
 
 func _process(delta):
 	if _is_shaking:
 		if _shake_timer > 0:
-			set_offset(Vector2(
+			set_offset(initial_offset + Vector2(
 				globals.rng.randf_range(-1.0, 1.0) * _shake_mag,
 				globals.rng.randf_range(-1.0, 1.0) * _shake_mag))
 			_shake_timer -= delta
 			_shake_mag = _shake_timer * _shake_max_mag
 		else:
-			set_offset(Vector2(0, 0))
+			set_offset(initial_offset)
 			_is_shaking = false
 
 func shake(duration, magnitude):
 	# don't shake if already offset
-	if get_offset() != Vector2():
+	if get_offset() != initial_offset:
 		return
 
 	_is_shaking = true
@@ -48,7 +50,7 @@ func _input(event: InputEvent) -> void:
 		set_zoom(get_zoom() - Vector2.ONE * ZOOM_INC)
 	elif event.is_action_pressed("ui_zoom_reset"):
 		set_zoom(Vector2.ONE * ZOOM_DEFAULT)
-		set_offset(Vector2())
+		set_offset(initial_offset)
 	elif event.is_action_pressed("ui_cam_drag"):
 		_drag = true
 	elif event.is_action_released("ui_cam_drag"):
