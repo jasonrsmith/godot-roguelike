@@ -47,9 +47,9 @@ func take_turn() -> int:
 	var action = get_action()
 	if !action:
 		return 0
-	
+
 	match action.type:
-		
+
 		ACTION.MOVE_OR_ATTACK:
 			assert(action.params.has('direction'))
 			var direction : Vector2 = action.params.direction
@@ -61,23 +61,23 @@ func take_turn() -> int:
 				execute_move(direction)
 			# TODO: give actual costs to move
 			return speed
-		
+
 		ACTION.WAIT:
 			return speed
-		
+
 		ACTION.USE:
 			assert(action.params.has('entity'))
 			var entity : Entity = action.params.entity
 			assert(entity.has_method('use'))
 			globals.console.print_line("You %s the %s." % [entity.use_verb_second_person, entity.display_name])
-			
+
 			var target
 			if action.params.has('target'):
 				target = action.params.target
 			backpack.remove_entity(entity)
 			entity.use(self, target)
 			return speed
-	
+
 	return speed
 
 func execute_move(direction: Vector2) -> void:
