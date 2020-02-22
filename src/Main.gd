@@ -5,7 +5,6 @@ func _ready() -> void:
 	globals.main = self
 	_init_rng()
 
-	OS.set_window_size(Vector2(1024, 768))
 	globals.board.init_map()
 	globals.spawner.spawn_player()
 	globals.actor_area.add(globals.player_entity)
