@@ -52,26 +52,26 @@ func _unhandled_input(event: InputEvent) -> void:
 		globals.character_info_modal.show()
 		close()
 	get_tree().set_input_as_handled()
-	
+
 	if event.is_action_pressed("ui_use") and _entity.has_method("use"):
 		var target : Entity
-		
+
 		globals.character_info_modal.close()
 		close()
-		
+
 		if _entity.has_method("acquire_target"):
 			var target_promise : Promise = _entity.acquire_target(globals.player_entity)
 			yield(target_promise, "done")
 			target = target_promise.response.result
-		
+
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.USE,
 			{"entity": _entity, "target": target})
-		
+
 		# XXX HACK: prevent "u" movement PlayerInput key from conflicting with "use"
 		globals.player_input._timer.start(0.3)
 		events.emit_signal("player_acted")
-		
+
 	if event.is_action_pressed("ui_drop") and _entity.has_method("drop"):
 		# see if we need to pickup an item in the area
 		var item : Entity = globals.item_area.get_item_at_map_pos(globals.player_entity.get_map_pos())
@@ -79,10 +79,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			globals.player_entity.backpack.add_entity(item)
 			globals.item_area.remove_item(item)
 			item.hide()
-		
+
 		globals.player_entity.backpack.remove_entity(_entity)
 		_entity.set_map_pos(globals.player_entity.get_map_pos())
 		globals.item_area.add_item(_entity)
 		globals.character_info_modal.close()
 		close()
-	
+

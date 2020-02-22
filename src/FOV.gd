@@ -7,33 +7,33 @@ var _shadows
 
 class ShadowLine:
 	var _shadows : Array = []
-	
+
 	func is_in_shadow(projection: Shadow) -> bool:
 		for shadow in _shadows:
 			if shadow.contains(projection):
 				return true
 		return false
-	
+
 	# add shadow to list of non-overlapping shadows
 	# may merge one or more shadows
 	func add(shadow: Shadow):
 		var index = 0
-		
+
 		# stop at intersection point
 		for s in _shadows:
 			if s.start >= shadow.start:
 				break
 			index += 1
-		
+
 		# create new shadow, check if overlaps with previous
 		var overlapping_previous : Shadow
 		if index > 0 and _shadows[index - 1].end > shadow.start:
 			overlapping_previous = _shadows[index - 1]
-		
+
 		var overlapping_next : Shadow
 		if index < _shadows.size() and _shadows[index].start < shadow.end:
 			overlapping_next = _shadows[index]
-		
+
 		# insert and merge with overlapping shadows
 		if overlapping_next:
 			if overlapping_previous:
@@ -49,7 +49,7 @@ class ShadowLine:
 				overlapping_previous.endPos = shadow.endPos
 			else:
 				_shadows.insert(index, shadow)
-		
+
 	func is_full_shadow() -> bool:
 		return _shadows.size() == 1 and _shadows[0].start == 0 and _shadows[0].end == 1
 
@@ -58,16 +58,16 @@ class Shadow:
 	var end : float
 	var startPos : Vector2
 	var endPos : Vector2
-	
+
 	func _init(start, end, startPos, endPos):
 		self.start = start
 		self.end = end
 		self.startPos = startPos
 		self.endPos = endPos
-	
+
 	func contains(other: Shadow):
 		return start <= other.start and end >= other.end
-	
+
 	static func project_tile(row: int, col: int) -> Shadow:
 		var rowf : float = float(row)
 		var colf : float = float(col)
@@ -120,7 +120,7 @@ func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dict
 	var line = ShadowLine.new()
 	var full_shadow = false
 	var seen = {}
-	
+
 	for row in range(1, max_map_distance):
 		if not globals.board.contains(map_pos + transform_octant(row, 0, octant)):
 			return seen
@@ -155,4 +155,4 @@ func _draw():
 		return
 	for shadow in _shadows:
 		pass
-		#var left = shadow.start * shadow.start * line_width + 
+		#var left = shadow.start * shadow.start * line_width +

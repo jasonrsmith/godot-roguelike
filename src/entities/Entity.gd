@@ -78,7 +78,7 @@ func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) 
 		var animation : HitEffect = hit_animation.instance()
 		add_child(animation)
 		animation.run_once()
-	
+
 	var old_health = health
 	health -= hit.damage
 	health = max(0, health)

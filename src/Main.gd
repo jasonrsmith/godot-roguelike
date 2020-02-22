@@ -12,12 +12,12 @@ func _ready() -> void:
 	globals.player_input.initialize(globals.player_entity)
 	globals.board.populate_rooms()
 	globals.fov.refresh(globals.player_entity.get_map_pos())
-	
+
 	if globals.debug_settings.give_player_start_items:
 		_debug_give_player_stuff()
-	
+
 	globals.time_manager.run_actions()
-	
+
 	events.emit_signal("game_ready")
 
 func _debug_give_player_stuff():

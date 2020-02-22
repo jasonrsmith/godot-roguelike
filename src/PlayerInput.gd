@@ -44,15 +44,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		print_debug("player_acted")
 		events.emit_signal("player_acted")
 		return
-	
+
 	if event.is_action_pressed("ui_drop"):
 		#globals.ui.show_drop_screen()
 		return
-	
+
 	if event.is_action_pressed("ui_show_inventory"):
 		globals.character_info_modal.show_inventory()
 		return
-	
+
 	if event.is_action_pressed("ui_home"):
 		var missle = MissleFx.instance()
 		#missle.start()
@@ -63,7 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			missle.init(ents[0])
 			print_debug("target:", ents[0].position)
 		return
-	
+
 	_direction = get_key_input_direction(event)
 	if _direction != Vector2():
 		globals.player_entity.set_action(

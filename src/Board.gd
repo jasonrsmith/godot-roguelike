@@ -146,7 +146,7 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	"""
 	var cell_start : Vector2 = world_to_map(entity.position)
 	var cell_target : Vector2 = cell_start + direction
-	
+
 	# out of bounds
 	if !Rect2(Vector2(), board_size).has_point(cell_target):
 		return Vector2()
@@ -156,7 +156,7 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 	# colliding with other entity
 	if globals.actor_area.get_at_map_pos(cell_target):
 		return Vector2()
-	
+
 	if entity is ActorEntity:
 		globals.actor_area.move(cell_start, cell_target)
 #	_astar.set_point_disabled(get_map_pos_index(cell_target))

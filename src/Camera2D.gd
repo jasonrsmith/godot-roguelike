@@ -6,6 +6,8 @@ const ZOOM_DEFAULT = 0.5
 
 var _drag = false
 export (bool) var move_camera_enabled
+export (float) var pan_sensitivity = 10.0
+export (float) var pinch_sensitivity = 1.0
 
 var _shake_timer = 0
 var _shake_max_mag
@@ -31,7 +33,7 @@ func shake(duration, magnitude):
 	# don't shake if already offset
 	if get_offset() != Vector2():
 		return
-	
+
 	_is_shaking = true
 	_shake_max_mag = magnitude
 	_shake_timer = duration
@@ -53,3 +55,7 @@ func _input(event: InputEvent) -> void:
 		_drag = false
 	elif event is InputEventMouseMotion && _drag:
 		set_offset(get_offset() - event.relative * get_zoom().x)
+	elif event is InputEventMagnifyGesture:
+		set_zoom(get_zoom() / event.factor * pinch_sensitivity)
+	elif event is InputEventPanGesture:
+		set_offset(get_offset() + event.delta * pan_sensitivity * get_zoom().x)

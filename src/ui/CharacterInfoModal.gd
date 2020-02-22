@@ -36,12 +36,12 @@ func show_inventory() -> void:
 	_title_label.set_text("Backpack")
 	var backpack_entities = globals.player_entity.backpack.get_all_entities()
 	_clear_list()
-	
+
 	if backpack_entities.size() == 0:
 		var label : Label = Label.new()
 		label.set_text("(empty)")
 		_list_container.add_child(label)
-	
+
 	_create_list_items_from_entities(backpack_entities)
 	show()
 
@@ -100,7 +100,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			match _current_screen:
 				SCREEN_TYPE.INVENTORY:
 					_show_inventory_actions(entity)
-				
+
 				SCREEN_TYPE.SELECT_ENTITY:
 					_promise.complete(entity)
 					call_deferred("close")

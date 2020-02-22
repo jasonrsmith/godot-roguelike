@@ -12,20 +12,20 @@ class BSPNode:
 
 	var room: Rect2
 	var halls : Array
-	
+
 	var max_size : float
 	var min_size : float
-	
+
 	func _init(boundary: Rect2, max_size: float, min_size: float) -> void:
 		self.map_pos = boundary.position
 		self.size = boundary.size
 		self.max_size = max_size
 		self.min_size = min_size
-	
+
 	func split() -> bool:
 		if left != null and right != null:
 			return false
-		
+
 		var split_horiz: bool
 		if size.x > size.y and size.x / size.y >= 1.25:
 			split_horiz = false
@@ -33,16 +33,16 @@ class BSPNode:
 			split_horiz = true
 		else:
 			split_horiz = globals.rng.randf() > 0.5
-		
+
 		var max_size_split: float
 		if split_horiz:
 			max_size_split = size.y - min_size
 		else:
 			max_size_split = size.x - min_size
-		
+
 		if max_size_split <= min_size:
 			return false
-		
+
 		var split_pos = floor(globals.rng.randf_range(min_size, max_size_split))
 		if split_horiz:
 			left = BSPNode.new(Rect2(map_pos, Vector2(size.x, split_pos)), max_size, min_size)
@@ -58,7 +58,7 @@ class BSPNode:
 				Vector2(size.x - split_pos, size.y)),
 				max_size, min_size)
 		return true
-	
+
 	func create_rooms():
 		if left != null or right != null:
 			if left != null:
@@ -75,7 +75,7 @@ class BSPNode:
 				floor(globals.rng.randf_range(1, size.x - room_size.x - 1)),
 				floor(globals.rng.randf_range(1, size.y - room_size.y - 1)))
 			room = Rect2(map_pos + room_pos, room_size)
-	
+
 	func get_room() -> Rect2:
 		if room != Rect2():
 			return room
@@ -95,7 +95,7 @@ class BSPNode:
 			return left_room
 		else:
 			return right_room
-	
+
 	func create_hall(room1: Rect2, room2: Rect2) -> void:
 		halls = []
 		var point1 = Vector2(
@@ -106,7 +106,7 @@ class BSPNode:
 			round(globals.rng.randf_range(room2.position.y + 1, room2.position.y + room2.size.y - 2)))
 		var width = point2.x - point1.x
 		var height = point2.y - point1.y
-		
+
 		if width < 0:
 			if height < 0:
 				if globals.rng.randf() < 0.5:

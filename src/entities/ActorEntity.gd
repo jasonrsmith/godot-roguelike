@@ -42,16 +42,16 @@ func add_modifier(id : int, modifier):
 
 func remove_modifier(id : int):
 	modifiers.erase(id)
-	
+
 func _get_max_mana() -> int:
 	return max_mana
 
 func _get_strength() -> int:
 	return strength
-	
+
 func _get_defense() -> int:
 	return defense
-	
+
 func _get_speed() -> int:
 	return speed
 
