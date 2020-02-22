@@ -93,6 +93,14 @@
 * mining for coin, like angband
 * big color contrasts in tilesets:
   * emulate some of the feel of ascii without being ascii
+* no floors, or minimal use of floors, very large map:
+  * dynamically load and unload areas into memory
+  * areas should be meaningfully connected
+  * clear guide on what areas to visit in what order, ala hollow knight
+* room design:
+  * lots of visual contrast between rooms
+  * aesthetic changes between rooms
+  * room and enemy combinations forces player to think of different tactics
 
 # art
 * transitioning between different tiles:
