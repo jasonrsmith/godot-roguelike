@@ -59,8 +59,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		globals.character_info_modal.close()
 		close()
 
-		if _entity.has_method("acquire_target"):
-			var target_promise : Promise = _entity.acquire_target(globals.player_entity)
+		if _entity.has_method("use_on"):
+			var target_promise : Promise = globals.player_entity.acquire_target(_entity.max_range)
 			yield(target_promise, "done")
 			target = target_promise.response.result
 

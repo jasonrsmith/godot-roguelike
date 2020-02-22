@@ -1,13 +1,13 @@
 # todo
 * p0
-  * list enemies in view in HUD
-  * wire in clicking in menu items
-  * move up/down through menu
-  * items
+  * ui:
+    * hover on EntityListItem highlights entities on map
+    * wire in clicking in menu items
+    * move up/down through menu
+  * items:
     * scrolls:
       * fireball scroll:
         * aoe, dot
-  * mouse select menu options
 * p1
   * inventory hotkeys static like brogue
   * multiple floors

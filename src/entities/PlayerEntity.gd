@@ -123,6 +123,22 @@ func get_visible_items() -> Array:
 func get_visible_entities() -> Array:
 	return get_visible_npcs() + get_visible_items()
 
+func acquire_target(max_range: int) -> Promise:
+	var visible_entities : Array = get_visible_npcs()
+	var targetable_entities : Array = []
+	for e in visible_entities:
+		var distance = get_map_pos().distance_to(e.get_map_pos())
+		if distance <= max_range:
+			targetable_entities.append(e)
+
+	var promise : Promise = Promise.new()
+
+	if targetable_entities.size() == 0:
+		promise.call_deferred("complete")
+		return promise
+	promise = globals.character_info_modal.show_select_entity("Choose Target", visible_entities)
+	return promise
+
 func _on_health_changed(health: int, old_health: int):
 	events.emit_signal("player_health_changed", health, old_health)
 

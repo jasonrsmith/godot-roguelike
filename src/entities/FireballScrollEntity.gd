@@ -1,10 +1,10 @@
 extends ScrollEntity
-class_name MagicMissleScrollEntity
+class_name FireballScrollEntity
 
 const MissleFx = preload("res://src/fx/Missle.tscn")
 
 export var damage : int
-export var max_range : int
+export var missle_range : int
 
 func use(entity: Entity, target_entity = null) -> void:
 	if !target_entity:
