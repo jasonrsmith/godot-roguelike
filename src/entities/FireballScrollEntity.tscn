@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/entities/FireballScrollEntity.gd" type="Script" id=1]
 [ext_resource path="res://src/entities/ScrollEntity.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/items/Item__38.png" type="Texture" id=3]
 
 [node name="FireballScrollEntity" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+display_name = "fireball scroll"
+description = "Launch a deadly fire attack, your foes gon' boogie oogie oggi, jiggle, wiggle and dance."
+image = null
+damage = 1
+max_range = 10
+aoe_radius = 2
+
+[node name="Sprite" parent="Pivot" index="0"]
+texture = ExtResource( 3 )
 
 [editable path="TooltipCanvas"]

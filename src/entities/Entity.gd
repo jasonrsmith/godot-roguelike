@@ -13,6 +13,7 @@ export var description : String
 export var max_health : int = 1 setget set_max_health, _get_max_health
 export var image : Texture
 export var is_proper_noun : bool = false
+export var is_burnable : bool = true
 
 var health : int
 var is_alive : bool setget ,_is_alive

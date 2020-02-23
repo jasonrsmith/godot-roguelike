@@ -53,6 +53,9 @@
       * benefits include: no ui locking
       * UI can query into game engine, but very limited
   * ECS-light: https://www.youtube.com/watch?v=JxI3Eu5DPwE
+* event-based systems:
+  * https://www.reddit.com/r/roguelikedev/comments/9wzyoo/setting_up_an_event_system_as_a_backbone/
+  * https://www.youtube.com/watch?v=p48ArjJweSo
 
 # sound
 * https://github.com/kyzfrintin/Godot-Mixing-Desk
@@ -101,6 +104,7 @@
   * lots of visual contrast between rooms
   * aesthetic changes between rooms
   * room and enemy combinations forces player to think of different tactics
+  * power-ups
 
 # art
 * transitioning between different tiles:

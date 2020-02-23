@@ -1,6 +1,6 @@
 [gd_scene load_steps=73 format=2]
 
-[ext_resource path="res://src/fx/Missle.gd" type="Script" id=1]
+[ext_resource path="res://src/fx/Fireball.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Small_Fireball_10x26.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -303,7 +303,6 @@ z_index = 100
 collision_layer = 4
 collision_mask = 4
 script = ExtResource( 1 )
-speed = 350
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0
@@ -319,7 +318,6 @@ shape = SubResource( 1 )
 rotation = 4.71239
 frames = SubResource( 62 )
 animation = "New Anim"
-frame = 43
 playing = true
 
 [node name="Explosion" type="Particles2D" parent="."]

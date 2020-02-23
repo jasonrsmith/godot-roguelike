@@ -93,4 +93,4 @@ RichTextLabel/fonts/mono_font = null
 RichTextLabel/fonts/normal_font = SubResource( 8 )
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
-VBoxContainer/constants/separation = 4
+VBoxContainer/constants/separation = 10

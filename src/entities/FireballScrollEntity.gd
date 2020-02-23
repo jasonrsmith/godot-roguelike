@@ -1,7 +1,7 @@
 extends ScrollEntity
 class_name FireballScrollEntity
 
-const FireballFx = preload("res://src/fx/FireballFx.tscn")
+const FireballFx = preload("res://src/fx/Fireball.tscn")
 
 export var damage : int
 export var max_range : int
@@ -13,7 +13,7 @@ func use(entity: Entity, target_entity = null) -> void:
 		return
 
 	var fireball_fx = FireballFx.instance()
-	get_tree().get_root().add_child(missle_fx)
+	get_tree().get_root().add_child(fireball_fx)
 	fireball_fx.init(target_entity)
 	fireball_fx.position = entity.position
 
@@ -24,7 +24,7 @@ func use(entity: Entity, target_entity = null) -> void:
 
 	var hit := Hit.new(damage)
 	target_entity.take_damage(hit, self, animation_finished_promise)
-	yield(missle_fx, "tree_exited")
+	yield(fireball_fx, "tree_exited")
 	animation_finished_promise.complete()
 
 	globals.console.print_line("The missle hits %s for %d damage." % [target_name, hit.damage])

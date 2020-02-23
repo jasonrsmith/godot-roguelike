@@ -6,7 +6,7 @@ onready var _snake_entity = preload("res://src/entities/Snake.tscn")
 
 onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
 onready var _magic_missle_scroll = preload("res://src/entities/MagicMissleScrollEntity.tscn")
-
+onready var _fireball_scroll = preload("res://src/entities/FireballScrollEntity.tscn")
 
 onready var _player_entity = preload("res://src/entities/PlayerEntity.tscn")
 
@@ -26,13 +26,14 @@ func random_monster() -> NPCEntity:
 	return monster
 
 func random_item() -> Entity:
+	var item_scenes = [
+		_health_potion_entity,
+		_magic_missle_scroll,
+		_fireball_scroll,
+	]
 	var item : Entity
-	if globals.rng.randf() > 0.5:
-		item = _health_potion_entity.instance()
-	else:
-		item = _magic_missle_scroll.instance()
-
-	return item
+	var scene_idx = globals.rng.randi() % item_scenes.size()
+	return item_scenes[scene_idx].instance()
 
 func magic_missle_scroll() -> MagicMissleScrollEntity:
 	return _magic_missle_scroll.instance()
