@@ -269,6 +269,7 @@ max_value = 400.0
 _data = [ Vector2( 0.00510204, 400 ), 0.0, 0.0, 0, 0, Vector2( 0.206633, -23.8588 ), -665.946, -665.946, 0, 0, Vector2( 1, 46.4114 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=67]
+width = 1024
 curve = SubResource( 66 )
 
 [sub_resource type="Curve" id=68]
@@ -279,20 +280,21 @@ _data = [ Vector2( 0, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 curve = SubResource( 68 )
 
 [sub_resource type="ParticlesMaterial" id=70]
-emission_shape = 1
-emission_sphere_radius = 4.75
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
 flag_disable_z = true
 spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 38.39
-initial_velocity_random = 0.52
+gravity = Vector3( 0, -100, 0 )
+initial_velocity = 63.18
+initial_velocity_random = 0.15
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-linear_accel = 100.0
-linear_accel_random = 0.2
+linear_accel = 4.96
+linear_accel_random = 0.32
 linear_accel_curve = SubResource( 67 )
-scale = 2.0
-scale_random = 1.0
+radial_accel = -14.88
+scale = 1.5
+scale_random = 0.64
 scale_curve = SubResource( 69 )
 color_ramp = SubResource( 65 )
 
@@ -317,7 +319,7 @@ shape = SubResource( 1 )
 rotation = 4.71239
 frames = SubResource( 62 )
 animation = "New Anim"
-frame = 36
+frame = 43
 playing = true
 
 [node name="Explosion" type="Particles2D" parent="."]

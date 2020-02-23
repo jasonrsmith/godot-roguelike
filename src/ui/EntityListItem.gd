@@ -28,6 +28,7 @@ func shorten(width: int) -> void:
 	_name.autowrap = true
 	_name.rect_min_size.x = width
 
+
 func adjust_container_size_to_fit_label():
 	rect_min_size.y = _name.rect_size.y + 10
 
