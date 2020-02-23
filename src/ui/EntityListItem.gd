@@ -1,14 +1,16 @@
+tool
 extends Button
 class_name EntityListItem
 
+onready var _image_box : HBoxContainer = $HBoxContainer
 onready var _shortcut : Label = $HBoxContainer/Shortcut
 onready var _image : TextureRect = $HBoxContainer/TextureRect
-onready var _name : Label = $HBoxContainer/DisplayName
+onready var _name : Label = $DisplayName
 
 var _shortcut_hotkey : String
 
 func _ready() -> void:
-	pass # Replace with function body.
+	connect("resized", self, "_on_resized")
 
 func init(name: String, image: Texture, shortcut = "") -> void:
 	if shortcut == "":
@@ -21,17 +23,14 @@ func init(name: String, image: Texture, shortcut = "") -> void:
 		_image.hide()
 	else:
 		_image.set_texture(image)
-
-	call_deferred("adjust_container_size_to_fit_label")
-
-func shorten(width: int) -> void:
-	_name.autowrap = true
-	_name.rect_min_size.x = width
-
-
-func adjust_container_size_to_fit_label():
-	rect_min_size.y = _name.rect_size.y + 10
+	_on_resized()
 
 func _input(event: InputEvent) -> void:
 	if event in InputEventKey and _shortcut_hotkey == char(event.scancode+32):
 		print_debug("HOTKEY HIT:", char(event.scancode+32))
+
+func _on_resized():
+	_name.rect_position = Vector2(_image_box.rect_size.x, _image_box.rect_position.y)
+	_name.rect_size = Vector2(rect_size.x - _image_box.rect_size.x, -1.0)
+	_name.rect_min_size = Vector2(-1.0, _image_box.rect_size.y)
+	rect_min_size = Vector2(0.0, max(_name.rect_size.y, _image_box.rect_size.y))

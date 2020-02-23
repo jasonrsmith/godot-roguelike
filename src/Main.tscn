@@ -109,7 +109,7 @@ __meta__ = {
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 250.0
-margin_bottom = 1024.0
+margin_bottom = 768.0
 theme = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -160,8 +160,8 @@ __meta__ = {
 
 [node name="EntityListItem" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
 margin_right = 240.0
-margin_bottom = 95.0
-rect_min_size = Vector2( 0, 95 )
+margin_bottom = 137.0
+rect_min_size = Vector2( 0, 137 )
 
 [node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="0"]
 visible = false
@@ -171,21 +171,19 @@ text = ""
 [node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="1"]
 margin_left = 0.0
 margin_right = 32.0
-margin_bottom = 85.0
 
-[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="2"]
-margin_left = 52.0
-margin_top = 0.0
-margin_right = 192.0
-margin_bottom = 85.0
-rect_min_size = Vector2( 140, 0 )
-text = "why why why why why why why why why why"
-autowrap = true
+[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem" index="1"]
+margin_left = 37.0
+margin_top = 5.0
+margin_right = 245.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 198, 22 )
 
 [node name="EntityListItem2" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 99.0
+margin_top = 141.0
 margin_right = 240.0
-margin_bottom = 139.0
+margin_bottom = 215.0
+rect_min_size = Vector2( 0, 74 )
 
 [node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="0"]
 visible = false
@@ -196,9 +194,12 @@ text = ""
 margin_left = 0.0
 margin_right = 32.0
 
-[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="2"]
-margin_left = 52.0
-margin_right = 236.0
+[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2" index="1"]
+margin_left = 37.0
+margin_top = 5.0
+margin_right = 245.0
+margin_bottom = -5.0
+rect_min_size = Vector2( 198, 22 )
 
 [node name="Debug" type="Control" parent="UI"]
 anchor_right = 1.0
