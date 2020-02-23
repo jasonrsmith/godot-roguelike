@@ -1,6 +1,5 @@
 extends Control
 
-onready var _list_item_base = $NPCListItem
 onready var _list = $VBoxContainer
 
 const EntityListItemScene = preload("res://src/ui/EntityListItem.tscn")
@@ -15,4 +14,3 @@ func _on_player_fov_refreshed() -> void:
 		var item : EntityListItem = EntityListItemScene.instance()
 		_list.add_child(item)
 		item.init(entity.display_name, entity.image)
-		item.shorten(rect_size.x - 100)
