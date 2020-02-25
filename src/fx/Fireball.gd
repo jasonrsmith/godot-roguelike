@@ -12,8 +12,6 @@ onready var _explosion : Particles2D = $Explosion
 onready var _sprite : AnimatedSprite = $AnimatedSprite
 onready var _timer : Timer = $Timer
 
-const FireEntityScene = preload("res://src/entities/FireEntity.tscn")
-
 func _ready() -> void:
 	set_physics_process(false)
 	connect("area_entered", self, "_on_Missile_body_entered")
@@ -46,13 +44,7 @@ func explode() -> void:
 	if !_target.is_alive:
 		_target.hide()
 	yield(get_tree().create_timer(0.25), "timeout")
-	create_fire()
 	queue_free()
-
-func create_fire() -> void:
-	var fire = FireEntityScene.instance()
-	fire.position = _target.position
-	globals.environmental_effect_area.add_or_replace(fire)
 
 func _on_Lifetime_timeout():
 	queue_free()

@@ -1,5 +1,7 @@
 # todo
 * p0
+  * refactor fov so that any entity can use it:
+    * use fov for fireball aoe
   * ui:
     * hover on EntityListItem highlights entities on map
     * wire in clicking in menu items

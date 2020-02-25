@@ -35,6 +35,9 @@ func random_item() -> Entity:
 	var scene_idx = globals.rng.randi() % item_scenes.size()
 	return item_scenes[scene_idx].instance()
 
+func fireball_scroll() -> FireballScrollEntity:
+	return _fireball_scroll.instance()
+
 func magic_missle_scroll() -> MagicMissleScrollEntity:
 	return _magic_missle_scroll.instance()
 

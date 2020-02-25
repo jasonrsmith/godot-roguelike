@@ -8,7 +8,6 @@
 script = ExtResource( 1 )
 display_name = "fireball scroll"
 description = "Launch a deadly fire attack, your foes gon' boogie oogie oggi, jiggle, wiggle and dance."
-image = null
 damage = 1
 max_range = 10
 aoe_radius = 2
