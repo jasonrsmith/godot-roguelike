@@ -6,6 +6,8 @@ enum ACTION { MOVE_OR_ATTACK, WAIT, PICKUP, USE }
 var _action
 
 var _heal_fx = preload("res://src/fx/HealParticles.tscn")
+var _field_of_view = FieldOfView.new(globals.board)
+var _tiles_in_view : Dictionary = {}
 
 class Action:
 	var type: int
@@ -18,8 +20,8 @@ class Action:
 func _ready():
 	globals.player_entity = self
 	connect('health_changed', self, '_on_health_changed')
-	events.connect("player_fov_refreshed", self, "_on_fov_refreshed")
 	_on_health_changed(health, health)
+	show()
 
 func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) -> void:
 	globals.camera.shake(0.25, 2)
@@ -102,7 +104,7 @@ func execute_attack(direction: Vector2) -> void:
 		globals.console.print_line("You kill " + target_entity.display_name + ".")
 
 func get_visible_npcs() -> Array:
-	var visible_tiles : Array = globals.board.get_visible_tiles()
+	var visible_tiles : Array = get_visible_tiles()
 	var entities := []
 	for tile_map_pos in visible_tiles:
 		var actor : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
@@ -111,7 +113,7 @@ func get_visible_npcs() -> Array:
 	return entities
 
 func get_visible_items() -> Array:
-	var visible_tiles : Array = globals.board.get_visible_tiles()
+	var visible_tiles : Array = get_visible_tiles()
 	var entities := []
 	for tile_map_pos in visible_tiles:
 		var item : Entity = globals.item_area.get_item_at_map_pos(tile_map_pos)
@@ -120,7 +122,16 @@ func get_visible_items() -> Array:
 	return entities
 
 func get_visible_entities() -> Array:
+	# TODO: refactor into FieldOfView so that all entities can use
+	# TODO: refactor *_area into EntityContainers script, inject into fov
 	return get_visible_npcs() + get_visible_items()
+
+func get_visible_tiles() -> Array:
+	return _field_of_view.get_tiles_in_view().keys()
+
+func is_tile_visible(map_pos: Vector2) -> bool:
+	# TODO: is this needed after refactoring?
+	return _field_of_view.in_fov(map_pos)
 
 func acquire_target(max_range: int) -> Promise:
 	var visible_entities : Array = get_visible_npcs()
@@ -138,8 +149,21 @@ func acquire_target(max_range: int) -> Promise:
 	promise = globals.character_info_modal.show_select_entity("Choose Target", visible_entities)
 	return promise
 
+func refresh_fov() -> void:
+	var refreshed_tiles_in_view: Dictionary = _field_of_view.refresh(get_map_pos(), sight)
+
+	# look for tiles that went out of view
+	for map_pos in _tiles_in_view.keys():
+		if !refreshed_tiles_in_view.has(map_pos):
+			events.emit_signal("tile_went_out_of_view", map_pos)
+
+	# look for newly seen tiles
+	for map_pos in refreshed_tiles_in_view.keys():
+		if !_tiles_in_view.has(map_pos):
+			events.emit_signal("tile_was_seen", map_pos)
+
+	_tiles_in_view = refreshed_tiles_in_view
+	events.emit_signal("player_fov_refreshed")
+
 func _on_health_changed(health: int, old_health: int):
 	events.emit_signal("player_health_changed", health, old_health)
-
-func _on_fov_refreshed():
-	pass

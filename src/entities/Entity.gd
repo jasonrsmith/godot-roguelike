@@ -60,6 +60,7 @@ func bump() -> void:
 # TODO: yield doesn't work when dead
 func remove():
 	hide()
+	globals.time_manager.release(self)
 	queue_free()
 
 func set_map_pos(map_pos: Vector2):
