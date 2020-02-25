@@ -17,7 +17,6 @@ class Action:
 
 func _ready():
 	globals.player_entity = self
-	globals.time_manager.register(self)
 	connect('health_changed', self, '_on_health_changed')
 	events.connect("player_fov_refreshed", self, "_on_fov_refreshed")
 	_on_health_changed(health, health)

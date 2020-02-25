@@ -29,6 +29,7 @@ var debug_settings : DebugSettings
 var debug_mouse_pos : DebugMousePos
 var debug_grid : DebugGrid
 var main : Main
+var environmental_effect_area : EnvironmentalEffectArea
 var rng := RandomNumberGenerator.new()
 
 func is_modal_shown() -> bool:

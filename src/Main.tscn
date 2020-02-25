@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/ui/Console.gd" type="Script" id=1]
 [ext_resource path="res://src/DebugGrid.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://src/ui/EnemyList.gd" type="Script" id=23]
 [ext_resource path="res://src/DebugSettings.gd" type="Script" id=24]
 [ext_resource path="res://src/ui/DeadScreen.gd" type="Script" id=25]
+[ext_resource path="res://src/EnvironmentalEffectArea.gd" type="Script" id=26]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
@@ -314,7 +315,8 @@ script = ExtResource( 16 )
 z_index = 10
 script = ExtResource( 4 )
 
-[node name="Position2D" type="Position2D" parent="EntityContainers"]
+[node name="EnvironmentalEffectArea" type="Position2D" parent="EntityContainers"]
+script = ExtResource( 26 )
 
 [node name="FOV" type="Node2D" parent="."]
 script = ExtResource( 15 )

@@ -8,6 +8,7 @@ onready var tooltip  = $TooltipCanvas/Tooltip
 onready var backpack = $Backpack
 onready var hit_animation = preload("res://src/fx/HitEffect.tscn")
 
+export var speed : int = 0 setget ,_get_speed
 export var display_name : String = "thing"
 export var description : String
 export var max_health : int = 1 setget set_max_health, _get_max_health
@@ -15,7 +16,9 @@ export var image : Texture
 export var is_proper_noun : bool = false
 export var is_burnable : bool = true
 
+var action_points : int
 var health : int
+
 var is_alive : bool setget ,_is_alive
 var _inside_backpack : Backpack
 
@@ -24,6 +27,7 @@ func _ready() -> void:
 	tooltip.set_entity(self)
 	health = self.max_health
 	sprite.set_texture(image)
+	globals.time_manager.register(self)
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
 	set_process(false)
@@ -119,6 +123,9 @@ func heal(amount : int, from: Object) -> void:
 
 func drop() -> void:
 	pass
+
+func _get_speed() -> int:
+	return speed
 
 func _get_max_health() -> int:
 	return max_health

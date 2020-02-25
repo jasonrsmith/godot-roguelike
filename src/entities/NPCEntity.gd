@@ -16,7 +16,6 @@ var _player_detector_ray: RayCast2D
 var _path_green_color : float
 
 func _ready():
-	globals.time_manager.register(self)
 	vision_radius = sight
 	var shape = CircleShape2D.new()
 	shape.radius = globals.map_cell_size * vision_radius
@@ -91,15 +90,15 @@ func execute_attack(entity: Entity):
 
 func refresh_target_path(map_pos: Vector2):
 	var surrounding_entities : Array = globals.board.get_entities_surrounding_map_pos(map_pos)
-	
+
 	# enable surrounding entities for flanking
 	for entity_map_pos in surrounding_entities:
 		if entity_map_pos == globals.board.world_to_map(globals.player_entity.position):
 			continue
 		globals.board.set_point_disabled_for_path(entity_map_pos)
-	
+
 	_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
-	
+
 	# re-enable surrounding entities
 	for entity_map_pos in surrounding_entities:
 		if entity_map_pos == globals.board.world_to_map(globals.player_entity.position):

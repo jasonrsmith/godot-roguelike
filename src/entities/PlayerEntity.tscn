@@ -12,10 +12,10 @@
 
 [node name="PlayerEntity" type="KinematicBody2D"]
 script = ExtResource( 1 )
+speed = 100
 display_name = "You"
 max_health = 10000
 image = ExtResource( 3 )
-speed = 100
 sight = 10
 
 [node name="Pivot" type="Position2D" parent="."]

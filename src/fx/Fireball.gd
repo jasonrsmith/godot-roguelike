@@ -12,7 +12,7 @@ onready var _explosion : Particles2D = $Explosion
 onready var _sprite : AnimatedSprite = $AnimatedSprite
 onready var _timer : Timer = $Timer
 
-const Burning = preload("res://src/fx/Burning.tscn")
+const FireEntityScene = preload("res://src/entities/FireEntity.tscn")
 
 func _ready() -> void:
 	set_physics_process(false)
@@ -33,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	rotation = _velocity.angle()
 	position += _velocity * delta
 
-
 func _on_Missile_body_entered(body):
 	if body and body == _target or body.get_parent() == _target:
 		explode()
@@ -47,13 +46,13 @@ func explode() -> void:
 	if !_target.is_alive:
 		_target.hide()
 	yield(get_tree().create_timer(0.25), "timeout")
-
-	var burning = Burning.instance()
-	burning.position = _target.position
-	burning.set_material(burning.get_material().duplicate())
-	burning.get_material().set_shader_param("time_offset", globals.rng.randf_range(0.0, 5.0))
-	get_tree().get_root().add_child(burning)
+	create_fire()
 	queue_free()
+
+func create_fire() -> void:
+	var fire = FireEntityScene.instance()
+	fire.position = _target.position
+	globals.environmental_effect_area.add_or_replace(fire)
 
 func _on_Lifetime_timeout():
 	queue_free()

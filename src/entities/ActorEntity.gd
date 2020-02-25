@@ -12,10 +12,8 @@ var mana : int setget set_mana
 export var max_mana : int = 0 setget set_max_mana, _get_max_mana
 export var strength : int = 1 setget ,_get_strength
 export var defense : int = 1 setget ,_get_defense
-export var speed : int = 1 setget ,_get_speed
 export var sight : int = 1 setget ,_get_sight
 
-var action_points : int
 var level : int
 
 func _ready() -> void:
@@ -51,9 +49,6 @@ func _get_strength() -> int:
 
 func _get_defense() -> int:
 	return defense
-
-func _get_speed() -> int:
-	return speed
 
 func _get_level() -> int:
 	return level
