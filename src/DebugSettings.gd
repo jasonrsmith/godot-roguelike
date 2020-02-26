@@ -14,6 +14,9 @@ func _ready() -> void:
 	globals.debug_settings = self
 	events.connect("game_ready", self, "_on_game_ready")
 
+func _on_game_ready():
+	pass
+
 func set_show_mouse_pos(enabled: bool) -> void:
 	if !globals.debug_mouse_pos:
 		return
