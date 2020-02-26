@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://src/ui/Console.gd" type="Script" id=1]
 [ext_resource path="res://src/DebugGrid.gd" type="Script" id=2]
@@ -38,14 +38,11 @@ border_width_top = 1
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 96
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 64
 font_data = ExtResource( 3 )
 
@@ -60,142 +57,10 @@ rng_seed = "38f44f3b"
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HUDBackground" type="Control" parent="UI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelLeft" type="Panel" parent="UI/HUDBackground"]
-anchor_bottom = 1.0
-margin_right = 250.0
-margin_bottom = -200.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelBottom" type="Panel" parent="UI/HUDBackground"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 250.0
-margin_top = -200.0
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelCorner" type="Panel" parent="UI/HUDBackground"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -200.0
-margin_right = 250.0
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LeftUI" type="MarginContainer" parent="UI"]
-anchor_bottom = 1.0
-margin_right = 250.0
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 250.0
-margin_bottom = 768.0
-theme = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="StatsUI" type="MarginContainer" parent="UI/LeftUI/VBoxContainer"]
-margin_right = 240.0
-margin_bottom = 29.0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 10
-script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI/VBoxContainer/StatsUI"]
-margin_left = 10.0
-margin_right = 230.0
-margin_bottom = 19.0
-custom_constants/separation = 0
-
-[node name="HP" type="Label" parent="UI/LeftUI/VBoxContainer/StatsUI/VBoxContainer"]
-margin_right = 220.0
-margin_bottom = 19.0
-theme = ExtResource( 7 )
-custom_colors/font_outline_modulate = Color( 0.756863, 0.0980392, 0.0980392, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/line_spacing = 0
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 4
-text = "HP: 0 / 0"
-
-[node name="NPCList" type="Control" parent="UI/LeftUI/VBoxContainer"]
-margin_top = 39.0
-margin_right = 240.0
-margin_bottom = 39.0
-script = ExtResource( 23 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/LeftUI/VBoxContainer/NPCList"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EntityListItem" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
-margin_right = 240.0
-margin_bottom = 95.0
-rect_min_size = Vector2( 0, 95 )
-
-[node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="0"]
-visible = false
-margin_right = 0.0
-text = ""
-
-[node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem/HBoxContainer" index="1"]
-margin_left = 0.0
-margin_right = 32.0
-
-[node name="EntityListItem2" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
-margin_top = 105.0
-margin_right = 240.0
-margin_bottom = 137.0
-rect_min_size = Vector2( 0, 32 )
-
-[node name="Shortcut" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="0"]
-visible = false
-margin_right = 0.0
-text = ""
-
-[node name="TextureRect" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2/HBoxContainer" index="1"]
-margin_left = 0.0
-margin_right = 32.0
-
-[node name="DisplayName" parent="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2" index="1"]
-margin_left = 32.0
-margin_right = 240.0
-rect_min_size = Vector2( -1, 32 )
-
 [node name="Debug" type="Control" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -213,12 +78,123 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Console" type="RichTextLabel" parent="UI"]
+[node name="HSplitContainer" type="HSplitContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelLeft" type="Panel" parent="UI/HSplitContainer"]
+margin_right = 250.0
+margin_bottom = 568.0
+rect_min_size = Vector2( 250, 0 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftUI" type="MarginContainer" parent="UI/HSplitContainer/PanelLeft"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 240.0
+margin_bottom = 558.0
+theme = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsUI" type="MarginContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer"]
+margin_right = 230.0
+margin_bottom = 29.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/StatsUI"]
+margin_right = 230.0
+margin_bottom = 19.0
+custom_constants/separation = 0
+
+[node name="HP" type="Label" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/StatsUI/VBoxContainer"]
+margin_right = 230.0
+margin_bottom = 19.0
+theme = ExtResource( 7 )
+custom_colors/font_outline_modulate = Color( 0.756863, 0.0980392, 0.0980392, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 4
+text = "HP: 0 / 0"
+autowrap = true
+
+[node name="NPCList" type="Control" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer"]
+margin_top = 39.0
+margin_right = 230.0
+margin_bottom = 39.0
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/NPCList"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EntityListItem" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 230.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 0, 95 )
+
+[node name="EntityListItem2" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/NPCList/VBoxContainer" instance=ExtResource( 12 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 105.0
+margin_right = 230.0
+margin_bottom = 124.0
+
+[node name="PanelCenter" type="Control" parent="UI/HSplitContainer"]
+margin_left = 262.0
+margin_right = 1024.0
+margin_bottom = 568.0
+
+[node name="PanelBottom" type="Panel" parent="UI"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -200.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Console" type="RichTextLabel" parent="UI/PanelBottom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 10.0
-margin_top = -190.0
+margin_top = 10.0
+margin_right = -10.0
 margin_bottom = -10.0
 theme = ExtResource( 7 )
 bbcode_text = "asdfzxcvasdf"
@@ -243,7 +219,7 @@ margin_right = -590.0
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 script = ExtResource( 25 )
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/DeadScreen"]
@@ -263,7 +239,7 @@ margin_bottom = 151.0
 [node name="Label" type="Label" parent="UI/DeadScreen/MarginContainer/VBoxContainer"]
 margin_right = 540.0
 margin_bottom = 88.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "You are dead"
@@ -273,7 +249,7 @@ align = 1
 margin_top = 92.0
 margin_right = 540.0
 margin_bottom = 151.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.866667, 0.564706, 0.564706, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Restart? [Y/n]"
@@ -374,7 +350,3 @@ script = ExtResource( 5 )
 script = ExtResource( 9 )
 max_size = 12.0
 min_size = 8.0
-
-[editable path="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem"]
-
-[editable path="UI/LeftUI/VBoxContainer/NPCList/VBoxContainer/EntityListItem2"]
