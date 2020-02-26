@@ -2,35 +2,60 @@ tool
 extends Button
 class_name EntityListItem
 
-onready var _image_box : HBoxContainer = $HBoxContainer
-onready var _shortcut : Label = $HBoxContainer/Shortcut
-onready var _image : TextureRect = $HBoxContainer/TextureRect
-onready var _name : Label = $DisplayName
+# MarginContainers allow us to push the shortcut text and name text down
+# just far enough (~5px) to be centered with the Image.
+onready var _shortcut_margin : MarginContainer = $HBox/ShortcutMargin
+onready var _shortcut : Label = $HBox/ShortcutMargin/Shortcut
+onready var _image_margin : TextureRect = $HBox/ImageMargin
+onready var _image : TextureRect = $HBox/ImageMargin/Image
+onready var _name_margin : MarginContainer = $HBox/NameMargin
+onready var _name : Label = $HBox/NameMargin/Name
 
 var _shortcut_hotkey : String
-
-func _ready() -> void:
-	connect("resized", self, "_on_resized")
 
 func init(name: String, image: Texture, shortcut = "") -> void:
 	if shortcut == "":
 		_shortcut.hide()
+		_shortcut_margin.hide()
 	else:
 		_shortcut_hotkey = shortcut
 	_shortcut.set_text(shortcut)
 	_name.set_text(name)
 	if !image:
 		_image.hide()
+		_image_margin.hide()
 	else:
 		_image.set_texture(image)
-	_on_resized()
+	_name.connect("resized", self, "_on_name_resized")
 
 func _input(event: InputEvent) -> void:
 	if event in InputEventKey and _shortcut_hotkey == char(event.scancode+32):
 		print_debug("HOTKEY HIT:", char(event.scancode+32))
 
-func _on_resized():
-	_name.rect_position = Vector2(_image_box.rect_size.x, _image_box.rect_position.y)
-	_name.rect_size = Vector2(rect_size.x - _image_box.rect_size.x, -1.0)
-	_name.rect_min_size = Vector2(-1.0, _image_box.rect_size.y)
-	rect_min_size = Vector2(0.0, max(_name.rect_size.y, _image_box.rect_size.y))
+func _on_name_resized():
+	"""
+	The item's new size is not updated by godot until after the next draw
+	cycle, so we defer size calculations to the _after_name_resized func.
+	"""
+	call_deferred("_after_name_resized")
+
+func _after_name_resized():
+	"""
+	Calculates the height of _name Label and updates minimum sizes accordingly.
+	"""
+	var name_height = _name.get_line_count() * (
+		_name.get_line_height() + _name.get_constant("line_spacing")
+	)
+	var name_margin_height = (
+		name_height +
+		_name_margin.get_constant("margin_top") +
+		_name_margin.get_constant("margin_bottom")
+	)
+	var image_margin_height = (
+		_image.rect_size.y +
+		_image_margin.get_constant("margin_top") +
+		_image_margin.get_constant("margin_bottom")
+	)
+	var max_child_height = max(name_margin_height, image_margin_height)
+	_name.set_custom_minimum_size(Vector2(0.0, name_height))
+	set_custom_minimum_size(Vector2(0.0, max_child_height))
