@@ -4,8 +4,8 @@ class_name EntityMapIndex
 var _entity_idx := {}
 
 func _ready() -> void:
-	#assert(false, "abstract class")
-	pass
+	events.connect("tile_was_seen", self, "_on_tile_was_seen")
+	events.connect("tile_went_out_of_view", self, "_on_tile_went_out_of_view")
 
 func add_or_replace(entity: Entity) -> void:
 	var map_pos : Vector2 = entity.get_map_pos()
@@ -40,3 +40,15 @@ func move(from: Vector2, to: Vector2) -> void:
 	var entity : Entity = _entity_idx[from]
 	_entity_idx[to] = entity
 	_entity_idx.erase(from)
+
+func _on_tile_was_seen(map_pos: Vector2) -> void:
+	var entity := get_at_map_pos(map_pos)
+	if !entity:
+		return
+	entity.show()
+
+func _on_tile_went_out_of_view(map_pos: Vector2) -> void:
+	var entity := get_at_map_pos(map_pos)
+	if !entity:
+		return
+	entity.hide()

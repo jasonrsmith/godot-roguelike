@@ -85,10 +85,10 @@ func execute_move(direction: Vector2) -> void:
 	var target_map_pos : Vector2 = globals.board.request_move(self, direction)
 	if target_map_pos:
 		move_to_map_pos(target_map_pos)
-		var item : Entity = globals.item_area.get_item_at_map_pos(target_map_pos)
+		var item : Entity = globals.item_area.get_at_map_pos(target_map_pos)
 		if item:
 			add_entity_to_backpack(item)
-			globals.item_area.remove_item(item)
+			globals.item_area.remove(item)
 			globals.console.print_line("You pick up the " + item.display_name + ".")
 		events.emit_signal("player_moved", target_map_pos)
 	else:
@@ -116,7 +116,7 @@ func get_visible_items() -> Array:
 	var visible_tiles : Array = get_visible_tiles()
 	var entities := []
 	for tile_map_pos in visible_tiles:
-		var item : Entity = globals.item_area.get_item_at_map_pos(tile_map_pos)
+		var item : Entity = globals.item_area.get_at_map_pos(tile_map_pos)
 		if item:
 			entities.append(item)
 	return entities
