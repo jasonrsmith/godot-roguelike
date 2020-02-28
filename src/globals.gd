@@ -16,7 +16,7 @@ var player_input : PlayerInput
 var console : Console
 var board : Board
 var camera : Camera2D
-var fov : FOV
+var fog_of_war : FogOfWar
 var bsp : BSP
 var spawner : Spawner
 var item_area : ItemArea

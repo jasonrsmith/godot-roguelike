@@ -34,6 +34,10 @@ func use(entity: Entity, target_entity = null) -> void:
 	if !target_entity.is_alive:
 		globals.console.print_line("The missle kills %s." % target_name)
 		target_entity.hide()
+	remove()
+
+func use_on(entity: Entity, target_entity: Entity) -> void:
+	use(entity, target_entity)
 
 func use_on(entity: Entity, target_entity: Entity) -> void:
 	use(entity, target_entity)

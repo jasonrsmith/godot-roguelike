@@ -1,9 +1,11 @@
+extends Node2D
+class_name FieldOfView
+
 # based on http://journal.stuffwithstuff.com/2015/09/07/what-the-hero-sees/
 
-extends Node2D
-class_name FOV
-
-var _shadows
+var _shadows : Array
+var _tiles_in_view = {}
+var _board : Board
 
 class ShadowLine:
 	var _shadows : Array = []
@@ -75,10 +77,8 @@ class Shadow:
 		var bottom_right : float = (colf + 1) / (rowf + 1)
 		return Shadow.new(top_left, bottom_right, Vector2(col, row + 2), Vector2(col + 1, row + 1))
 
-func _ready() -> void:
-	globals.fov = self
-	if globals.debug_settings.hide_fov:
-		hide()
+func _init(board: Board):
+	_board = board
 
 func transform_octant(row: int, col: int, octant: int) -> Vector2:
 	match octant:
@@ -98,61 +98,44 @@ func transform_octant(row: int, col: int, octant: int) -> Vector2:
 			return Vector2(-row, -col)
 		7:
 			return Vector2(-col, -row)
-	assert("unreachble")
+	assert(false, "unreachble")
 	return Vector2()
 
+func get_tiles_in_view() -> Dictionary:
+	return _tiles_in_view
 
-func refresh(map_pos: Vector2) -> void:
-	var seen = {}
-	seen[map_pos] = true
-	globals.board.mark_tile_visible(map_pos)
+func refresh(map_pos: Vector2, distance: int) -> Dictionary:
+	_tiles_in_view = {map_pos: true}
 	for octant in range(8):
-		var seen_in_octant : Dictionary = _refresh_octant(map_pos, octant, globals.player_entity.sight)
+		var seen_in_octant : Dictionary = _refresh_octant(map_pos, distance, _board, octant)
 		for x in seen_in_octant:
-			seen[x] = true
-	for tile in globals.board.get_visible_tiles():
-		if not seen.has(tile):
-			globals.board.mark_tile_invisible(tile)
-	events.emit_signal("player_fov_refreshed")
+			_tiles_in_view[x] = true
+	return _tiles_in_view
 
+func in_fov(map_pos: Vector2) -> bool:
+	return _tiles_in_view.has(map_pos)
 
-func _refresh_octant(map_pos: Vector2, octant: int, max_map_distance=12) -> Dictionary:
+func _refresh_octant(map_pos: Vector2, distance, board, octant: int) -> Dictionary:
 	var line = ShadowLine.new()
 	var full_shadow = false
 	var seen = {}
 
-	for row in range(1, max_map_distance):
-		if not globals.board.contains(map_pos + transform_octant(row, 0, octant)):
+	for row in range(1, distance):
+		if not board.contains(map_pos + transform_octant(row, 0, octant)):
 			return seen
 		for col in range(0, row + 1):
 			var tile_pos = map_pos + transform_octant(row, col, octant)
-
-			if not globals.board.contains(tile_pos):
+			if not board.contains(tile_pos):
 				break
 			if full_shadow:
-				globals.board.mark_tile_invisible(tile_pos)
+				continue
 			else:
 				var projection = Shadow.project_tile(row, col)
 				var is_visible = !line.is_in_shadow(projection)
 				if is_visible:
-					globals.board.mark_tile_visible(tile_pos)
-					if globals.board.is_wall(tile_pos):
+					if board.is_wall(tile_pos):
 						line.add(projection)
 						full_shadow = line.is_full_shadow()
 					seen[tile_pos] = true
-				else:
-					globals.board.mark_tile_invisible(tile_pos)
 	_shadows = line._shadows
-	update()
 	return seen
-
-func _on_player_moved(map_pos: Vector2) -> void:
-	refresh(map_pos)
-
-func _draw():
-	var line_width = 9
-	if !_shadows:
-		return
-	for shadow in _shadows:
-		pass
-		#var left = shadow.start * shadow.start * line_width +

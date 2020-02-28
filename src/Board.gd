@@ -10,7 +10,6 @@ export (bool) var collisions_enabled
 var _grid := []
 var _bsp_map_nodes := []
 var _walkable_cells := []
-var _visible_tiles := {}
 
 func _ready():
 	globals.board = self
@@ -125,7 +124,6 @@ func fill_rect(region: Rect2, cell_type: int) -> void:
 			var tile := get_tile_at_map_pos(region_pos)
 			tile.set_is_wall(false)
 			set_cellv(region_pos, cell_type)
-			#tile.cell_type = cell_type
 
 func get_tile_at_map_pos(map_pos: Vector2) -> Tile:
 	if map_pos.x >= board_size.x or map_pos.y >= board_size.y:
@@ -166,35 +164,12 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 func contains(map_pos: Vector2) -> bool:
 	return map_pos.x >= 0 and map_pos.y >= 0 and map_pos.x < board_size.x and map_pos.y < board_size.y
 
-func get_visible_tiles() -> Array:
-	return _visible_tiles.keys()
-	#return _tile_visibility_painter.get_used_cells_by_id(globals.MASK_CELL_TYPES.EMPTY)
 
 func is_wall(map_pos: Vector2) -> bool:
 	var cell_type = get_cellv(map_pos)
 	if cell_type == -1:
 		return false
 	return get_tile_at_map_pos(map_pos).is_wall
-
-func mark_tile_visible(tile_map_pos: Vector2) -> void:
-	_visible_tiles[tile_map_pos]= true
-	var tile = get_tile_at_map_pos(tile_map_pos)
-	tile.set_is_visible(true)
-	var entity : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
-	if entity and !entity.is_visible_in_tree():
-		entity.show()
-
-func mark_tile_invisible(tile_map_pos: Vector2) -> void:
-	_visible_tiles.erase(tile_map_pos)
-	var tile = get_tile_at_map_pos(tile_map_pos)
-	tile.set_is_visible(false)
-	var entity : Entity = globals.actor_area.get_at_map_pos(tile_map_pos)
-	if entity and entity.is_visible_in_tree() and !globals.debug_settings.disable_entity_hiding:
-		entity.hide()
-
-func is_tile_visible(tile_map_pos: Vector2) -> bool:
-	var tile : Tile = get_tile_at_map_pos(tile_map_pos)
-	return tile.get_is_visible()
 
 func set_point_disabled_for_path(map_pos: Vector2, disable=true) -> void:
 	_astar.set_point_disabled(get_map_pos_index(map_pos), disable)
@@ -216,7 +191,6 @@ func get_mouse_map_pos() -> Vector2:
 
 func _on_tile_was_seen(map_pos: Vector2):
 	var tile := get_tile_at_map_pos(map_pos)
-	#set_cellv(map_pos, tile.cell_type)
 	var entity : Entity = globals.actor_area.get_at_map_pos(map_pos)
 	if entity:
 		entity.show()

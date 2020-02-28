@@ -13,6 +13,7 @@
         * dot
         * terrain can burn and transform
 * p1
+  * session recorder for setting up integration test scenarios
   * inventory hotkeys static like brogue
   * multiple floors
   * inventory button
