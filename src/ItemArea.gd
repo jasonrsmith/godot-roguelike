@@ -12,7 +12,8 @@ func add_item(item: Entity):
 	assert(!_item_idx.has(map_pos))
 	_item_idx[map_pos] = item
 	add_child(item)
-	if globals.debug_settings.disable_entity_hiding or globals.board.is_tile_visible(item.get_map_pos()):
+	events.emit_signal("entity_added_to_map", item)
+	if globals.debug_settings.disable_entity_hiding or globals.player_entity.is_tile_visible(item.get_map_pos()):
 		item.show()
 	else:
 		item.hide()

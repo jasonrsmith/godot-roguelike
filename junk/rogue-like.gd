@@ -116,7 +116,7 @@ func _ready():
 	build_level()
 
 func _input(event):
-	if !event.is_pressed(): 
+	if !event.is_pressed():
 		return
 	if event.is_action("Left"):
 		try_move(-1, 0)
@@ -128,7 +128,7 @@ func _input(event):
 		try_move(0, 1)
 
 func try_move(dx, dy):
-	var x = player_tile.x + dx 
+	var x = player_tile.x + dx
 	var y = player_tile.y + dy
 	var tile_type = Tile.Stone
 	if x >= 0 && x < level_size.x && y >= 0 && y < level_size.y:
@@ -186,7 +186,7 @@ func pickup_items():
 				call(can_types[item.sprite_node.frame])
 			item.remove()
 			remove_queue.append(item)
-	for item in remove_queue: 
+	for item in remove_queue:
 		items.erase(item)
 
 func impair_vision():
@@ -216,7 +216,7 @@ func build_level():
 	#Randomize can effects
 	can_types = CAN_FUNCTIONS.duplicate()
 	can_types.shuffle()
-	
+
 	level_size = LEVEL_SIZES[level_num]
 	for x in range(level_size.x):
 		map.append([])
@@ -258,7 +258,7 @@ func build_level():
 		var x = room.position.x + 1 + randi() % int(room.size.x - 2)
 		var y = room.position.y + 1 + randi() % int(room.size.y - 2)
 		items.append(Item.new(self, x, y, randi() % 2 == 0))
-		
+
 	call_deferred("update_visuals")
 #Place end ladder
 	var end_room = rooms.back()
@@ -293,7 +293,7 @@ func update_visuals():
 				var y_dir = 1 if y < player_tile.y else -1
 				var test_point = tile_to_pixel_center(x, y) + Vector2(x_dir, y_dir) * TILE_SIZE / 2
 				var occlusion = space_state.intersect_ray(player_center, test_point)
-				if !occlusion || (occlusion.position - test_point).length() < 1: 
+				if !occlusion || (occlusion.position - test_point).length() < 1:
 					visibility_map.set_cell(x, y, -1)
 	for enemy in enemies:
 		enemy.sprite_node.position = enemy.tile * TILE_SIZE
@@ -324,11 +324,11 @@ func connect_rooms():
 				stone_graph.add_point(point_id, Vector3(x, y, 0))
 #Connect to left if also stone
 				if x > 0 && map[x - 1][y] == Tile.Stone:
-					var left_point = stone_graph.get_closest_point(Vector3(x - 1, y, 0)) 
+					var left_point = stone_graph.get_closest_point(Vector3(x - 1, y, 0))
 					stone_graph.connect_points(point_id, left_point)
 #Connect to above if also stone
 				if y > 0 && map[x][y - 1] == Tile.Stone:
-					var above_point = stone_graph.get_closest_point(Vector3(x, y - 1, 0)) 
+					var above_point = stone_graph.get_closest_point(Vector3(x, y - 1, 0))
 					stone_graph.connect_points(point_id, above_point)
 				point_id += 1
 #Build an AStar graph of room connections
@@ -336,7 +336,7 @@ func connect_rooms():
 	point_id = 0
 	for room in rooms:
 		var room_center = room.position + room.size / 2
-		room_graph.add_point(point_id, Vector3(room_center.x, room_center.y , 0)) 
+		room_graph.add_point(point_id, Vector3(room_center.x, room_center.y , 0))
 		point_id += 1
 # Add random connections until everything is connected
 	while !is_everything_connected(room_graph):
@@ -350,17 +350,17 @@ func is_everything_connected(graph):
 			return false
 	return true
 
-func add_random_connection(stone_graph, room_graph): 
+func add_random_connection(stone_graph, room_graph):
 # Pick rooms to connect
 	var start_room_id = get_least_connected_point(room_graph)
 	var end_room_id = get_nearest_unconnected_point(room_graph, start_room_id)
 # Pick door locations
-	var start_position = pick_random_door_location(rooms[start_room_id]) 
+	var start_position = pick_random_door_location(rooms[start_room_id])
 	var end_position = pick_random_door_location(rooms[end_room_id])
-	
+
 	var closest_start_point = stone_graph.get_closest_point(start_position)
 	var closest_end_point = stone_graph.get_closest_point(end_position)
-	var path = stone_graph.get_point_path(closest_start_point, closest_end_point) 
+	var path = stone_graph.get_point_path(closest_start_point, closest_end_point)
 	assert(path)
 # Add path to the map path = Array(path)
 	set_tile(start_position.x, start_position.y, Tile.Door)
@@ -382,20 +382,20 @@ func get_least_connected_point(graph):
 			tied_for_least.append(point)
 	return tied_for_least[randi() % tied_for_least.size()]
 func get_nearest_unconnected_point(graph, target_point):
-	var target_position = graph.get_point_position(target_point) 
+	var target_position = graph.get_point_position(target_point)
 	var point_ids = graph.get_points()
 	var nearest
 	var tied_for_nearest = []
 	for point in point_ids:
-		if point == target_point: 
+		if point == target_point:
 			continue
 		var path = graph.get_point_path(point, target_point)
 		if path:
 			continue
-		var dist = (graph.get_point_position(point) - target_position).length() 
+		var dist = (graph.get_point_position(point) - target_position).length()
 		if !nearest || dist < nearest:
 			nearest = dist
-			tied_for_nearest = [point] 
+			tied_for_nearest = [point]
 		elif dist == nearest:
 			tied_for_nearest.append(point)
 	return tied_for_nearest[randi() % tied_for_nearest.size()]
