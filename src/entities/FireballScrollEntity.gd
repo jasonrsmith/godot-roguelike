@@ -39,9 +39,6 @@ func use(entity: Entity, target_entity = null) -> void:
 func use_on(entity: Entity, target_entity: Entity) -> void:
 	use(entity, target_entity)
 
-func use_on(entity: Entity, target_entity: Entity) -> void:
-	use(entity, target_entity)
-
 func create_fire(target_position: Vector2) -> void:
 	var fire = FireEntityScene.instance()
 	fire.position = target_position
