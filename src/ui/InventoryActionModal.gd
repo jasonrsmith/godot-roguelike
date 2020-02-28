@@ -74,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_drop") and _entity.has_method("drop"):
 		# see if we need to pickup an item in the area
-		var item : Entity = globals.item_area.get_item_at_map_pos(globals.player_entity.get_map_pos())
+		var item : Entity = globals.item_area.get_at_map_pos(globals.player_entity.get_map_pos())
 		if (item):
 			globals.player_entity.backpack.add_entity(item)
 			globals.item_area.remove_item(item)

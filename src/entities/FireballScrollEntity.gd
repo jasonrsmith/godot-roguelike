@@ -9,6 +9,8 @@ export var aoe_radius : int
 
 const FireEntityScene = preload("res://src/entities/FireEntity.tscn")
 
+var _field_of_view = FieldOfView.new(globals.board)
+
 func use(entity: Entity, target_entity = null) -> void:
 	if !target_entity:
 		globals.console.print_line("There's nothing you can target.  You lose the scroll and feel very foolish.  You contemplate giving up the adventuring lifestyle for good, learning computer programming, and getting a high-paying job in tech.")
@@ -27,7 +29,7 @@ func use(entity: Entity, target_entity = null) -> void:
 	var hit := Hit.new(damage)
 	target_entity.take_damage(hit, self, animation_finished_promise)
 	yield(fireball_fx, "tree_exited")
-	create_fire(target_entity.position)
+	create_fire(target_entity.get_map_pos())
 	animation_finished_promise.complete()
 
 	globals.console.print_line("The missle hits %s for %d damage." % [target_name, hit.damage])
@@ -39,7 +41,14 @@ func use(entity: Entity, target_entity = null) -> void:
 func use_on(entity: Entity, target_entity: Entity) -> void:
 	use(entity, target_entity)
 
-func create_fire(target_position: Vector2) -> void:
-	var fire = FireEntityScene.instance()
-	fire.position = target_position
-	globals.environmental_effect_area.add_or_replace(fire)
+func create_fire(target_map_pos: Vector2) -> void:
+	var tiles : Dictionary = _field_of_view.refresh(target_map_pos, aoe_radius)
+	tiles[target_map_pos] = true
+	for map_pos in tiles.keys():
+		var fire = FireEntityScene.instance()
+		fire.set_map_pos(map_pos)
+		globals.environmental_effect_area.add_or_replace(fire)
+
+
+
+

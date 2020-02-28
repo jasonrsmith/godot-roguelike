@@ -13,8 +13,6 @@ var _walkable_cells := []
 
 func _ready():
 	globals.board = self
-	events.connect("tile_was_seen", self, "_on_tile_was_seen")
-	events.connect("tile_went_out_of_view", self, "_on_tile_went_out_of_view")
 
 func _init_grid(size: Vector2) -> Array:
 	var result = []
@@ -93,7 +91,7 @@ func populate_rooms() -> void:
 			var items : Array = globals.spawner.spawn_room(
 				room, globals.SPAWN_TYPE_RANDOM_ITEM, 1, 2)
 			for item in items:
-				globals.item_area.add_item(item)
+				globals.item_area.add(item)
 
 func add_label_at(map_pos: Vector2, text: String) -> void:
 	var label = Label.new()
@@ -188,14 +186,3 @@ func get_entities_surrounding_map_pos(map_pos: Vector2) -> Array:
 func get_mouse_map_pos() -> Vector2:
 	var world_pos = globals.camera.get_global_mouse_position()
 	return globals.board.world_to_map(world_pos)
-
-func _on_tile_was_seen(map_pos: Vector2):
-	var tile := get_tile_at_map_pos(map_pos)
-	var entity : Entity = globals.actor_area.get_at_map_pos(map_pos)
-	if entity:
-		entity.show()
-
-func _on_tile_went_out_of_view(map_pos: Vector2):
-	var entity : Entity = globals.actor_area.get_at_map_pos(map_pos)
-	if entity and !globals.debug_settings.disable_entity_hiding:
-		entity.hide()
