@@ -32,9 +32,9 @@ func use(entity: Entity, target_entity = null) -> void:
 	create_fire(target_entity.get_map_pos())
 	animation_finished_promise.complete()
 
-	globals.console.print_line("The missle hits %s for %d damage." % [target_name, hit.damage])
+	globals.console.print_line("The fireball hits %s for %d damage." % [target_name, hit.damage])
 	if !target_entity.is_alive:
-		globals.console.print_line("The missle kills %s." % target_name)
+		globals.console.print_line("The fireball kills %s." % target_name)
 		target_entity.hide()
 	remove()
 
