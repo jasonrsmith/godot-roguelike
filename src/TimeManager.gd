@@ -11,7 +11,8 @@ func _ready() -> void:
 	set_process(false)
 
 func register(entity) -> void:
-	_entities.append(entity)
+	#_entities.append(entity)
+	_entities.insert(_next_entity_idx, entity)
 
 func release(entity) -> void:
 	_entities.erase(entity)

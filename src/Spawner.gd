@@ -3,6 +3,7 @@ class_name Spawner
 
 onready var _peter_entity = preload("res://src/entities/Peter.tscn")
 onready var _snake_entity = preload("res://src/entities/Snake.tscn")
+onready var _goblin_entity = preload("res://src/entities/Goblin.tscn")
 
 onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
 onready var _magic_missle_scroll = preload("res://src/entities/MagicMissleScrollEntity.tscn")
@@ -18,12 +19,14 @@ func _ready():
 	set_process(false)
 
 func random_monster() -> NPCEntity:
+	var monster_scenes = [
+		_peter_entity,
+		_snake_entity,
+		_goblin_entity,
+	]
 	var monster : NPCEntity
-	if globals.rng.randf() > 0.5:
-		monster = _peter_entity.instance()
-	else:
-		monster = _snake_entity.instance()
-	return monster
+	var scene_idx = globals.rng.randi_range(0, monster_scenes.size() - 1)
+	return monster_scenes[scene_idx].instance()
 
 func random_item() -> Entity:
 	var item_scenes = [
@@ -32,7 +35,7 @@ func random_item() -> Entity:
 		_fireball_scroll,
 	]
 	var item : Entity
-	var scene_idx = globals.rng.randi() % item_scenes.size()
+	var scene_idx = globals.rng.randi_range(0, item_scenes.size() - 1)
 	return item_scenes[scene_idx].instance()
 
 func fireball_scroll() -> FireballScrollEntity:
