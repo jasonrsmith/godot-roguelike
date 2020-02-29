@@ -6,6 +6,7 @@ var _entity_idx := {}
 func _ready() -> void:
 	events.connect("tile_was_seen", self, "_on_tile_was_seen")
 	events.connect("tile_went_out_of_view", self, "_on_tile_went_out_of_view")
+	events.connect("entity_removed", self, "_on_entity_removed")
 
 func add_or_replace(entity: Entity) -> void:
 	var map_pos : Vector2 = entity.get_map_pos()
@@ -52,3 +53,9 @@ func _on_tile_went_out_of_view(map_pos: Vector2) -> void:
 	if !entity:
 		return
 	entity.hide()
+
+func _on_entity_removed(entity: Entity) -> void:
+	# TODO use groups on entities to isolate area
+	var map_pos: Vector2 = entity.get_map_pos()
+	if get_at_map_pos(map_pos) == entity:
+		remove(entity)
