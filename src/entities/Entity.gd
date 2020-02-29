@@ -15,6 +15,7 @@ export var max_health : int = 1 setget set_max_health, _get_max_health
 export var image : Texture
 export var is_proper_noun : bool = false
 export var is_burnable : bool = true
+export var move_animation_duration = 0.1
 
 var action_points : int
 var health : int
@@ -22,15 +23,17 @@ var health : int
 var is_alive : bool setget ,_is_alive
 var _inside_backpack : Backpack
 
+
+
 func _ready() -> void:
-	set_process(false)
+	#set_process(false)
 	tooltip.set_entity(self)
 	health = self.max_health
 	sprite.set_texture(image)
 	globals.time_manager.register(self)
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
-	set_process(false)
+	#set_process(false)
 	var world_pos : Vector2 = globals.board.map_to_world(target_map_pos) \
 		+ (globals.map_cell_size * Vector2.ONE / 2)
 	var move_direction : Vector2 = (world_pos - position).normalized()
@@ -41,11 +44,10 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 		"position",
 		pivot.position,
 		Vector2(),
-		0.08,
-		Tween.TRANS_LINEAR,
-		Tween.EASE_OUT_IN)
+		move_animation_duration,
+		Tween.TRANS_LINEAR)
 	tween.start()
-	set_process(true)
+	#set_process(true)
 	if move_direction.x < 0:
 		sprite.set_flip_h(true)
 	elif move_direction.x > 0:
@@ -53,9 +55,10 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 
 func bump() -> void:
 	#print_debug("bump")
-	set_process(false)
+	#set_process(false)
 	# TODO: tween / anim
-	set_process(true)
+	#set_process(true)
+	pass
 
 # TODO: yield doesn't work when dead
 func remove():
