@@ -6,12 +6,12 @@
 
 [node name="Peter" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+speed = 25
 display_name = "Peter the Destroyer, Bringer of Doom"
 max_health = 2
 image = ExtResource( 3 )
 is_proper_noun = true
 strength = 10
-speed = 25
 sight = 10
 
 [node name="Sprite" parent="Pivot" index="0"]

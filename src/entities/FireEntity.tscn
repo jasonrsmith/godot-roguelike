@@ -6,6 +6,11 @@
 
 [node name="FireEntity" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+speed = 100
+display_name = "fire"
+burn_turns_min = 9
+burn_turns_max = 14
+damage = 2
 
 [node name="Sprite" parent="Pivot" index="0"]
 visible = false

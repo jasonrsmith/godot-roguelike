@@ -1,7 +1,6 @@
 # todo
 * p0
-  * refactor fov so that any entity can use it:
-    * use fov for fireball aoe
+  * *_area should remove from indexes when gone
   * ui:
     * hover on EntityListItem highlights entities on map
     * wire in clicking in menu items
@@ -9,7 +8,6 @@
   * items:
     * scrolls:
       * fireball scroll:
-        * aoe
         * dot
         * terrain can burn and transform
 * p1
@@ -25,8 +23,13 @@
   * restart after death
   * text isn't as crisp as it ideally would be
     * messing with filtering and antialiasing settings doesn't seem to affect
+  * FieldOfView should use circular area instead of square
+* refactoring opportunieis:
+  * all console messages generated from events
+  * refactor down use of globals
 
 # bugs
+* inventory menu sometimes doesn't size to fit list items
 
 # long-term would be nice
 * animations, animation frames

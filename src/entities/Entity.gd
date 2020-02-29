@@ -61,6 +61,8 @@ func bump() -> void:
 func remove():
 	hide()
 	globals.time_manager.release(self)
+	# TODO: remove from *_area
+	events.emit_signal("entity_removed", self)
 	queue_free()
 
 func set_map_pos(map_pos: Vector2):

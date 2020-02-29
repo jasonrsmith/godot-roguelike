@@ -2,6 +2,8 @@ extends Node
 
 signal game_ready
 
+signal entity_removed(entity)
+
 signal player_moved(map_pos)
 signal player_acted
 signal player_health_changed
