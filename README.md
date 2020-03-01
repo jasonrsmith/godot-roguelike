@@ -29,6 +29,7 @@
   * refactor down use of globals
 
 # bugs
+* goblin doesn't disapear with quick attcks
 * inventory menu sometimes doesn't size to fit list items
 
 # long-term would be nice

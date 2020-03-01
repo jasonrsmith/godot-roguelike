@@ -90,7 +90,6 @@ speed = 100
 display_name = "goblin"
 max_health = 5
 image = ExtResource( 4 )
-move_animation_duration = 0.1
 strength = 2
 sight = 10
 
