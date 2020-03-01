@@ -6,6 +6,7 @@ export var steer_force := 3500.0
 var _velocity : Vector2 = Vector2()
 var _acceleration : Vector2 = Vector2()
 var _target : Entity
+var _target_position : Vector2
 var _exploded := false
 
 onready var _explosion : Particles2D = $Explosion
@@ -19,7 +20,8 @@ func _ready() -> void:
 
 func init(target: Entity) -> void:
 	_target = target
-	global_rotation = global_position.angle_to_point(target.global_position)
+	_target_position = _target.global_position
+	global_rotation = global_position.angle_to_point(_target_position)
 	global_rotation += globals.rng.randf_range(-0.9, 0.9)
 	set_physics_process(true)
 
@@ -41,7 +43,7 @@ func explode() -> void:
 	_exploded = true
 	_explosion.set_emitting(true)
 	_sprite.hide()
-	if !_target.is_alive:
+	if !_target.is_alive():
 		_target.hide()
 	yield(get_tree().create_timer(0.25), "timeout")
 	queue_free()
@@ -51,7 +53,6 @@ func _on_Lifetime_timeout():
 
 func _seek() -> Vector2:
 	var steer := Vector2()
-	if _target and !_target.is_queued_for_deletion():
-		var desired = (_target.position - position).normalized() * speed
-		steer = (desired - _velocity).normalized() * steer_force
+	var desired = (_target_position - position).normalized() * speed
+	steer = (desired - _velocity).normalized() * steer_force
 	return steer

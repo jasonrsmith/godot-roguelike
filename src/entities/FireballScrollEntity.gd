@@ -33,9 +33,8 @@ func use(entity: Entity, target_entity = null) -> void:
 	animation_finished_promise.complete()
 
 	globals.console.print_line("The fireball hits %s for %d damage." % [target_name, hit.damage])
-	if !target_entity.is_alive:
+	if !target_entity.is_alive():
 		globals.console.print_line("The fireball kills %s." % target_name)
-		target_entity.hide()
 	remove()
 
 func use_on(entity: Entity, target_entity: Entity) -> void:

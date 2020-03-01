@@ -41,7 +41,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_wait"):
 		globals.player_entity.set_action(
 			globals.player_entity.ACTION.WAIT)
-		print_debug("player_acted")
 		events.emit_signal("player_acted")
 		return
 
@@ -55,13 +54,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_home"):
 		var missle = MissleFx.instance()
-		#missle.start()
 		var ents = globals.player_entity.get_visible_npcs()
 		if ents.size() > 0:
 			add_child(missle)
 			missle.position = globals.player_entity.position
 			missle.init(ents[0])
-			print_debug("target:", ents[0].position)
 		return
 
 	_direction = get_key_input_direction(event)

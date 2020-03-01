@@ -82,7 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		globals.player_entity.backpack.remove_entity(_entity)
 		_entity.set_map_pos(globals.player_entity.get_map_pos())
-		globals.item_area.add_item(_entity)
+		globals.item_area.add(_entity)
 		globals.character_info_modal.close()
 		close()
 

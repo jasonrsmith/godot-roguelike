@@ -100,7 +100,7 @@ func execute_attack(direction: Vector2) -> void:
 	var hit := Hit.new(strength)
 	target_entity.take_damage(hit, self)
 	globals.console.print_line("You attack " + target_entity.display_name + " for " + str(hit.damage) + " damage.")
-	if !target_entity.is_alive:
+	if !target_entity.is_alive():
 		globals.console.print_line("You kill " + target_entity.display_name + ".")
 
 func get_visible_npcs() -> Array:

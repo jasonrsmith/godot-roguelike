@@ -8,10 +8,10 @@ export(bool) var debug_actions = true
 
 func _ready() -> void:
 	globals.time_manager = self
+	events.connect("entity_removed", self, "_on_entity_removed")
 	set_process(false)
 
 func register(entity) -> void:
-	#_entities.append(entity)
 	_entities.insert(_next_entity_idx, entity)
 
 func release(entity) -> void:
@@ -22,10 +22,11 @@ func run_actions():
 		assert(false, "nothing to run!")
 		return
 	while true:
+		get_tree().call_group("marked_for_removal", "remove")
 		if _next_entity_idx == _entities.size():
 			_next_entity_idx = 0
 		var entity = _entities[_next_entity_idx]
-		if !entity or entity.is_queued_for_deletion() or !entity.is_alive:
+		if !entity or entity.is_queued_for_deletion() or !entity.is_alive():
 			release(entity)
 			continue
 		_next_entity_idx = (
@@ -35,5 +36,9 @@ func run_actions():
 		while entity.action_points > 0:
 			if entity == globals.player_entity:
 				globals.player_entity.refresh_fov()
+				get_tree().call_group("marked_for_freeing", "free")
 				yield(events, "player_acted")
 			entity.action_points -= entity.take_turn()
+
+func _on_entity_removed(entity: Entity) -> void:
+	release(entity)
