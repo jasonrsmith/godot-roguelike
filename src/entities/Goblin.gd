@@ -34,3 +34,5 @@ func _show_death() -> void:
 	sprite.hide()
 	_death_sprite.set_flip_h(sprite.flip_h)
 	_death_animation.play("run")
+	yield(get_tree().create_timer(0.5), "timeout")
+	hide()

@@ -5,6 +5,8 @@ export var burn_turns_min : int
 export var burn_turns_max : int
 export var damage : int
 
+const BurningStatusEffectScene = preload("res://src/status_effects/BurningStatusEffect.tscn")
+
 onready var _burning = $Burning
 
 var _burn_turns_max : int
@@ -17,13 +19,15 @@ func _ready() -> void:
 
 func take_turn() -> int:
 	var target_entity : Entity = globals.actor_area.get_at_map_pos(get_map_pos())
-	if target_entity:
+	if target_entity and target_entity.is_burnable:
 		var hit := Hit.new(damage)
 		target_entity.take_damage(hit, self)
 		if target_entity != globals.player_entity:
 			globals.console.print_line(target_entity.display_name + " takes " + str(hit.damage) + " damage from fire.")
 		if !target_entity.is_alive():
 			globals.console.print_line(target_entity.display_name + " burns to death.")
+		var burning_status_effect := BurningStatusEffectScene.instance()
+		target_entity.add_status_effect(burning_status_effect)
 	_burn_turns += 1
 	if _burn_turns_max == _burn_turns:
 		remove()

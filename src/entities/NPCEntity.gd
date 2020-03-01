@@ -27,6 +27,7 @@ func _ready():
 	_path_green_color = globals.rng.randf_range(0.6, 0.99)
 
 func take_turn() -> int:
+	#.take_turn()
 	if !_player_in_area:
 		set_physics_process(false)
 		return speed

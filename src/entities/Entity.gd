@@ -23,16 +23,15 @@ var health : int
 var _is_alive : bool
 var _inside_backpack : Backpack
 var _delayed_hit_animation_promise : Promise
+var _status_effects = []
 
 func _ready() -> void:
-	#set_process(false)
 	tooltip.set_entity(self)
 	health = self.max_health
 	sprite.set_texture(image)
 	globals.time_manager.register(self)
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
-	#set_process(false)
 	var world_pos : Vector2 = globals.board.map_to_world(target_map_pos) \
 		+ (globals.map_cell_size * Vector2.ONE / 2)
 	var move_direction : Vector2 = (world_pos - position).normalized()
@@ -46,17 +45,13 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 		move_animation_duration,
 		Tween.TRANS_LINEAR)
 	tween.start()
-	#set_process(true)
 	if move_direction.x < 0:
 		sprite.set_flip_h(true)
 	elif move_direction.x > 0:
 		sprite.set_flip_h(false)
 
 func bump() -> void:
-	#print_debug("bump")
-	#set_process(false)
 	# TODO: tween / anim
-	#set_process(true)
 	pass
 
 func remove():
@@ -121,6 +116,25 @@ func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) 
 		self.modulate.g = 1.0
 		self.modulate.b = 1.0
 		yield(get_tree(), "idle_frame")
+
+func add_status_effect(effect: StatusEffect) -> void:
+	for effect_already_in_list in _status_effects:
+		# don't add effects already listed
+		if typeof(effect_already_in_list) == typeof(effect):
+			return
+	_status_effects.append(effect)
+	add_child(effect)
+	effect.init(self)
+
+func process_status_effects(action_points: int) -> void:
+	var i := 0
+	while i < _status_effects.size():
+		var effect : StatusEffect = _status_effects[i]
+		if !effect.run_for_action_points(action_points):
+			_status_effects.remove(i)
+			globals.console.print_line("%s stops %s." % [display_name, effect.display_name])
+		else:
+			i += 1
 
 func set_max_health(value : int):
 	if value == null:
