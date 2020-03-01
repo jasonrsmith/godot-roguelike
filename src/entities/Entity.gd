@@ -63,11 +63,16 @@ func remove():
 	remove_from_group("marked_for_removal")
 	add_to_group("removed")
 	events.emit_signal("entity_removed", self)
+
+	# TODO HACK: workaround for death animation getting interupted
+	var expire_timer = get_tree().create_timer(0.5)
+	expire_timer.connect("timeout", self, "_on_expire_timer_timeout")
+
 	if _delayed_hit_animation_promise:
 		yield(_delayed_hit_animation_promise, "done")
 	_show_death()
 
-func free():
+func cleanup():
 	hide()
 	queue_free()
 
@@ -145,5 +150,8 @@ func _get_max_health() -> int:
 func _show_death() -> void:
 	hide()
 
-func _on_collide_with_entity(entity: Entity):
+func _on_collide_with_entity(entity: Entity) -> void:
 	print_debug(str(self) + " collides with " + str(entity))
+
+func _on_expire_timer_timeout() -> void:
+	cleanup()
