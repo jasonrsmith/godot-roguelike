@@ -29,6 +29,7 @@
   * refactor down use of globals
 
 # bugs
+* entity can stop burning when inside fire
 * goblin doesn't disapear with quick attcks:
   * aren't getting properly cleaned up after dieing, workaround timeout in place
 * inventory menu sometimes doesn't size to fit list items
