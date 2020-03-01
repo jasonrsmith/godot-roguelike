@@ -23,13 +23,12 @@ func use(entity: Entity, target_entity = null) -> void:
 
 	var hit := Hit.new(damage)
 	target_entity.take_damage(hit, self, animation_finished_promise)
-	yield(missle_fx, "tree_exited")
+	yield(missle_fx, "exploded")
 	animation_finished_promise.complete()
 
 	globals.console.print_line("The missle hits %s for %d damage." % [target_name, hit.damage])
-	if !target_entity.is_alive:
+	if !target_entity.is_alive():
 		globals.console.print_line("The missle kills %s." % target_name)
-		target_entity.hide()
 
 func use_on(entity: Entity, target_entity: Entity) -> void:
 	use(entity, target_entity)

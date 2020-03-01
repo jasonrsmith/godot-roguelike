@@ -20,10 +20,9 @@ export var move_animation_duration = 0.1
 var action_points : int
 var health : int
 
-var is_alive : bool setget ,_is_alive
+var _is_alive : bool
 var _inside_backpack : Backpack
-
-
+var _delayed_hit_animation_promise : Promise
 
 func _ready() -> void:
 	#set_process(false)
@@ -60,12 +59,16 @@ func bump() -> void:
 	#set_process(true)
 	pass
 
-# TODO: yield doesn't work when dead
 func remove():
-	hide()
-	globals.time_manager.release(self)
-	# TODO: remove from *_area
+	remove_from_group("marked_for_removal")
+	add_to_group("removed")
 	events.emit_signal("entity_removed", self)
+	if _delayed_hit_animation_promise:
+		yield(_delayed_hit_animation_promise, "done")
+	_show_death()
+
+func free():
+	hide()
 	queue_free()
 
 func set_map_pos(map_pos: Vector2):
@@ -97,12 +100,9 @@ func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) 
 	if health == 0:
 		emit_signal("health_depleted")
 
-	if !_is_alive():
-		# TODO refactor to NPCEntity
-		globals.actor_area.remove(self)
-		if delayed_hit_animation_promise:
-			yield(delayed_hit_animation_promise, "done")
-		hide()
+	if !is_alive():
+		add_to_group("marked_for_removal")
+		_delayed_hit_animation_promise = delayed_hit_animation_promise
 		return
 
 	for i in range(4):
@@ -130,14 +130,20 @@ func heal(amount : int, from: Object) -> void:
 func drop() -> void:
 	pass
 
+func hide() -> void:
+	.hide()
+
+func is_alive() -> bool:
+	return health > 0
+
 func _get_speed() -> int:
 	return speed
 
 func _get_max_health() -> int:
 	return max_health
 
-func _is_alive() -> bool:
-	return health > 0
+func _show_death() -> void:
+	hide()
 
 func _on_collide_with_entity(entity: Entity):
 	print_debug(str(self) + " collides with " + str(entity))

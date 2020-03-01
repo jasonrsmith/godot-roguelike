@@ -22,7 +22,7 @@ func take_turn() -> int:
 		target_entity.take_damage(hit, self)
 		if target_entity != globals.player_entity:
 			globals.console.print_line(target_entity.display_name + " takes " + str(hit.damage) + " damage from fire.")
-		if !target_entity.is_alive:
+		if !target_entity.is_alive():
 			globals.console.print_line(target_entity.display_name + " burns to death.")
 	_burn_turns += 1
 	if _burn_turns_max == _burn_turns:
