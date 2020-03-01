@@ -20,6 +20,7 @@ class Action:
 func _ready():
 	globals.player_entity = self
 	connect('health_changed', self, '_on_health_changed')
+	events.connect('player_ready_for_action', self, '_on_player_ready_for_action')
 	_on_health_changed(health, health)
 	show()
 
@@ -167,3 +168,6 @@ func refresh_fov() -> void:
 
 func _on_health_changed(health: int, old_health: int):
 	events.emit_signal("player_health_changed", health, old_health)
+
+func _on_player_ready_for_action():
+	refresh_fov()
