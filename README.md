@@ -8,6 +8,7 @@
   * items:
     * scrolls:
       * fireball scroll:
+        * aoe
         * dot
         * terrain can burn and transform
 * p1
@@ -112,6 +113,10 @@
   * aesthetic changes between rooms
   * room and enemy combinations forces player to think of different tactics
   * power-ups
+* feel:
+  * frenetic turn-based:
+    * quickly and efficiently execute plans
+    * quick, tight animations and movements
 
 # art
 * transitioning between different tiles:

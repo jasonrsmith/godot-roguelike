@@ -23,16 +23,15 @@ var health : int
 var _is_alive : bool
 var _inside_backpack : Backpack
 var _delayed_hit_animation_promise : Promise
+var _status_effects = []
 
 func _ready() -> void:
-	#set_process(false)
 	tooltip.set_entity(self)
 	health = self.max_health
 	sprite.set_texture(image)
 	globals.time_manager.register(self)
 
 func move_to_map_pos(target_map_pos: Vector2) -> void:
-	#set_process(false)
 	var world_pos : Vector2 = globals.board.map_to_world(target_map_pos) \
 		+ (globals.map_cell_size * Vector2.ONE / 2)
 	var move_direction : Vector2 = (world_pos - position).normalized()
@@ -46,17 +45,13 @@ func move_to_map_pos(target_map_pos: Vector2) -> void:
 		move_animation_duration,
 		Tween.TRANS_LINEAR)
 	tween.start()
-	#set_process(true)
 	if move_direction.x < 0:
 		sprite.set_flip_h(true)
 	elif move_direction.x > 0:
 		sprite.set_flip_h(false)
 
 func bump() -> void:
-	#print_debug("bump")
-	#set_process(false)
 	# TODO: tween / anim
-	#set_process(true)
 	pass
 
 func remove():
