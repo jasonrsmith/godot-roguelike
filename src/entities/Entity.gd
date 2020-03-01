@@ -117,6 +117,25 @@ func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) 
 		self.modulate.b = 1.0
 		yield(get_tree(), "idle_frame")
 
+func add_status_effect(effect: StatusEffect) -> void:
+	for effect_already_in_list in _status_effects:
+		# don't add effects already listed
+		if typeof(effect_already_in_list) == typeof(effect):
+			return
+	_status_effects.append(effect)
+	add_child(effect)
+	effect.init(self)
+
+func process_status_effects(action_points: int) -> void:
+	var i := 0
+	while i < _status_effects.size():
+		var effect : StatusEffect = _status_effects[i]
+		if !effect.run_for_action_points(action_points):
+			_status_effects.remove(i)
+			globals.console.print_line("%s stops %s." % [display_name, effect.display_name])
+		else:
+			i += 1
+
 func set_max_health(value : int):
 	if value == null:
 		return

@@ -6,4 +6,5 @@
 [node name="BurningStatusEffect" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 display_name = "burning"
-duration = 1
+duration_per_turn = 50
+max_turns = 5

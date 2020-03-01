@@ -2,15 +2,13 @@
 * p0
   * *_area should remove from indexes when gone
   * ui:
+    * show status effects in ui
     * hover on EntityListItem highlights entities on map
     * wire in clicking in menu items
     * move up/down through menu
   * items:
     * scrolls:
-      * fireball scroll:
-        * aoe
-        * dot
-        * terrain can burn and transform
+      * confusion
 * p1
   * session recorder for setting up integration test scenarios
   * inventory hotkeys static like brogue
@@ -25,17 +23,18 @@
   * text isn't as crisp as it ideally would be
     * messing with filtering and antialiasing settings doesn't seem to affect
   * FieldOfView should use circular area instead of square
+  * fire can burn and transform
 * refactoring opportunieis:
   * all console messages generated from events
   * refactor down use of globals
 
 # bugs
-* goblin doesn't disapear with quick attcks
+* goblin doesn't disapear with quick attcks:
+  * aren't getting properly cleaned up after dieing, workaround timeout in place
 * inventory menu sometimes doesn't size to fit list items
-
-# long-term would be nice
-* animations, animation frames
-* skills
+* goblin sprite anim sometimes overlaps, producing double sprite effect on single tile:
+  * combine all anim sheets into single sprite to fix?
+* grammar in console is getting terrible
 
 # architecture
 * ECS in roguelikes; https://www.youtube.com/watch?v=fGLJC5UY2o4
@@ -84,11 +83,11 @@
   * visual contrasting
 * genre ideas:
   * one of:
-    * latin american indiginous
     * pirate
     * generational spaceship gone wrong, inspired by the expanse
     * space bounty hunter, inspired by mandalorian
     * standard tolkien fantasy (bleh)
+    * wasteland
 * player may be able to take on properties of defeated enemies
 * make ai smarter:
   * http://www.gameaipro.com/
@@ -96,12 +95,13 @@
   * collect liquids, gems, papers to create scrolls
   * scroll recipes are randomly generated with every game
   * player can risk using ingredients to discover recipes, or find or buy recipe books
+  * scrolls can be combined for seemingly emergent syngeries, ala binding of isaac
 * home base:
   * the player can decorate their house
 * themes:
   * dark atmosphere, avoid cute sprites and animations
 * 1-3hr typical playruns
-* mining for coin, like angband
+* mining for coin and materials
 * big color contrasts in tilesets:
   * emulate some of the feel of ascii without being ascii
 * no floors, or minimal use of floors, very large map:
@@ -117,6 +117,12 @@
   * frenetic turn-based:
     * quickly and efficiently execute plans
     * quick, tight animations and movements
+* skill system:
+  * is this needed?
+* town and storekeeper:
+  * would be great to have for game pacing dynamics
+* make it difficult for players to screw up unintentionally:
+  * damage, as much as possible, should be a calculated risk
 
 # art
 * transitioning between different tiles:
