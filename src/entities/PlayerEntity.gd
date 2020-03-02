@@ -160,8 +160,7 @@ func refresh_fov() -> void:
 
 	# look for newly seen tiles
 	for map_pos in refreshed_tiles_in_view.keys():
-		if !_tiles_in_view.has(map_pos):
-			events.emit_signal("tile_was_seen", map_pos)
+		events.emit_signal("tile_was_seen", map_pos)
 
 	_tiles_in_view = refreshed_tiles_in_view
 	events.emit_signal("player_fov_refreshed")
