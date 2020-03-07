@@ -50,6 +50,7 @@ shadow_gradient_length = 1.0
 [node name="Tween" type="Tween" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="TooltipCanvas" parent="." instance=ExtResource( 6 )]

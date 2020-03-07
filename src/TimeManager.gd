@@ -33,6 +33,7 @@ func run_actions():
 			(_next_entity_idx + 1) %
 			_entities.size())
 		entity.action_points += entity.speed
+		entity.process_status_effects(entity.speed)
 		while entity.action_points > 0:
 			if entity == globals.player_entity:
 				events.emit_signal("player_ready_for_action")
@@ -40,7 +41,6 @@ func run_actions():
 				yield(events, "player_acted")
 			var action_points : int = entity.take_turn()
 			entity.action_points -= action_points
-			entity.process_status_effects(action_points)
 
 func _on_entity_removed(entity: Entity) -> void:
 	release(entity)

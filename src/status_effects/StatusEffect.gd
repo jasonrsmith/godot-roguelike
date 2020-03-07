@@ -2,8 +2,8 @@ extends Node2D
 class_name StatusEffect
 
 export var display_name : String
-export var duration_per_turn : int
-export var max_turns : int
+export var duration_per_turn : int = 100
+export var max_turns : int = 1
 
 var _entity
 var _action_points : int
@@ -27,8 +27,12 @@ func run_for_action_points(action_points: int) -> bool:
 		_action_points += duration_per_turn
 		_execute_action()
 		if _turns_taken == max_turns:
+			expire()
 			return false
 	return true
 
 func _execute_action() -> void:
 	pass
+
+func expire() -> void:
+	queue_free()

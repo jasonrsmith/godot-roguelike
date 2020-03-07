@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/entities/LethargyScrollEntity.gd" type="Script" id=1]
+[ext_resource path="res://src/entities/ScrollEntity.tscn" type="PackedScene" id=2]
+
+[node name="LethargyScrollEntity" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+display_name = "scroll of lethargy"
+
+[editable path="TooltipCanvas"]

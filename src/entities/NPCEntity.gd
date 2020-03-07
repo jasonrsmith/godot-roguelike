@@ -4,6 +4,8 @@ class_name NPCEntity
 onready var _vision_area: Area2D = $Vision
 onready var _vision_shape = $Vision/CollisionShape2D
 
+export var base_action_cost : int = 100
+
 var _player_in_area = false
 var _player_seen = false
 var _target_pos : Vector2 = Vector2()
@@ -29,17 +31,15 @@ func _ready():
 func take_turn() -> int:
 	#.take_turn()
 	if !_player_in_area:
-		set_physics_process(false)
-		return speed
-	set_physics_process(true)
+		return base_action_cost
 	if _player_seen or _path_to_player.size() > 1:
 		var map_pos = globals.board.world_to_map(globals.player_entity.position)
 		if globals.board.world_to_map(position).distance_to(map_pos) < 1.5:
 			execute_attack(globals.player_entity)
 		else:
 			execute_move_toward_player()
-		return 100
-	return speed
+		return base_action_cost
+	return base_action_cost
 
 func _physics_process(delta: float) -> void:
 	_check_for_player()

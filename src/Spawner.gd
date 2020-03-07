@@ -8,6 +8,7 @@ onready var _goblin_entity = preload("res://src/entities/Goblin.tscn")
 onready var _health_potion_entity = preload("res://src/entities/HealthPotionEntity.tscn")
 onready var _magic_missle_scroll = preload("res://src/entities/MagicMissleScrollEntity.tscn")
 onready var _fireball_scroll = preload("res://src/entities/FireballScrollEntity.tscn")
+onready var _lethargy_scroll = preload("res://src/entities/LethargyScrollEntity.tscn")
 
 onready var _player_entity = preload("res://src/entities/PlayerEntity.tscn")
 
@@ -33,6 +34,7 @@ func random_item() -> Entity:
 		_health_potion_entity,
 		_magic_missle_scroll,
 		_fireball_scroll,
+		_lethargy_scroll,
 	]
 	var item : Entity
 	var scene_idx = globals.rng.randi_range(0, item_scenes.size() - 1)
@@ -46,6 +48,9 @@ func magic_missle_scroll() -> MagicMissleScrollEntity:
 
 func health_potion() -> HealthPotionEntity:
 	return _health_potion_entity.instance()
+
+func lethargy_scroll() -> LethargyScrollEntity:
+	return _lethargy_scroll.instance()
 
 func spawn_room(room: Rect2, spawn_type: String, minn: int, maxn: int) -> Array:
 	var entity_spawn_points := {}
