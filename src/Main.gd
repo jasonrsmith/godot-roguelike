@@ -22,7 +22,8 @@ func _debug_give_player_stuff():
 	var items = [
 		globals.spawner.magic_missle_scroll(),
 		globals.spawner.fireball_scroll(),
-		globals.spawner.health_potion()
+		globals.spawner.health_potion(),
+		globals.spawner.lethargy_scroll(),
 	]
 	for item in items:
 		add_child(item)

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/slow-texture.png" type="Texture" id=1]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.316667, 0.6625, 1 )
+colors = PoolColorArray( 0.307348, 0.878906, 0.369862, 1, 0.420725, 0.519531, 0.431532, 1, 0.461788, 0.154612, 0.957031, 1, 0.270169, 0.84375, 0.20533, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.19
+emission_shape = 2
+emission_box_extents = Vector3( 8, 10, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -10, 0 )
+spread = 0.0
+gravity = Vector3( 0, -40, 0 )
+initial_velocity = 2.0
+angular_velocity = -100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = -5.0
+tangential_accel = -5.0
+tangential_accel_random = 1.0
+damping = 50.0
+damping_random = 0.35
+color_ramp = SubResource( 5 )
+hue_variation = 0.01
+hue_variation_random = 0.14
+
+[node name="SlowParticles" type="Particles2D"]
+position = Vector2( 0, -6 )
+amount = 4
+lifetime = 3.0
+process_material = SubResource( 6 )
+texture = ExtResource( 1 )

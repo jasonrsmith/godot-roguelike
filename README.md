@@ -1,6 +1,5 @@
 # todo
 * p0
-  * *_area should remove from indexes when gone
   * ui:
     * show status effects in ui
     * hover on EntityListItem highlights entities on map
