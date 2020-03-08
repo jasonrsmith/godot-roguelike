@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Entity
 
+signal status_effects_processed
+
 onready var pivot : Node2D = $Pivot
 onready var sprite : Sprite = $Pivot/Sprite
 onready var tween : Tween = $Tween
@@ -83,6 +85,9 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 	backpack.remove_entity(entity)
 	entity._inside_backpack = null
 
+func get_status_effects() -> Array:
+	return _status_effects
+
 func add_status_effect(effect: StatusEffect) -> void:
 	for effect_already_in_list in _status_effects:
 		# don't add effects already listed
@@ -101,6 +106,7 @@ func process_status_effects(action_points: int) -> void:
 			globals.console.print_line("%s stops %s." % [display_name, effect.display_name])
 		else:
 			i += 1
+	emit_signal('status_effects_processed', get_status_effects())
 
 func drop() -> void:
 	pass

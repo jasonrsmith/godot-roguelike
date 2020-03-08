@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/ui/InventoryActionModal.gd" type="Script" id=1]
-[ext_resource path="res://src/ui/EntityListItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/ui/ListItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://overlay_theme.tres" type="Theme" id=3]
+
 
 [node name="InventoryActionModal" type="Control"]
 anchor_right = 1.0

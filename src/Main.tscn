@@ -11,7 +11,7 @@
 [ext_resource path="res://src/BSP.gd" type="Script" id=9]
 [ext_resource path="res://src/ui/CharacterInfoModal.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/ui/InventoryActionModal.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/ui/EntityListItem.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/ui/ListItem.tscn" type="PackedScene" id=12]
 [ext_resource path="res://overlay_theme.tres" type="Theme" id=13]
 [ext_resource path="res://src/ui/DebugMouseGrid.gd" type="Script" id=14]
 [ext_resource path="res://src/FieldOfView.gd" type="Script" id=15]
@@ -118,11 +118,12 @@ __meta__ = {
 }
 
 [node name="PlayerStats" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer" instance=ExtResource( 20 )]
+margin_bottom = 35.0
 
 [node name="NPCList" type="Control" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer"]
-margin_top = 39.0
+margin_top = 45.0
 margin_right = 230.0
-margin_bottom = 39.0
+margin_bottom = 45.0
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false

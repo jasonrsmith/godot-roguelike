@@ -5,9 +5,11 @@ export var display_name : String
 export var duration_per_turn : int = 100
 export var max_turns : int = 1
 
+var turns_taken := 0
+
 var _entity
 var _action_points : int
-var _turns_taken := 0
+
 
 func _ready() -> void:
 	pass
@@ -23,10 +25,10 @@ func run_for_action_points(action_points: int) -> bool:
 	"""
 	_action_points -= action_points
 	if _action_points <= 0:
-		_turns_taken += 1
+		turns_taken += 1
 		_action_points += duration_per_turn
 		_execute_action()
-		if _turns_taken == max_turns:
+		if turns_taken == max_turns:
 			expire()
 			return false
 	return true
