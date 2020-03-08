@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/entities/Entity.gd"
 }, {
-"base": "Button",
+"base": "ListItem",
 "class": "EntityListItem",
 "language": "GDScript",
 "path": "res://src/ui/EntityListItem.gd"
@@ -163,6 +163,11 @@ _global_script_classes=[ {
 "class": "LethargyScrollEntity",
 "language": "GDScript",
 "path": "res://src/entities/LethargyScrollEntity.gd"
+}, {
+"base": "Button",
+"class": "ListItem",
+"language": "GDScript",
+"path": "res://src/ui/ListItem.gd"
 }, {
 "base": "ScrollEntity",
 "class": "MagicMissleScrollEntity",
@@ -291,6 +296,7 @@ _global_script_class_icons={
 "InventoryActionModal": "",
 "ItemArea": "",
 "LethargyScrollEntity": "",
+"ListItem": "",
 "MagicMissleScrollEntity": "",
 "Main": "",
 "Missle": "",

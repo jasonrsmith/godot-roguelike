@@ -25,4 +25,9 @@ margin_right = 230.0
 [node name="Label" parent="VBoxContainer/HealthProgressBar" index="1"]
 text = "Health"
 
+[node name="StatusEffectBars" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 25.0
+margin_right = 230.0
+margin_bottom = 25.0
+
 [editable path="VBoxContainer/HealthProgressBar"]

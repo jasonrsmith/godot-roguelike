@@ -15,7 +15,7 @@ func refresh() -> void:
 	for entity in globals.player_entity.get_visible_entities():
 		var item : EntityListItem = EntityListItemScene.instance()
 		_list.add_child(item)
-		item.init(entity)
+		item.init_with_entity(entity)
 
 func _on_player_ready_for_action() -> void:
 	refresh()

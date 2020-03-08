@@ -4,7 +4,7 @@ class_name InventoryActionModal
 onready var _list_container : VBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/ListMargin/ListContainer
 onready var _title_label : Label = $PanelContainer/MarginContainer/VBoxContainer/HeaderMargin/HBoxContainer/Title
 
-onready var _list_item = preload("res://src/ui/EntityListItem.tscn")
+onready var _list_item = preload("res://src/ui/ListItem.tscn")
 
 var _item_hotkeys := {}
 var _entity : Entity
@@ -32,9 +32,9 @@ func close() -> void:
 	hide()
 
 func _add_menu_option(shortcut: String, description: String) -> void:
-	var item : EntityListItem = _list_item.instance()
+	var item : ListItem = _list_item.instance()
 	_list_container.add_child(item)
-	item.init(_entity, shortcut)
+	item.init(description, null, shortcut)
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():
