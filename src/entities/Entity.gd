@@ -11,14 +11,12 @@ onready var hit_animation = preload("res://src/fx/HitEffect.tscn")
 export var speed : int = 0 setget ,_get_speed
 export var display_name : String = "thing"
 export var description : String
-export var max_health : int = 1 setget set_max_health, _get_max_health
 export var image : Texture
 export var is_proper_noun : bool = false
 export var is_burnable : bool = true
 export var move_animation_duration = 0.1
 
 var action_points : int
-var health : int
 
 var _is_alive : bool
 var _inside_backpack : Backpack
@@ -27,7 +25,6 @@ var _status_effects = []
 
 func _ready() -> void:
 	tooltip.set_entity(self)
-	health = self.max_health
 	sprite.set_texture(image)
 	globals.time_manager.register(self)
 
@@ -65,7 +62,6 @@ func remove():
 
 	if _delayed_hit_animation_promise:
 		yield(_delayed_hit_animation_promise, "done")
-	_show_death()
 
 func cleanup():
 	hide()
@@ -87,36 +83,6 @@ func remove_entity_from_backpack(entity: Entity) -> void:
 	backpack.remove_entity(entity)
 	entity._inside_backpack = null
 
-func take_damage(hit : Hit, from: Object, delayed_hit_animation_promise = null) -> void:
-	if !delayed_hit_animation_promise:
-		var animation : HitEffect = hit_animation.instance()
-		add_child(animation)
-		animation.run_once()
-
-	var old_health = health
-	health -= hit.damage
-	health = max(0, health)
-	emit_signal("health_changed", health, old_health)
-	if health == 0:
-		emit_signal("health_depleted")
-
-	if !is_alive():
-		add_to_group("marked_for_removal")
-		_delayed_hit_animation_promise = delayed_hit_animation_promise
-		return
-
-	for i in range(4):
-		self.modulate.a = 0.5
-		self.modulate.r = 2.0
-		self.modulate.g = 0.1
-		self.modulate.b = 0.1
-		yield(get_tree(), "idle_frame")
-		self.modulate.a = 1.0
-		self.modulate.r = 1.0
-		self.modulate.g = 1.0
-		self.modulate.b = 1.0
-		yield(get_tree(), "idle_frame")
-
 func add_status_effect(effect: StatusEffect) -> void:
 	for effect_already_in_list in _status_effects:
 		# don't add effects already listed
@@ -136,36 +102,17 @@ func process_status_effects(action_points: int) -> void:
 		else:
 			i += 1
 
-func set_max_health(value : int):
-	if value == null:
-		return
-	max_health = max(1, value)
-
-func heal(amount : int, from: Object) -> void:
-	var old_health = health
-	health = min(health + amount, max_health)
-	emit_signal("health_changed", health, old_health)
-
 func drop() -> void:
 	pass
 
 func hide() -> void:
 	.hide()
 
-func is_alive() -> bool:
-	return health > 0
-
-func _get_speed() -> int:
-	return speed
-
-func _get_max_health() -> int:
-	return max_health
-
-func _show_death() -> void:
-	hide()
-
 func _on_collide_with_entity(entity: Entity) -> void:
 	print_debug(str(self) + " collides with " + str(entity))
 
 func _on_expire_timer_timeout() -> void:
 	cleanup()
+
+func _get_speed() -> int:
+	return speed

@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/EntityMapIndex.gd"
 }, {
+"base": "MarginContainer",
+"class": "EntityStats",
+"language": "GDScript",
+"path": "res://src/ui/StatsUI.gd"
+}, {
 "base": "EntityMapIndex",
 "class": "EnvironmentalEffectArea",
 "language": "GDScript",
@@ -229,11 +234,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Spawner.gd"
 }, {
-"base": "MarginContainer",
-"class": "StatsUI",
-"language": "GDScript",
-"path": "res://src/ui/StatsUI.gd"
-}, {
 "base": "Node2D",
 "class": "StatusEffect",
 "language": "GDScript",
@@ -277,6 +277,7 @@ _global_script_class_icons={
 "Entity": "",
 "EntityListItem": "",
 "EntityMapIndex": "",
+"EntityStats": "",
 "EnvironmentalEffectArea": "",
 "FieldOfView": "",
 "FireEntity": "",
@@ -304,7 +305,6 @@ _global_script_class_icons={
 "SlowedStatusEffect": "",
 "Snake": "",
 "Spawner": "",
-"StatsUI": "",
 "StatusEffect": "",
 "Tile": "",
 "TileVisibilityPainter": "",

@@ -19,7 +19,7 @@
 [ext_resource path="res://src/TileVisibilityPainter.gd" type="Script" id=17]
 [ext_resource path="res://src/TileVisitedPainter.gd" type="Script" id=18]
 [ext_resource path="res://src/fog3.tres" type="TileSet" id=19]
-[ext_resource path="res://src/ui/StatsUI.gd" type="Script" id=20]
+[ext_resource path="res://src/ui/EntityStats.tscn" type="PackedScene" id=20]
 [ext_resource path="res://src/TimeManager.gd" type="Script" id=21]
 [ext_resource path="res://src/Main.gd" type="Script" id=22]
 [ext_resource path="res://src/ui/EnemyList.gd" type="Script" id=23]
@@ -117,33 +117,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsUI" type="MarginContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer"]
-margin_right = 230.0
-margin_bottom = 29.0
-custom_constants/margin_right = 0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/StatsUI"]
-margin_right = 230.0
-margin_bottom = 19.0
-custom_constants/separation = 0
-
-[node name="HP" type="Label" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/StatsUI/VBoxContainer"]
-margin_right = 230.0
-margin_bottom = 19.0
-theme = ExtResource( 7 )
-custom_colors/font_outline_modulate = Color( 0.756863, 0.0980392, 0.0980392, 1 )
-custom_constants/shadow_offset_x = 2
-custom_constants/line_spacing = 0
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 4
-text = "HP: 0 / 0"
-autowrap = true
+[node name="PlayerStats" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer" instance=ExtResource( 20 )]
 
 [node name="NPCList" type="Control" parent="UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer"]
 margin_top = 39.0
