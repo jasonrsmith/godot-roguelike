@@ -34,7 +34,7 @@ func close() -> void:
 func _add_menu_option(shortcut: String, description: String) -> void:
 	var item : EntityListItem = _list_item.instance()
 	_list_container.add_child(item)
-	item.init(description, null, shortcut)
+	item.init(_entity, shortcut)
 
 func _clear_list() -> void:
 	for child in _list_container.get_children():

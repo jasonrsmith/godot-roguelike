@@ -1,6 +1,8 @@
 extends Node2D
 class_name Main
 
+onready var _player_stats : EntityStats = $UI/HSplitContainer/PanelLeft/LeftUI/VBoxContainer/PlayerStats
+
 func _ready() -> void:
 	globals.main = self
 	_init_rng()
@@ -16,6 +18,7 @@ func _ready() -> void:
 
 	globals.time_manager.run_actions()
 
+	_player_stats.init(globals.player_entity)
 	events.emit_signal("game_ready")
 
 func _debug_give_player_stuff():
