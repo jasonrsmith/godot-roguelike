@@ -90,21 +90,7 @@ func execute_attack(entity: Entity):
 	entity.take_damage(hit, self)
 
 func refresh_target_path(map_pos: Vector2):
-	var surrounding_entities : Array = globals.board.get_entities_surrounding_map_pos(map_pos)
-
-	# enable surrounding entities for flanking
-	for entity_map_pos in surrounding_entities:
-		if entity_map_pos == globals.board.world_to_map(globals.player_entity.position):
-			continue
-		globals.board.set_point_disabled_for_path(entity_map_pos)
-
 	_path_to_player = globals.board.find_path(globals.board.world_to_map(position), map_pos)
-
-	# re-enable surrounding entities
-	for entity_map_pos in surrounding_entities:
-		if entity_map_pos == globals.board.world_to_map(globals.player_entity.position):
-			continue
-		globals.board.set_point_disabled_for_path(entity_map_pos, false)
 
 func _on_vision_body_entered(body):
 	if body == globals.player_entity:

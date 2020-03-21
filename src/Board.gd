@@ -1,13 +1,12 @@
 extends TileMap
 class_name Board
 
-onready var _astar = AStar.new()
-
 export (Vector2) var board_size
 export (int) var tile_size
 export (bool) var collisions_enabled
 
 var _grid := []
+var _astar : AStar
 
 func _ready():
 	globals.board = self
@@ -40,13 +39,21 @@ func init_map() -> Array:
 			for hall in halls:
 				if Rect2(Vector2(), board_size).encloses(hall):
 					fill_rect(hall, globals.CELL_TYPES.FLOOR)
-	for cell in get_used_cells_by_id(globals.CELL_TYPES.FLOOR):
-		var idx = get_map_pos_index(cell)
-		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
-	_astar_connect_walkable_cells(_astar)
+	_astar = _astar_init()
 	return bsp_map_nodes
 
-func _astar_connect_walkable_cells(astar: AStar):
+func _astar_init() -> AStar:
+	var astar : AStar = AStar.new()
+	_astar_add_cells(astar)
+	_astar_connect_walkable_cells(astar)
+	return astar
+
+func _astar_add_cells(astar: AStar) -> void:
+	for cell in get_used_cells_by_id(globals.CELL_TYPES.FLOOR):
+		var idx = get_map_pos_index(cell)
+		astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
+
+func _astar_connect_walkable_cells(astar: AStar) -> void:
 	var points : Array = astar.get_points()
 	for point in points:
 		var map_pos = get_index_map_pos(point)
@@ -67,13 +74,27 @@ func _astar_connect_walkable_cells(astar: AStar):
 			astar.connect_points(point, relative_index, false)
 
 func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
+	var surrounding_entities : Array = get_entities_surrounding_map_pos(map_pos_end)
+	var distance : float = map_pos_start.distance_to(map_pos_start)
+
+	# disable position for surrounding entities for flanking
+	if distance < 3:
+		for entity_map_pos in surrounding_entities:
+			if entity_map_pos == map_pos_end:
+				continue
+			globals.board.set_point_disabled_for_path(entity_map_pos)
+
 	var start := get_map_pos_index(map_pos_start)
 	var end := get_map_pos_index(map_pos_end)
-	#_astar.set_point_disabled(start, false)
-	#_astar.set_point_disabled(end, false)
 	var path : Array = _astar.get_point_path(start, end)
-	#_astar.set_point_disabled(start)
-	#_astar.set_point_disabled(end)
+
+	# re-enable position for surrounding entities for flanking
+	if distance < 3:
+		for entity_map_pos in surrounding_entities:
+			if entity_map_pos == map_pos_end:
+				continue
+			set_point_disabled_for_path(entity_map_pos, false)
+
 	return path
 
 func populate_rooms(bsp_map_nodes: Array) -> void:
@@ -153,8 +174,7 @@ func request_move(entity: Entity, direction: Vector2) -> Vector2:
 
 	if entity is ActorEntity:
 		globals.actor_area.move(cell_start, cell_target)
-#	_astar.set_point_disabled(get_map_pos_index(cell_target))
-#	_astar.set_point_disabled(get_map_pos_index(cell_start), false)
+
 	return cell_target
 
 func contains(map_pos: Vector2) -> bool:
