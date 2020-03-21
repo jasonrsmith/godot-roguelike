@@ -8,8 +8,6 @@ export (int) var tile_size
 export (bool) var collisions_enabled
 
 var _grid := []
-var _bsp_map_nodes := []
-var _walkable_cells := []
 
 func _ready():
 	globals.board = self
@@ -28,16 +26,15 @@ func _init_grid(size: Vector2) -> Array:
 			events.emit_signal("tile_was_obscured", map_pos)
 	return result
 
-func init_map():
+func init_map() -> Array:
 	_grid = _init_grid(board_size)
-	_bsp_map_nodes = globals.bsp.gen_rooms(Rect2(Vector2(), board_size))
+	var bsp_map_nodes : Array = globals.bsp.gen_rooms(Rect2(Vector2(), board_size))
 	var room_count: int = 0
-	for node in _bsp_map_nodes:
+	for node in bsp_map_nodes:
 		var room = node.room
 		var halls = node.halls
 		if room:
 			fill_rect(room, globals.CELL_TYPES.FLOOR)
-			#add_label_at(room.position, "Room" + String(room_count))
 			room_count += 1
 		if halls:
 			for hall in halls:
@@ -47,6 +44,7 @@ func init_map():
 		var idx = get_map_pos_index(cell)
 		_astar.add_point(idx, Vector3(cell.x, cell.y, 0.0))
 	_astar_connect_walkable_cells(_astar)
+	return bsp_map_nodes
 
 func _astar_connect_walkable_cells(astar: AStar):
 	var points : Array = astar.get_points()
@@ -78,8 +76,8 @@ func find_path(map_pos_start: Vector2, map_pos_end: Vector2) -> Array:
 	#_astar.set_point_disabled(end)
 	return path
 
-func populate_rooms() -> void:
-	for node in _bsp_map_nodes:
+func populate_rooms(bsp_map_nodes: Array) -> void:
+	for node in bsp_map_nodes:
 		var room = node.room
 		if !room:
 			continue

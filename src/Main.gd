@@ -7,11 +7,11 @@ func _ready() -> void:
 	globals.main = self
 	_init_rng()
 
-	globals.board.init_map()
+	var room_nodes : Array = globals.board.init_map()
 	globals.spawner.spawn_player()
 	globals.actor_area.add(globals.player_entity)
 	globals.player_input.initialize(globals.player_entity)
-	globals.board.populate_rooms()
+	globals.board.populate_rooms(room_nodes)
 
 	if globals.debug_settings.give_player_start_items:
 		_debug_give_player_stuff()
@@ -19,6 +19,12 @@ func _ready() -> void:
 	globals.time_manager.run_actions()
 
 	_player_stats.init(globals.player_entity)
+
+	#var board_save = inst2dict(globals.board)
+	#var new_board = dict2inst(board_save)
+	#$Board.replace_by(new_board)
+
+
 	events.emit_signal("game_ready")
 
 func _debug_give_player_stuff():

@@ -234,9 +234,7 @@ align = 1
 [node name="TimeManager" type="Node2D" parent="."]
 script = ExtResource( 21 )
 
-[node name="Board" type="TileMap" parent="." groups=[
-"persist",
-]]
+[node name="Board" type="TileMap" parent="."]
 modulate = Color( 0.666667, 0.666667, 0.666667, 1 )
 light_mask = 3
 tile_set = ExtResource( 8 )
@@ -252,9 +250,7 @@ collisions_enabled = true
 [node name="DebugGrid" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
-[node name="EntityContainers" type="Node2D" parent="." groups=[
-"persist",
-]]
+[node name="EntityContainers" type="Node2D" parent="."]
 
 [node name="ItemArea" type="Position2D" parent="EntityContainers"]
 script = ExtResource( 16 )
