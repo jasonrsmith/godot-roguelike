@@ -54,7 +54,8 @@ func bump() -> void:
 	pass
 
 func remove():
-	remove_from_group("marked_for_removal")
+	if is_in_group("marked_for_removal"):
+		remove_from_group("marked_for_removal")
 	add_to_group("removed")
 	events.emit_signal("entity_removed", self)
 

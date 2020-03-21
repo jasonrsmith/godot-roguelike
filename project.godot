@@ -322,6 +322,7 @@ _global_script_class_icons={
 
 config/name="crawl"
 run/main_scene="res://src/Main.tscn"
+config/version="0.1.0"
 
 [autoload]
 

@@ -8,7 +8,6 @@ func init_with_entity(entity: Entity, shortcut = "") -> void:
 	if "health" in entity:
 		_entity_stats.init(entity)
 		_entity_stats.show()
-	_name.connect("resized", self, "_on_name_resized")
 
 func _calculate_child_height() -> float:
 	var child_height = 0

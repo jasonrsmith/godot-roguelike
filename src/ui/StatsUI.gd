@@ -13,7 +13,6 @@ func init(entity: ActorEntity):
 	_entity.connect('health_changed', self, '_on_health_changed')
 	_entity.connect('status_effects_processed', self, '_on_status_effects_processed')
 	update_hp(_entity.health, _entity.max_health)
-	print_debug("init", entity)
 
 func update_hp(current_hp: int, max_hp: int) -> void:
 	_health_progress_bar.set_value(100 * current_hp / max_hp)
