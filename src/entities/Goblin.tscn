@@ -88,8 +88,8 @@ self_modulate = Color( 1, 1, 1, 0 )
 script = ExtResource( 3 )
 speed = 100
 display_name = "goblin"
-max_health = 5
 image = ExtResource( 4 )
+max_health = 5
 strength = 2
 sight = 10
 
@@ -130,8 +130,5 @@ texture = ExtResource( 2 )
 texture_scale = 3.35
 range_item_cull_mask = 2
 shadow_enabled = true
-
-[node name="CollisionShape2D" parent="." index="2"]
-visible = false
 
 [editable path="TooltipCanvas"]

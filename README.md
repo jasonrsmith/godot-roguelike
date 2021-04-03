@@ -1,19 +1,18 @@
 # todo
 * p0
+  * save/load game:
+      * board
+      * entities
+      * fog
   * ui:
-    * show status effects in ui
     * hover on EntityListItem highlights entities on map
     * wire in clicking in menu items
     * move up/down through menu
-  * items:
-    * scrolls:
-      * confusion
 * p1
   * session recorder for setting up integration test scenarios
   * inventory hotkeys static like brogue
   * multiple floors
   * inventory button
-  * save/load game
   * restart after death
   * hp bar ui
   * scaling difficulty
@@ -28,6 +27,7 @@
   * refactor down use of globals
 
 # bugs
+* goblin debug sight doesn't draw
 * entity can stop burning when inside fire
 * goblin doesn't disapear with quick attcks:
   * aren't getting properly cleaned up after dieing, workaround timeout in place

@@ -1,7 +1,7 @@
 extends ListItem
 class_name EntityListItem
 
-onready var _entity_stats : VBoxContainer = $VBox/EntityStats
+onready var _entity_stats : MarginContainer = $VBox/EntityStats
 
 func init_with_entity(entity: Entity, shortcut = "") -> void:
 	.init(entity.display_name, entity.image, shortcut)

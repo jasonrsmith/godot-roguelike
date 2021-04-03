@@ -67,8 +67,8 @@ func _astar_connect_walkable_cells(astar: AStar) -> void:
 			Vector2(map_pos.x - 1, map_pos.y + 1),
 			Vector2(map_pos.x + 1, map_pos.y + 1),
 		])
-		for map_pos in map_pos_relative:
-			var relative_index = get_map_pos_index(map_pos)
+		for pos in map_pos_relative:
+			var relative_index = get_map_pos_index(pos)
 			if not astar.has_point(relative_index):
 				continue
 			astar.connect_points(point, relative_index, false)
@@ -117,7 +117,6 @@ func add_label_at(map_pos: Vector2, text: String) -> void:
 	label.text = text
 	label.rect_position = map_to_world(map_pos)
 	add_child(label)
-
 
 func find_player_spawn_point() -> Vector2:
 	var walk_size = 4

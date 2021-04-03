@@ -6,7 +6,7 @@ class_name ListItem
 # just far enough (~5px) to be centered with the Image.
 onready var _shortcut_margin : MarginContainer = $VBox/HBox/ShortcutMargin
 onready var _shortcut : Label = $VBox/HBox/ShortcutMargin/Shortcut
-onready var _image_margin : TextureRect = $VBox/HBox/ImageMargin
+onready var _image_margin : MarginContainer = $VBox/HBox/ImageMargin
 onready var _image : TextureRect = $VBox/HBox/ImageMargin/Image
 onready var _name_margin : MarginContainer = $VBox/HBox/NameMargin
 onready var _name : Label = $VBox/HBox/NameMargin/Name

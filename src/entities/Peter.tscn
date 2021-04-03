@@ -8,9 +8,9 @@
 script = ExtResource( 2 )
 speed = 25
 display_name = "Peter the Destroyer, Bringer of Doom"
-max_health = 2
 image = ExtResource( 3 )
 is_proper_noun = true
+max_health = 2
 strength = 10
 sight = 10
 

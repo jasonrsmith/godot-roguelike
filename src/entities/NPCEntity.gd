@@ -29,12 +29,11 @@ func _ready():
 	_path_green_color = globals.rng.randf_range(0.6, 0.99)
 
 func take_turn() -> int:
-	#.take_turn()
 	if !_player_in_area:
 		return base_action_cost
 	if _player_seen or _path_to_player.size() > 1:
 		var map_pos = globals.board.world_to_map(globals.player_entity.position)
-		if globals.board.world_to_map(position).distance_to(map_pos) < 1.5:
+		if get_map_pos().distance_to(map_pos) < 1.5:
 			execute_attack(globals.player_entity)
 		else:
 			execute_move_toward_player()
@@ -105,6 +104,8 @@ func _draw():
 	if !globals.debug_settings.show_enemy_sight:
 		return
 	if _player_in_area:
+#		print_debug(_target_pos, position)
+#		print_debug(global_position)
 		draw_line(Vector2(), (_target_pos - position).rotated(-rotation), globals.LASER_COLOR, 2)
 		draw_circle((_target_pos - position).rotated(-rotation), 3, globals.LASER_COLOR)
 		draw_circle(Vector2(), _vision_shape.get_shape().get_radius(), Color(0.9, 0.9, 0.9, 0.1))

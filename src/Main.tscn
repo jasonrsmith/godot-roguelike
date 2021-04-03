@@ -52,8 +52,9 @@ script = ExtResource( 22 )
 
 [node name="DebugSettings" type="Node2D" parent="."]
 script = ExtResource( 24 )
+show_map_grid = true
 give_player_start_items = true
-show_mouse_pos = true
+hide_fov = true
 rng_seed = "38f44f3b"
 
 [node name="UI" type="CanvasLayer" parent="."]

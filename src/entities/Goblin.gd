@@ -36,3 +36,6 @@ func _show_death() -> void:
 	_death_animation.play("run")
 	yield(get_tree().create_timer(0.5), "timeout")
 	hide()
+
+func _draw() -> void:
+	._draw()
